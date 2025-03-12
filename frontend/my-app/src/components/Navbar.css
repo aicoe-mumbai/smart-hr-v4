@@ -1,0 +1,100 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to right, #ffcc00 30%, white 70%);
+  /* clip-path: ellipse(100% 100% at 50% 0%); */
+  transition: clip-path 0.5s ease;
+  background-size: cover;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: #ffcc00;
+  clip-path: ellipse(60% 80% at 0% 50%);
+  z-index: -1;
+}
+
+/* .navbar:hover {
+  background: linear-gradient(to right, white, white);
+  color: black;
+  clip-path: ellipse(150% 100% at 50% 0%);
+} */
+
+.nav-logo {
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logo-img {
+  height: 60px;  
+  width: auto; 
+  object-fit: contain; 
+}
+
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin: 0 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-links li:hover {
+  text-decoration: underline;
+}
+/* 
+.previous-validation-btn{
+  background-color: #007bff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: 0.3s;
+} */
+
+.previous-validation-btn,
+.nav-item {
+  background-color: #007bff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.previous-validation-btn:hover,
+.nav-item:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.nav-item.active {
+  border: 2px solid #0056b3;
+  box-shadow: 0px 0px 10px rgba(0, 91, 187, 0.5);
+}
+
+
+.logout-btn {
+  background: red;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: darkred;
+}
