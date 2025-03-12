@@ -1,0 +1,191 @@
+name: Deploy to Azure Container Instances (ACI)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+
+permissions:
+  contents: read
+
+jobs:
+  # ---------------------------------------------------
+  # Job 1: Build & Deploy Backend
+  # ---------------------------------------------------
+  build-and-deploy-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Log in to Azure using the service principal JSON
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # 3. Build Docker Image (Backend)
+      - name: Build Docker Image (Backend)
+        run: |
+          cd backend/project
+          docker build -t smart-hr-backend:latest .
+
+      # 4. Tag Docker Image (Backend)
+      - name: Tag Docker Image (Backend)
+        run: |
+          docker tag smart-hr-backend:latest ${{ secrets.ACR_LOGIN_SERVER }}/smart-hr-backend:latest
+
+      # 5. Log in to Azure Container Registry
+      - name: Login to Azure Container Registry
+        run: |
+          docker login ${{ secrets.ACR_LOGIN_SERVER }} \
+            -u ${{ secrets.ACR_USERNAME }} \
+            -p ${{ secrets.ACR_PASSWORD }}
+
+      # 6. Push Docker Image (Backend)
+      - name: Push Docker Image (Backend)
+        run: |
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/smart-hr-backend:latest
+
+      # 7. Deploy to Azure Container Instances (Backend)
+      - name: Deploy to ACI (Backend)
+        run: |
+          az container create \
+            --resource-group DefaultResourceGroup-CIN \
+            --name smart-hr-backend-container \
+            --image ${{ secrets.ACR_LOGIN_SERVER }}/smart-hr-backend:latest \
+            --dns-name-label smart-hr-backend-demo \
+            --ports 8000 \
+            --os-type Linux \
+            --registry-login-server ${{ secrets.ACR_LOGIN_SERVER }} \
+            --registry-username ${{ secrets.ACR_USERNAME }} \
+            --registry-password ${{ secrets.ACR_PASSWORD }} \
+            --cpu 2 \
+            --memory 4
+
+      # 8. Check if Docker container is running (Backend)
+      - name: Check Docker Container Status (Backend)
+        run: |
+          echo "Waiting for container to be in 'Running' state..."
+          for i in {1..15}; do
+            status=$(az container show \
+              --name smart-hr-backend-container \
+              --resource-group DefaultResourceGroup-CIN \
+              --query "instanceView.state" \
+              --output tsv)
+            echo "Current status: $status"
+
+            if [ "$status" == "Running" ]; then
+              echo "Container is running successfully."
+              exit 0
+            fi
+
+            sleep 5
+          done
+
+          echo "Container failed to reach 'Running' state. Fetching logs..."
+          az container logs --name smart-hr-backend-container --resource-group DefaultResourceGroup-CIN
+          exit 1
+
+      # 9. Show ACI Deployment Status (Backend)
+      - name: Show ACI Deployment Status (Backend)
+        run: |
+          az container show \
+            --name smart-hr-backend-container \
+            --resource-group DefaultResourceGroup-CIN \
+            --query "{IP:ipAddress.fqdn, Status:provisioningState}" \
+            --output table
+
+  # ---------------------------------------------------
+  # Job 2: Build & Deploy Frontend
+  # ---------------------------------------------------
+  build-and-deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Log in to Azure using the service principal JSON
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # 3. Build Docker Image (Frontend)
+      - name: Build Docker Image (Frontend)
+        run: |
+          cd frontend/my-app
+          docker build -t smart-hr-frontend:latest .
+
+      # 4. Tag Docker Image (Frontend)
+      - name: Tag Docker Image (Frontend)
+        run: |
+          docker tag smart-hr-frontend:latest ${{ secrets.ACR_LOGIN_SERVER }}/smart-hr-frontend:latest
+
+      # 5. Log in to Azure Container Registry
+      - name: Login to Azure Container Registry
+        run: |
+          docker login ${{ secrets.ACR_LOGIN_SERVER }} \
+            -u ${{ secrets.ACR_USERNAME }} \
+            -p ${{ secrets.ACR_PASSWORD }}
+
+      # 6. Push Docker Image (Frontend)
+      - name: Push Docker Image (Frontend)
+        run: |
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/smart-hr-frontend:latest
+
+      # 7. Deploy to Azure Container Instances (Frontend)
+      - name: Deploy to ACI (Frontend)
+        run: |
+          az container create \
+            --resource-group DefaultResourceGroup-CIN \
+            --name smart-hr-frontend-container \
+            --image ${{ secrets.ACR_LOGIN_SERVER }}/smart-hr-frontend:latest \
+            --dns-name-label smart-hr-frontend-demo \
+            --ports 3000 \
+            --os-type Linux \
+            --registry-login-server ${{ secrets.ACR_LOGIN_SERVER }} \
+            --registry-username ${{ secrets.ACR_USERNAME }} \
+            --registry-password ${{ secrets.ACR_PASSWORD }} \
+            --cpu 2 \
+            --memory 4
+
+      # 8. Check if Docker container is running (Frontend)
+      - name: Check Docker Container Status (Frontend)
+        run: |
+          echo "Waiting for container to be in 'Running' state..."
+          for i in {1..15}; do
+            status=$(az container show \
+              --name smart-hr-frontend-container \
+              --resource-group DefaultResourceGroup-CIN \
+              --query "instanceView.state" \
+              --output tsv)
+            echo "Current status: $status"
+
+            if [ "$status" == "Running" ]; then
+              echo "Container is running successfully."
+              exit 0
+            fi
+
+            sleep 5
+          done
+
+          echo "Container failed to reach 'Running' state. Fetching logs..."
+          az container logs --name smart-hr-frontend-container --resource-group DefaultResourceGroup-CIN
+          exit 1
+
+      # 9. Show ACI Deployment Status (Frontend)
+      - name: Show ACI Deployment Status (Frontend)
+        run: |
+          az container show \
+            --name smart-hr-frontend-container \
+            --resource-group DefaultResourceGroup-CIN \
+            --query "{IP:ipAddress.fqdn, Status:provisioningState}" \
+            --output table
