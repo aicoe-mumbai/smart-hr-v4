@@ -7,6 +7,23 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory inside the container
 WORKDIR /app
 
+# Install system dependencies required for MSSQL ODBC
+RUN apt-get update && apt-get install -y \
+    gnupg \
+    unixodbc \
+    unixodbc-dev \
+    odbcinst \
+    libodbc1 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Microsoft ODBC Driver for SQL Server (For Debian 11 Bullseye)
+RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl -fsSL https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    && apt-get update \
+    && ACCEPT_EULA=Y apt-get install -y msodbcsql18 \
+    && apt-get clean
+
 # Copy the requirements file into the container at /app
 COPY requirements.txt /app/
 
