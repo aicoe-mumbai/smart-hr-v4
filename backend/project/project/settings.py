@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-hkg1)yy@4l5(_3kkp1$jr5)jipgkxyc$g_j0#003upl#qis_ip
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-
+USE_X_FORWARDED_HOST = True
 
 # Application definition
 
