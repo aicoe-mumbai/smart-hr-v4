@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-hkg1)yy@4l5(_3kkp1$jr5)jipgkxyc$g_j0#003upl#qis_ip
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['smart-hr-backend-demo.centralindia.azurecontainer.io']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
