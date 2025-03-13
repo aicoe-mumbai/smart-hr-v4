@@ -30,9 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hkg1)yy@4l5(_3kkp1$jr5)jipgkxyc$g_j0#003upl#qis_ip'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['smart-hr-backend-demo.centralindia.azurecontainer.io']
+ALLOWED_HOSTS = ['smart-hr-backend-demo.centralindia.azurecontainer.io'
+                  'smart-hr-backend-demo.centralindia.azurecontainer.io:8000',]
 
 
 # Application definition
