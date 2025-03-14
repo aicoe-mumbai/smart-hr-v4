@@ -33,10 +33,7 @@ SECRET_KEY = 'django-insecure-hkg1)yy@4l5(_3kkp1$jr5)jipgkxyc$g_j0#003upl#qis_ip
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "smart-hr-backend-demo.centralindia.azurecontainer.io",
-    "smart-hr-backend-demo.centralindia.azurecontainer.io:8000",
-    "localhost",
-    "127.0.0.1"
+    "*"
 ]
 USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True

@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8caf863f.css",
+    "main.js": "/static/js/main.00383540.js",
+    "static/js/453.ed3810f9.chunk.js": "/static/js/453.ed3810f9.chunk.js",
+    "static/media/L_T_PES_-_Linear_Logo_-_Black-removebg-preview.png": "/static/media/L_T_PES_-_Linear_Logo_-_Black-removebg-preview.f68e66499664f026733c.png",
+    "static/media/AICoE logo transparent.png": "/static/media/AICoE logo transparent.a8682d53c962f451b8d9.png",
+    "static/media/__Iphone-spinner-1.gif": "/static/media/__Iphone-spinner-1.4c0dabf64bfe071965aa.gif",
+    "index.html": "/index.html",
+    "main.8caf863f.css.map": "/static/css/main.8caf863f.css.map",
+    "main.00383540.js.map": "/static/js/main.00383540.js.map",
+    "453.ed3810f9.chunk.js.map": "/static/js/453.ed3810f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8caf863f.css",
+    "static/js/main.00383540.js"
+  ]
+}
