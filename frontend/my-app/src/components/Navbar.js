@@ -2,53 +2,43 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import lntlogo from "../assets/L_T_PES_-_Linear_Logo_-_Black-removebg-preview.png";
-import { useMsal } from "@azure/msal-react";
 
 const Navbar = ({ onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = sessionStorage.getItem("access_token");
-  const { instance } = useMsal();
 
-  // const handleLogout = async () => {
-  //   const refreshToken = sessionStorage.getItem("refresh_token");
+  const handleLogout = async () => {
+    const refreshToken = sessionStorage.getItem("refresh_token");
 
-  //   if (!refreshToken) {
-  //     console.error("No refresh token found");
-  //     sessionStorage.clear();
-  //     navigate("/login");
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch(`${apiUrl}/api/logout/`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: JSON.stringify({ refresh_token: refreshToken }),
-  //     });
-
-  //     if (response.ok) {
-  //       sessionStorage.clear();
-  //       onLogout();
-  //       navigate("/login");
-  //     } else {
-  //       console.error("Logout failed");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error logging out:", error);
-  //   }
-  // };
-
-  const handleLogout = () => {
-    instance.logoutRedirect().then(() => {
-      sessionStorage.removeItem("access_token");
-      onLogout();
+    if (!refreshToken) {
+      console.error("No refresh token found");
+      sessionStorage.clear();
       navigate("/login");
-    });
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiUrl}/api/logout/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ refresh_token: refreshToken }),
+      });
+
+      if (response.ok) {
+        sessionStorage.clear();
+        onLogout();
+        navigate("/login");
+      } else {
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   return (
