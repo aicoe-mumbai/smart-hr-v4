@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'smart_hr_backend',
     "rest_framework_simplejwt",
     'rest_framework_simplejwt.token_blacklist',
+    'django_auth_adfs',
 
 
 ]
@@ -123,23 +124,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'sql_server.pyodbc',
-#         'NAME': 'goalanalyser',
-#         'USER': 'goalanalyser',   
-#         'PASSWORD': 'Defence@goal2025', 
-#         'HOST': 'goalanalyser.database.windows.net',          
-#         'PORT': '1433',     
-#         'OPTIONS': {
-#             'driver': 'ODBC Driver 18 for SQL Server',
-#             'timeout': 60,
-#             'encrypt': 'yes',
-#             'trustServerCertificate': 'no',
-#         },      
-        
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -193,9 +177,38 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",), 
 }
 
+# REST_FRAMEWORK = {
+#     "DEFAULT_AUTHENTICATION_CLASSES": (
+#         "rest_framework_simplejwt.authentication.JWTAuthentication",
+#     ),
+# }
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "django_auth_adfs.rest_framework.AdfsAccessTokenAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",  # Require authentication for API access
     ),
 }
+
+AUTH_ADFS = {
+    "SERVER": "login.microsoftonline.com",  # Azure AD Server
+    "CLIENT_ID": "91007345-84db-4a43-b76e-6be76dc64bf4",  # Azure AD App Client ID (Mandatory)
+    "TENANT_ID": "4852d0fc-f87a-462b-ad09-773f986ccc04",  # Azure AD Tenant ID (Mandatory)
+    "AUDIENCE": "api://91007345-84db-4a43-b76e-6be76dc64bf4/Auth",  # The API audience (must match Azure AD App)
+    "ISSUER": f"https://login.microsoftonline.com/4852d0fc-f87a-462b-ad09-773f986ccc04/v2.0",  # Token Issuer
+    "USERNAME_CLAIM": "preferred_username",  # The claim used for identifying the user
+    
+    "RELYING_PARTY_ID": "4852d0fc-f87a-462b-ad09-773f986ccc04",  # Matches your registered Azure AD app
+    "CLAIM_MAPPING": {
+        "first_name": "given_name",
+        "last_name": "family_name",
+        "email": "preferred_username",
+    },  
+    "LOGIN_EXEMPT_URLS": [r"^healthcheck$"],  # Exempt login for health check
+    "MIRROR_GROUPS": True,  # Sync Azure AD groups to Django groups
+}
+
+
 
