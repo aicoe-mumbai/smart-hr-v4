@@ -12,26 +12,47 @@ from azure.core.credentials import AzureKeyCredential
 from django.conf import settings
 from .models import SmartGoal
 from .serializers import SmartGoalSerializer
+from django.core.exceptions import ObjectDoesNotExist
 
+
+# @api_view(["POST"])
+# def login_view(request):
+#     username = request.data.get("username")
+#     password = request.data.get("password")
+    
+#     User = get_user_model()
+#     if not User.objects.filter(username=username).exists():
+#         User.objects.create(username=username)
+        
+#     user = authenticate(username=username, password=password)
+#     if user:
+#         refresh = RefreshToken.for_user(user)
+#         tokens = {
+#             "refresh": str(refresh),
+#             "access": str(refresh.access_token),
+#         }
+#         return Response({"message": "Login successful", "tokens": tokens}, status=status.HTTP_200_OK)
+#     return Response({"message": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(["POST"])
+@permission_classes([IsAuthenticated]) 
 def login_view(request):
-    username = request.data.get("username")
-    password = request.data.get("password")
-    
     User = get_user_model()
-    if not User.objects.filter(username=username).exists():
-        User.objects.create(username=username)
-        
-    user = authenticate(username=username, password=password)
-    if user:
-        refresh = RefreshToken.for_user(user)
-        tokens = {
-            "refresh": str(refresh),
-            "access": str(refresh.access_token),
-        }
-        return Response({"message": "Login successful", "tokens": tokens}, status=status.HTTP_200_OK)
-    return Response({"message": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+    username = request.user.username
+
+    try:
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        user = User.objects.create(username=username)
+
+    refresh = RefreshToken.for_user(user)
+    tokens = {
+        "refresh": str(refresh),
+        "access": str(refresh.access_token),
+    }
+
+    return Response({"message": "User authenticated successfully", "tokens": tokens}, status=200)
+
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
