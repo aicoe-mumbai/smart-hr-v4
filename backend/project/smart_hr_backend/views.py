@@ -141,14 +141,17 @@ def submit_goal(request):
             "skills_available": request.data.get("skills_available"),
             "obstacles_considered": request.data.get("obstacles_considered"),
             "thrust_area": request.data.get("thrust_area"),
-             "sub_category": request.data.get("sub_category"),
+            "sub_category": request.data.get("sub_category"),
+            "group_objectives": request.data.get("group_objectives"),
+            "additional_sub_category": request.data.get("additional_sub_category"),
             "start_date": start_date,
             "end_date": end_date,
         }
+        print("data from frontend : ",goal_data)
+
         goal_id = request.data.get("goalId") 
         if any(value is None for value in goal_data.values()):
             return Response({"message": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
-
         def event_stream():
             response_text = []
             for chunk in validate_goal(goal_data):

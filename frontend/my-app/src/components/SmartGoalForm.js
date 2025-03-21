@@ -46,10 +46,89 @@ const SmartGoalForm = () => {
     ]
   };
 
+  const groupObjectives = {
+    "Environment, Safety, Sustainability & Governance": [
+      "Ensure 100% safe operations (nil reportable incidents) across all functions and work centres, with focus on RSC and BBS.",
+      "Ensure operations that drive sustainable development of the Organisation, Society & Environment, with a target of 5% improvement Y-o-Y in achieving water consumption, energy efficiency improvement Y-o-Y of 2.5% and achieve renewable energy substitution target of 50%.",
+      "Effective implementation of Audit recommendations.",
+      "Ensure Zero incidents with regards to Information Security Breach and compliance to ILDC security guidelines.",
+      "Uphold highest standards of governance across all operations for sustainable business excellence."
+    ],
+    "Financial Parameters": [
+      "Exceed OI by at least 10% over the budget.",
+      "Target Exports at 10% of Total Budgeted OI.",
+      "Meet/Exceed Quarter wise budget of Sales, PAT, Progress billing, Collections, NWC, Revenue per employee and PAT per man hour.",
+      "Reduce controllable revenue expenses by 5% as compared to budget.",
+      "Reduce slow and non-moving inventory by at least 25%. Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.",
+      "Collect all overdue customer outstanding more than 90 days."
+    ],
+    "Operational Excellence": [
+      "Target 100% OTD (zero LD) for all project milestones defined in ERP LN.",
+      "Establish a system driven measurement for FTR and achieve >96% internal FTR and >98% external FTR across all functions.",
+      "Achieve and sustain a reducing trend in NCR by 15% (YoY).",
+      "Institutionalize robust contract, cost and risk management practices by implementing Cost fact and Active risk management (ARM) for all contracts valuing ≥ 50 Crs.",
+      "Leverage Digitalization and Industry 4.0 to drive efficiency and business growth to achieve ROI and Cycle Time reduction.",
+      "Implementation of AI interventions in at least 5 identified areas in each function.",
+      "Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations."
+    ],
+    "R&D and Design": [
+      "Develop roadmaps and business cases for new technology adoption.",
+      "Ensure all R&D projects planned for the FY meet defined milestones and are executed within sanctioned budget.",
+      "File at least 4 patents in TIC and 1 each in every D&DC.",
+      "Implement Automation and AI driven processes to cut down Design Cycle Time across all projects by 50%.",
+      "Strengthen R&D through crowdsourcing, collaborative research, and partnerships with start-ups and academia to drive innovation and accelerate development."
+    ],
+    "Organisational Excellence": [
+      "Project Sankalp: Implement business roadmaps with focus on Internationalisation and Value chain control.",
+      "Project Parivartan: Synergize existing and initiate new Parivartan initiatives in line with Sankalp roadmaps and implement the same.",
+      "Design and Deliver Lakshya-31 plan for achieving business growth objectives and creating sustainable value through Innovation and Market leadership.",
+      "Target 'Role Model' category in L&T Business Excellence Model and HR Excellence Model.",
+      "Sustain and digitalise CMMI practices across organisation, covering all projects with >50 Cr. contract value.",
+      "Secure ‘Excellence Recognitions’ in business/ operations from CII, FICCI, etc.",
+      "Secure at least one international/ national safety excellence award by every work centre."
+    ],
+    "Customer Delight": [
+      "Log all Customer complaints in CFAR system and ensure closure in a focused manner, with 25% Y-o-Y reduction in average cycle time.",
+      "Implementation of CRM system - Track and achieve an increasing trend in number of customer interactions/meetings for proactively understanding their needs and acting upon them.",
+      "Continue to register all Customers Feedbacks in Pratibimbh quarterly and achieve increasing trend in customer centricity."
+    ],
+    "Work Culture and Employee Engagement": [
+      "Create a conducive culture which enables higher level of engagement and reduce attrition by 25% YoY across departments.",
+      "Achieve GPTW score of >85 and Amber score of >82 across the locations and functions, by implementation of feedbacks received from workforce.",
+      "Enhance Gender Diversity to 14% at IC level with focus on work centers, Equity and Inclusion in the workforce.",
+      "Focus on upskilling / reskilling to stay ahead in the emerging business environment, including at least 1 course on artificial intelligence by each employee."
+    ]
+  };
+
   const [selectedThrust, setSelectedThrust] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [showFinalGoalCheckbox, setShowFinalGoalCheckbox] = useState(false);
   const [isFinalGoal, setIsFinalGoal] = useState(false);
+
+  const [selectedObjective, setSelectedObjective] = useState("");
+  const [selectedObjectiveSubCategory, setSelectedObjectiveSubCategory] = useState("");
+
+  const handleObjectiveChange = (event) => {
+    const value = event.target.value;
+    setSelectedObjective(value);
+    setSelectedObjectiveSubCategory("");  // Reset subcategory
+
+    setFormData((prevData) => ({
+      ...prevData,
+      groupObjective: value,
+      subgroupObjectiveCategory: "",
+    }));
+  };
+
+  const handleObjectiveSubCategoryChange = (event) => {
+    const value = event.target.value;
+    setSelectedObjectiveSubCategory(value);
+
+    setFormData((prevData) => ({
+      ...prevData,
+      subgroupObjectiveCategory: value,
+    }));
+  };
 
 
   const handleThrustChange = (event) => {
@@ -80,7 +159,7 @@ const SmartGoalForm = () => {
   const bottomRef = useRef(null);
 
   useEffect(() => {
-    if (bottomRef.current) {
+    if (htmlResponse && bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [htmlResponse]);
@@ -112,10 +191,12 @@ const SmartGoalForm = () => {
       obstacles_considered: formData.obstaclesConsidered,
       thrust_area: formData.thrustArea,
       sub_category: formData.subCategory,
+      group_objectives: formData.groupObjective,
+      additional_sub_category: formData.subgroupObjectiveCategory,
       start_date: formData.startDate,
       end_date: formData.endDate,
     };
-
+    console.log("form data to backend :", formattedData);
     try {
       const response = await fetch(`${apiUrl}/api/submit-goal/`, {
         method: "POST",
@@ -159,59 +240,35 @@ const SmartGoalForm = () => {
   };
 
 
-
-// const handleFinalGoalChange = async (event) => {
-//   const checked = event.target.checked;
-//   setIsFinalGoal(checked);
-
-//   if (checked) {
-//     try {
-//       const response = await fetch(`${apiUrl}/api/final-goal/`, {
-//         method: "POST",
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ final_goal_confirmed: true }), 
-//       });
-
-//       if (!response.ok) {
-//         console.error("Error confirming final goal:", await response.text());
-//       }
-//     } catch (error) {
-//       console.error("Error:", error);
-//     }
-//   }
-// };
-const handleFinalGoalChange = async (e) => {
-  const isChecked = e.target.checked;
-  setIsFinalGoal(isChecked);
+  const handleFinalGoalChange = async (e) => {
+    const isChecked = e.target.checked;
+    setIsFinalGoal(isChecked);
 
 
-  try {
-    const response = await fetch(`${apiUrl}/api/final-goal/`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ 
-        goal_id: null, 
-        final_goal_confirmed: isChecked 
-      }),
-    });
+    try {
+      const response = await fetch(`${apiUrl}/api/final-goal/`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          goal_id: null,
+          final_goal_confirmed: isChecked
+        }),
+      });
 
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error || "Something went wrong");
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong");
+      }
+
+      alert("Final goal confirmed successfully!");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to confirm the final goal.");
     }
-
-    alert("Final goal confirmed successfully!");
-  } catch (error) {
-    console.error("Error:", error);
-    alert("Failed to confirm the final goal.");
-  }
-};
+  };
 
   return (
     <div className="background-container">
@@ -263,15 +320,6 @@ const handleFinalGoalChange = async (e) => {
             <option value="No">No</option>
           </select>
 
-          {/* <label>Choose the Thrust Area this objective aligns with:</label>
-        <select name="thrustArea" value={formData.thrustArea} onChange={handleChange} required>
-          <option value="">Select</option>
-          <option value="Innovation">Innovation</option>
-          <option value="Customer Satisfaction">Customer Satisfaction</option>
-          <option value="Operational Efficiency">Operational Efficiency</option>
-        </select> */}
-
-
           <div>
             {/* Main Thrust Area Dropdown */}
             <label>Choose the Thrust Area this objective aligns with:</label>
@@ -287,7 +335,7 @@ const handleFinalGoalChange = async (e) => {
             {/* Dynamic Subcategory Dropdown */}
             {selectedThrust && (
               <>
-                <label>Select a sub-category:</label>
+                <label>Select a sub-category for Thrust Area:</label>
                 <select
                   name="subCategory"
                   value={selectedSubCategory}
@@ -304,6 +352,32 @@ const handleFinalGoalChange = async (e) => {
               </>
             )}
           </div>
+
+          <div>
+            <label htmlFor="groupObjective">Group Objective:</label>
+            <select id="groupObjective" value={selectedObjective} onChange={handleObjectiveChange}>
+              <option value="">Select Group Objective</option>
+              {Object.keys(groupObjectives).map((objective) => (
+                <option key={objective} value={objective}>{objective}</option>
+              ))}
+            </select>
+          </div>
+
+          {selectedObjective && (
+            <div>
+              <label htmlFor="objectiveSubCategory">Sub Category for Group Objectives:</label>
+              <select
+                id="objectiveSubCategory"
+                value={selectedObjectiveSubCategory}
+                onChange={handleObjectiveSubCategoryChange}
+              >
+                <option value="">Select Sub Category</option>
+                {groupObjectives[selectedObjective].map((sub, index) => (
+                  <option key={index} value={sub}>{sub}</option>
+                ))}
+              </select>
+            </div>
+          )}
 
           <label>Start Date of Activity:</label>
           <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />

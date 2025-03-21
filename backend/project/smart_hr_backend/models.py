@@ -12,6 +12,8 @@ class SmartGoal(models.Model):
     obstacles_considered = models.CharField(max_length=10)
     thrust_area = models.CharField(max_length=100)
     sub_category = models.CharField(max_length=255)
+    group_objectives = models.TextField(blank=True, null=True) 
+    additional_sub_category = models.CharField(max_length=255, blank=True, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
     response = models.TextField()
