@@ -85,12 +85,15 @@ def validate_goal(goal_data):
                                         Assess the goal based on its Specificity, Measurability, Achievability, Relevance, and Time-Bound nature.
                                         Analyze the following employee goal using the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-Bound).
                                         Internally calculate an overall SMARTness percentage based on equal weightage (20 each).
+                                        As well as measure the Goal alignment to Group objective and Thrust Areas on the scale of 10.
                                         Do NOT show any calculations or scores in your output.
                                         Return your output in well-formatted HTML that includes proper spaces, punctuation, and line breaks.
                                         Ensure each section is wrapped in appropriate HTML tags (such as <p> and <ol>/<li>) for clear readability.
                                         Response Format:
                                         <p><strong>Message to User:</strong> Provide a concise message summarizing the goal assessment.</p>
                                         <p><strong>Your Goal SMARTness Percentage:</strong> [X]%</p>
+                                        <p><strong>Goal Alignment to Thrsut area:</strong> [X] out of 10.</p>
+                                        <p><strongGoal Alignment to Group Objective:</strong> [X] out of 10.</p>
                                         <p><strong>Recommendations:</strong> If the percentage is below 75, list actionable steps to improve it. 
                                         If the SMARTness is 75 or above, confirm that the goal meets SMART criteria.
                                         If below 75, provide specific, concise, and numbered recommendations to improve it.</p>
@@ -103,7 +106,7 @@ def validate_goal(goal_data):
                                         <li><strong>Time-Bound:</strong> [Recommendation]</li>
                                         <li><strong>Overall:</strong> [Recommendation]</li>
                                         </ol>
-                                        <p><strong>Suggestions:</strong> Rewrite the Goal and Measure of Success in such a way so that the same goal can achieve better Smartness</p>
+                                        <p><strong>Suggestions:</strong> Rewrite the Goal and Measure of Success in such a way so that the same goal can achieve better Smartness as well as to improve the Goal alignment to Group objective and Thrust areas.</p>
 
                                         """),
             UserMessage(content=prompt)
