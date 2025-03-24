@@ -35,7 +35,7 @@ const Login = ({ onLogin }) => {
         sessionStorage.setItem("refresh_token", data.tokens.refresh);
         setMessage("Login successful!");
         onLogin(); 
-        navigate("/dashoard");
+        navigate("/smarthr-form");
       } else {
         setMessage(data.message || "Invalid credentials");
       }
