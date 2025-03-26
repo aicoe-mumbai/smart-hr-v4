@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import loadingGif from "../assets/loading-7528_256.gif";
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,6 +20,8 @@ const Login = ({ onLogin }) => {
       setMessage("Both fields are required!");
       return;
     }
+    setLoading(true);
+    setMessage("");
 
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/login/`, {
@@ -42,6 +46,8 @@ const Login = ({ onLogin }) => {
     } catch (error) {
       setMessage("Something went wrong! Please try again.");
       console.error("Login Error:", error);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -72,7 +78,9 @@ const Login = ({ onLogin }) => {
 
           {message && <p className="message-login">{message}</p>}
 
-          <button type="submit" className="login-btn">Login</button>
+          <button type="submit" className="login-btn" disabled={loading}>
+            {loading ? <img src={loadingGif} alt="Loading..." className="loading-icon" /> : "Login"}
+          </button>
         </form>
       </div>
     </div>

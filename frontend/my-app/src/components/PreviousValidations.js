@@ -152,6 +152,8 @@ import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { FaDownload } from "react-icons/fa";
+import loadingGif from "../assets/loading-7528_256.gif";
+
 
 const PreviousValidations = () => {
   const [userGoals, setUserGoals] = useState([]);
@@ -160,7 +162,7 @@ const PreviousValidations = () => {
   const token = sessionStorage.getItem("access_token");
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-
+  
   const fetchUserGoals = async () => {
     try {
       const response = await fetch(`${apiUrl}/api/user-goals/?page=${currentPage}`, {
@@ -335,7 +337,7 @@ const exportToExcel = async () => {
             ))
           ) : (
             <tr>
-              <td colSpan="6" className="no-data">No goals found</td>
+              <td colSpan="6" className="no-data"> <img src={loadingGif} alt="Loading..." className="loading-icon-table" /></td>
             </tr>
           )}
         </tbody>

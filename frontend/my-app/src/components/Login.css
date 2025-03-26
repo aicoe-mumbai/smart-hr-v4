@@ -107,3 +107,10 @@ input:focus {
         font-size: 16px;
     }
 }
+
+.loading-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+  

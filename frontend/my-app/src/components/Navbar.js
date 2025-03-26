@@ -2,16 +2,19 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import lntlogo from "../assets/L_T_PES_-_Linear_Logo_-_Black-removebg-preview.png";
+import loadingGif from "../assets/loading-7528_256.gif";
+import { useState } from "react";
 
 const Navbar = ({ onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = sessionStorage.getItem("access_token");
+  const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
     const refreshToken = sessionStorage.getItem("refresh_token");
-
+    setLoading(true);
     if (!refreshToken) {
       console.error("No refresh token found");
       sessionStorage.clear();
@@ -38,6 +41,8 @@ const Navbar = ({ onLogout }) => {
       }
     } catch (error) {
       console.error("Error logging out:", error);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -59,7 +64,14 @@ const Navbar = ({ onLogout }) => {
         >
           Previous Validations
         </li>
-        <li className="logout-btn" onClick={handleLogout}>Logout</li>
+        {/* <li className="logout-btn" onClick={handleLogout}>Logout</li> */}
+        <li className="logout-btn" onClick={handleLogout} disabled={loading}>
+          {loading ? (
+            <img src={loadingGif} alt="Logging out..." className="loading-icon" />
+          ) : (
+            "Logout"
+          )}
+        </li>
       </ul>
     </nav>
   );
