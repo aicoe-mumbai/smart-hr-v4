@@ -1,88 +1,72 @@
 import React, { useState } from "react";
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "./authConfig";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
-import loadingGif from "../assets/loading-7528_256.gif";
+import "./Login.css"; 
 
 const Login = ({ onLogin }) => {
-  const [formData, setFormData] = useState({ username: "", password: "" });
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false); 
+  const { instance } = useMsal();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!formData.username || !formData.password) {
-      setMessage("Both fields are required!");
-      return;
-    }
-    setLoading(true);
-    setMessage("");
-
+  const handleLogin = async () => {
+    setLoading(true); 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/login/`, {
+      if (instance.getActiveAccount()) {
+        console.warn("Login already in progress");
+        return;
+      }
+      sessionStorage.clear();
+      const response = await instance.loginPopup(loginRequest);
+      if (!response) throw new Error("Login response is null");
+  
+      const username = response.account?.username || "Unknown User";
+      const accessToken = response.accessToken;
+      const encodedUsername = btoa(username);
+      sessionStorage.setItem("username", encodedUsername);
+  
+      const backendResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ encodedUsername }),
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        sessionStorage.setItem("access_token", data.tokens.access);
-        sessionStorage.setItem("refresh_token", data.tokens.refresh);
-        setMessage("Login successful!");
-        onLogin(); 
-        navigate("/smarthr-form");
-      } else {
-        setMessage(data.message || "Invalid credentials");
+  
+      if (!backendResponse.ok) {
+        console.error("Backend authentication failed");
+        throw new Error("Backend authentication failed");
       }
+  
+      const data = await backendResponse.json();
+  
+      onLogin();
+      navigate("/smarthr-form", { replace: true });
     } catch (error) {
-      setMessage("Something went wrong! Please try again.");
-      console.error("Login Error:", error);
+      console.error("Login failed:", error);
+      alert("Authentication failed. Please try again.");
     } finally {
       setLoading(false); 
     }
   };
 
   return (
-    <div className="login-container-main">
-      <div className="login-container">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit} className="login-form">
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            placeholder="Enter username"
-            required
-          />
-
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter password"
-            required
-          />
-
-          {message && <p className="message-login">{message}</p>}
-
-          <button type="submit" className="login-btn" disabled={loading}>
-            {loading ? <img src={loadingGif} alt="Loading..." className="loading-icon" /> : "Login"}
-          </button>
-        </form>
+    <div className={`login-page ${loading ? "loading" : ""}`}>
+      <div className={`login-box ${loading ? "loading-box" : ""}`}>
+        <h2>Welcome to Goal Assist</h2>
+        <p>Sign in using Azure Microsoft Account</p>
+        <button onClick={handleLogin} className="login-btn">
+          Sign in with Azure AD
+        </button>
       </div>
+      
+      {/* Spinner that appears during loading */}
+      {loading && (
+        <div className="loading-spinner">
+          <div className="spinner"></div>
+        </div>
+      )}
     </div>
   );
 };

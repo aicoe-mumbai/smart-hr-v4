@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'smart_hr_backend',
     "rest_framework_simplejwt",
     'rest_framework_simplejwt.token_blacklist',
+    'django_auth_adfs',
 
 
 ]
@@ -119,27 +120,10 @@ DATABASES = {
             # 'encrypt': 'yes',
             # 'trustServerCertificate': 'no',
         },      
-        
+        "CONN_MAX_AGE": 600,
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'sql_server.pyodbc',
-#         'NAME': 'goalanalyser',
-#         'USER': 'goalanalyser',   
-#         'PASSWORD': 'Defence@goal2025', 
-#         'HOST': 'goalanalyser.database.windows.net',          
-#         'PORT': '1433',     
-#         'OPTIONS': {
-#             'driver': 'ODBC Driver 18 for SQL Server',
-#             'timeout': 60,
-#             'encrypt': 'yes',
-#             'trustServerCertificate': 'no',
-#         },      
-        
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -190,12 +174,60 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=15),  
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
-    "AUTH_HEADER_TYPES": ("Bearer",), 
+    "AUTH_HEADER_TYPES": ("Bearer","JWT"), 
 }
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
+# REST_FRAMEWORK = {
+#     "DEFAULT_AUTHENTICATION_CLASSES": (
+#         "rest_framework_simplejwt.authentication.JWTAuthentication",
+#     ),
+# }
+
+# REST_FRAMEWORK = {
+#     "DEFAULT_AUTHENTICATION_CLASSES": (
+#         "django_auth_adfs.rest_framework.AdfsAccessTokenAuthentication",
+#     ),
+#     "DEFAULT_PERMISSION_CLASSES": (
+#         "rest_framework.permissions.IsAuthenticated",
+#     ),
+# }
+
+
+AUTH_ADFS = {
+    "SERVER": "https://login.microsoftonline.com",  # Ensure the full URL
+    "CLIENT_ID": "4a2636df-2c24-4cbf-b55a-21eb0fae61b0",
+    "TENANT_ID": "4852d0fc-f87a-462b-ad09-773f986ccc04",
+    "AUDIENCE": "api://4a2636df-2c24-4cbf-b55a-21eb0fae61b0",
+    "ISSUER": f"https://login.microsoftonline.com/4852d0fc-f87a-462b-ad09-773f986ccc04/v2.0",  # Use formatted string
+    "SIGNING_KEYS": f"https://login.microsoftonline.com/4852d0fc-f87a-462b-ad09-773f986ccc04/discovery/v2.0/keys",
+    "USERNAME_CLAIM": "preferred_username",
+    "CLAIM_MAPPING": {
+        "first_name": "given_name",
+        "last_name": "family_name",
+        "email": "preferred_username",
+    },
+    "MIRROR_GROUPS": True,
 }
+
+# Add logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'smart_hr_backend': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
+
 

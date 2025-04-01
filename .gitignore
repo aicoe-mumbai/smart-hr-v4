@@ -2,3 +2,4 @@ node_modules/
 smart-env/
 __pycache__/
 *.pyc
+FastAPI/

@@ -110,6 +110,8 @@ const UpdateSmartGoalForm = () => {
   const [loadingforGif, setLoadingforGif] = useState(false);
   const [htmlResponse, setHtmlResponse] = useState("");
   const bottomRef = useRef(null);
+  const loginUser = sessionStorage.getItem("username");
+
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
@@ -170,7 +172,7 @@ const UpdateSmartGoalForm = () => {
   useEffect(() => {
     const fetchGoalData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/update-goals/${goalId}/`, {
+        const response = await fetch(`${apiUrl}/api/update-goals/${goalId}/?loginUser=${encodeURIComponent(loginUser)}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -227,6 +229,7 @@ const UpdateSmartGoalForm = () => {
     }
 
     const formattedData = {
+      loginUser:loginUser,
       goal: formData.goal,
       measure_of_success: formData.measureOfSuccess,
       kpi_metrics: formData.kpiMetrics,
@@ -300,6 +303,7 @@ const handleFinalGoalChange = async (e) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ 
+        loginUser: loginUser, 
         goal_id: goalId, 
         final_goal_confirmed: isChecked 
       }),

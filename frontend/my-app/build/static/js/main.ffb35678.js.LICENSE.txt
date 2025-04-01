@@ -1,3 +1,9 @@
+/*! @azure/msal-browser v4.9.1 2025-03-26 */
+
+/*! @azure/msal-common v15.4.0 2025-03-25 */
+
+/*! @azure/msal-react v3.0.8 2025-03-25 */
+
 /*! sheetjs (C) 2013-present SheetJS -- http://sheetjs.com */
 
 /*! xlsx.js (C) 2013-present SheetJS -- http://sheetjs.com */

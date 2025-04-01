@@ -4,6 +4,8 @@ import "./Navbar.css";
 import lntlogo from "../assets/L_T_PES_-_Linear_Logo_-_Black-removebg-preview.png";
 import loadingGif from "../assets/loading-7528_256.gif";
 import { useState } from "react";
+import { useMsal } from "@azure/msal-react";
+
 
 const Navbar = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -11,40 +13,21 @@ const Navbar = ({ onLogout }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = sessionStorage.getItem("access_token");
   const [loading, setLoading] = useState(false);
+  const { instance } = useMsal();
+
 
   const handleLogout = async () => {
-    const refreshToken = sessionStorage.getItem("refresh_token");
-    setLoading(true);
-    if (!refreshToken) {
-      console.error("No refresh token found");
-      sessionStorage.clear();
-      navigate("/login");
-      return;
-    }
+  try {
+    await instance.logoutRedirect({postLogoutRedirectUri: window.location.origin,}); // Ensure logout completes before proceeding
+    sessionStorage.clear();
+    onLogout();
+    navigate("/login");
+  } catch (error) {
+    console.error("Logout failed:", error);
+    alert("Logout failed. Please try again.");
+  }
+};
 
-    try {
-      const response = await fetch(`${apiUrl}/api/logout/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ refresh_token: refreshToken }),
-      });
-
-      if (response.ok) {
-        sessionStorage.clear();
-        onLogout();
-        navigate("/login");
-      } else {
-        console.error("Logout failed");
-      }
-    } catch (error) {
-      console.error("Error logging out:", error);
-    } finally {
-      setLoading(false); 
-    }
-  };
 
   return (
     <nav className="navbar">

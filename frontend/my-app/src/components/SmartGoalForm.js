@@ -7,6 +7,7 @@ import aicoelogo from "../assets/AICoE logo transparent.png";
 const SmartGoalForm = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = sessionStorage.getItem("access_token");
+  const loginUser = sessionStorage.getItem("username");
   const [formData, setFormData] = useState({
     goal: "",
     measureOfSuccess: "",
@@ -182,6 +183,7 @@ const SmartGoalForm = () => {
     }
 
     const formattedData = {
+      loginUser:loginUser,
       goal: formData.goal,
       measure_of_success: formData.measureOfSuccess,
       kpi_metrics: formData.kpiMetrics,
@@ -253,6 +255,7 @@ const SmartGoalForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          loginUser: loginUser, 
           goal_id: null,
           final_goal_confirmed: isChecked
         }),

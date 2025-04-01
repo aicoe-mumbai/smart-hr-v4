@@ -12,26 +12,59 @@ from azure.core.credentials import AzureKeyCredential
 from django.conf import settings
 from .models import SmartGoal
 from .serializers import SmartGoalSerializer
+from rest_framework.pagination import PageNumberPagination
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
+import logging
+import time, base64
+
+logger = logging.getLogger(__name__)
+
+def log_execution_time(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        execution_time = time.time() - start_time
+        logger.info(f"Endpoint {func.__name__} took {execution_time:.2f} seconds to execute")
+        return result
+    return wrapper
 
 
+def user_exists(username):
+    User = get_user_model()
+    return User.objects.filter(username=username).exists()
+
+
+def decode_username(encoded_username):
+    """Decodes a Base64-encoded username."""
+    try:
+        return base64.b64decode(encoded_username).decode("utf-8")
+    except Exception:
+        return None  # Return None if decoding fails
+    
 @api_view(["POST"])
 def login_view(request):
-    username = request.data.get("username")
-    password = request.data.get("password")
-    
     User = get_user_model()
-    if not User.objects.filter(username=username).exists():
-        User.objects.create(username=username)
-        
-    user = authenticate(username=username, password=password)
-    if user:
-        refresh = RefreshToken.for_user(user)
-        tokens = {
-            "refresh": str(refresh),
-            "access": str(refresh.access_token),
-        }
-        return Response({"message": "Login successful", "tokens": tokens}, status=status.HTTP_200_OK)
-    return Response({"message": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+    username = request.data.get("encodedUsername")
+
+    username = decode_username(username)
+
+    # Create user if not exists
+    user, created = User.objects.get_or_create(username=username)
+
+    # Check if user exists after creation
+    if user_exists(username):
+        return Response({
+            "message": "User exists",
+            "username": username,
+            "is_new_user": created
+        }, status=200)
+    else:
+        return Response({
+            "message": "User does not exist",
+            "username": username
+        }, status=401)
+
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
@@ -121,10 +154,13 @@ def validate_goal(goal_data):
             yield chunk.choices[0].delta.content
 
 @api_view(["POST"])
-@permission_classes([IsAuthenticated])
 def submit_goal(request):
     try:
-
+        username = request.data.get("loginUser")
+        username = decode_username(username)
+        if not username or not user_exists(username):
+            return Response({"message": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+        user = get_user_model().objects.get(username=username) 
         start_date_str = request.data.get("start_date")
         end_date_str = request.data.get("end_date")
 
@@ -165,7 +201,7 @@ def submit_goal(request):
             
             if goal_id:
                 try:
-                    existing_goal = SmartGoal.objects.get(id=goal_id, user=request.user)
+                    existing_goal = SmartGoal.objects.get(id=goal_id, user=user)
                     for key, value in goal_data.items():
                         setattr(existing_goal, key, value)  
                     existing_goal.response = full_response 
@@ -173,7 +209,7 @@ def submit_goal(request):
                 except SmartGoal.DoesNotExist:
                     print("does not exists")
             else:
-                SmartGoal.objects.create(user=request.user, response=full_response, **goal_data)
+                SmartGoal.objects.create(user=user, response=full_response, **goal_data)
                 
 
             yield "[DONE]"
@@ -187,20 +223,20 @@ def submit_goal(request):
         print("General Error:", e)
         return Response({"message": f"An error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-
-
-from rest_framework.pagination import PageNumberPagination
-
 class CustomPagination(PageNumberPagination):
     page_size = 10  
     page_size_query_param = 'page_size' 
     max_page_size = 100  
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def get_user_goals(request):
-    user = request.user
+    username = request.GET.get("username") or request.query_params.get("loginUser")
+    username = decode_username(username)
+    
+    if not username or not user_exists(username):
+        return Response({"message": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    user = get_user_model().objects.get(username=username)
     goals = SmartGoal.objects.filter(user=user).order_by('-id')  # Order by latest goals
 
     paginator = CustomPagination()
@@ -211,10 +247,16 @@ def get_user_goals(request):
 
 
 @api_view(["DELETE"])
-@permission_classes([IsAuthenticated])
 def delete_smart_goal(request, goal_id):
     try:
-        goal = SmartGoal.objects.get(id=goal_id, user=request.user)
+        username = request.query_params.get("loginUser")
+        username = decode_username(username)
+
+        if not username or not user_exists(username):
+            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+        user = get_user_model().objects.get(username=username)
+
+        goal = SmartGoal.objects.get(id=goal_id, user=user)
         goal.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)  # No content in response
     except SmartGoal.DoesNotExist:
@@ -222,13 +264,18 @@ def delete_smart_goal(request, goal_id):
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-
 @api_view(["GET", "PUT"])
-@permission_classes([IsAuthenticated])
 def update_smart_goal(request, goal_id):
     try:
-        goal = SmartGoal.objects.get(id=goal_id, user=request.user)
+        username = request.query_params.get("loginUser")
+        username = decode_username(username)
+
+
+        if not username or not user_exists(username):
+            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        user = get_user_model().objects.get(username=username)
+        goal = SmartGoal.objects.get(id=goal_id, user=user)
 
         if request.method == "GET":
             serializer = SmartGoalSerializer(goal)
@@ -243,19 +290,21 @@ def update_smart_goal(request, goal_id):
 
     except SmartGoal.DoesNotExist:
         return Response({"error": "Goal not found"}, status=status.HTTP_404_NOT_FOUND)
-    
-    
-    
 
 @api_view(["POST"])
-@permission_classes([IsAuthenticated])
 def final_goal(request):
-    user = request.user  
-    goal_id = request.data.get("goal_id")  # Get goal ID from request
+    username = request.data.get("loginUser")
+    username = decode_username(username)
+
+    goal_id = request.data.get("goal_id")  
     final_goal_confirmed = request.data.get("final_goal_confirmed")
+
+    if not username or not user_exists(username):
+            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
     if final_goal_confirmed is None:
         return Response({"error": "Missing final_goal_confirmed field"}, status=400)
+    user = get_user_model().objects.get(username=username)
 
     try:
         if goal_id:  
