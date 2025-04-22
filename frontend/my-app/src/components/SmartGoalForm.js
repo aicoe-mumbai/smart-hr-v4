@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import "./SmartGoalForm.css";
 import loadingGif from "../assets/__Iphone-spinner-1.gif";
 import aicoelogo from "../assets/AICoE logo transparent.png";
+import { FaCopy, FaFileAlt } from "react-icons/fa";
+import { saveAs } from "file-saver";
+import { UserGuideButton } from "./UserGuide";
 
 
 const SmartGoalForm = () => {
@@ -25,7 +28,7 @@ const SmartGoalForm = () => {
 
   const thrustAreas = {
     "TA-1 Core Values": [
-      "1.1 Conduct business in line with L&T’s philosophy of “Mission Zero Harm” and “Carbon and Water Neutrality”"
+      "1.1 Conduct business in line with L&T's philosophy of 'Mission Zero Harm' and 'Carbon and Water Neutrality'"
     ],
     "TA-2 Customer Focus": [
       "2.1 Nurture customer relationship through engagement at multiple levels"
@@ -85,7 +88,7 @@ const SmartGoalForm = () => {
       "Design and Deliver Lakshya-31 plan for achieving business growth objectives and creating sustainable value through Innovation and Market leadership.",
       "Target 'Role Model' category in L&T Business Excellence Model and HR Excellence Model.",
       "Sustain and digitalise CMMI practices across organisation, covering all projects with >50 Cr. contract value.",
-      "Secure ‘Excellence Recognitions’ in business/ operations from CII, FICCI, etc.",
+      "Secure Excellence Recognitions in business/operations from CII, FICCI, etc.",
       "Secure at least one international/ national safety excellence award by every work centre."
     ],
     "Customer Delight": [
@@ -158,6 +161,23 @@ const SmartGoalForm = () => {
   const [htmlResponse, setHtmlResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [wsError, setWsError] = useState(false);
+
+  useEffect(() => {
+    // Listen for WebSocket errors
+    const handleWsError = (event) => {
+      if (event.message && event.message.includes('wss://goalassist.ltdic.com:3000/ws failed')) {
+        setWsError(true);
+      }
+    };
+
+    window.addEventListener('error', handleWsError);
+    
+    return () => {
+      window.removeEventListener('error', handleWsError);
+    };
+  }, []);
 
   useEffect(() => {
     if (htmlResponse && bottomRef.current) {
@@ -169,16 +189,60 @@ const SmartGoalForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const copyGoalToClipboard = () => {
+    if (!formData.goal) {
+      alert("No goal to copy. Please enter a goal first.");
+      return;
+    }
+    
+    navigator.clipboard.writeText(formData.goal)
+      .then(() => {
+        alert("Goal copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Error copying text: ", err);
+        alert("Failed to copy goal. Please try again.");
+      });
+  };
+
+  const saveGoalAsText = () => {
+    if (!formData.goal) {
+      alert("No goal details to save. Please enter goal information first.");
+      return;
+    }
+    
+    const goalDetails = `
+Goal: ${formData.goal}
+Measure of Success: ${formData.measureOfSuccess}
+KPI Metrics: ${formData.kpiMetrics}
+Outcome Defined: ${formData.outcomeDefined}
+Quantifiable Objective: ${formData.quantifiableObjective}
+Skills Available: ${formData.skillsAvailable}
+Obstacles Considered: ${formData.obstaclesConsidered}
+Thrust Area: ${formData.thrustArea}
+Sub Category: ${formData.subCategory}
+Group Objectives: ${formData.groupObjective}
+Sub Category Group Objectives: ${formData.subgroupObjectiveCategory}
+Start Date: ${formData.startDate}
+End Date: ${formData.endDate}
+    `;
+    
+    const blob = new Blob([goalDetails], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, `goal-draft.txt`);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setHtmlResponse("");
     setShowFinalGoalCheckbox(false);
     setLoading(true);
+    setIsSubmitting(true);
 
     // Ensure quantifiableObjective does not exceed 100%
     if (formData.quantifiableObjective > 100) {
       setHtmlResponse("<p>Quantifiable Objective cannot exceed 100%.</p>");
       setLoading(false);
+      setIsSubmitting(false);
       return;
     }
 
@@ -198,7 +262,7 @@ const SmartGoalForm = () => {
       start_date: formData.startDate,
       end_date: formData.endDate,
     };
-    console.log("form data to backend :", formattedData);
+
     try {
       const response = await fetch(`${apiUrl}/api/submit-goal/`, {
         method: "POST",
@@ -213,30 +277,49 @@ const SmartGoalForm = () => {
         const errorText = await response.text();
         setHtmlResponse(`<p>Error: ${errorText}</p>`);
         setLoading(false);
+        setIsSubmitting(false);
         return;
       }
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let htmlContent = "";
-      setLoading(false);
+      // Try to get the full text response first, since streaming might be failing
+      try {
+        const fullText = await response.text();
+        // Remove [DONE] marker if present
+        const cleanedText = fullText.replace('[DONE]', '');
+        setHtmlResponse(cleanedText);
+        setShowFinalGoalCheckbox(true);
+        setIsSubmitting(false);
+        setLoading(false);
+      } catch (streamError) {
+        console.error("Error with text response, falling back to stream:", streamError);
+        // Fall back to streaming approach if text() fails
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let htmlContent = "";
+        setLoading(false);
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+        while (true) {
+          try {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-        const chunk = decoder.decode(value, { stream: true });
-        if (chunk.includes("[DONE]")) break;
+            const chunk = decoder.decode(value, { stream: true });
+            if (chunk.includes("[DONE]")) break;
 
-        htmlContent += chunk;
-        setHtmlResponse(htmlContent);
+            htmlContent += chunk;
+            setHtmlResponse(htmlContent);
+          } catch (readError) {
+            console.error("Error reading stream chunk:", readError);
+            break;
+          }
+        }
+        setShowFinalGoalCheckbox(true);
+        setIsSubmitting(false);
       }
-      setShowFinalGoalCheckbox(true);
-
     } catch (error) {
       console.error("Error submitting form:", error.message);
       setHtmlResponse("<p>An error occurred while submitting the form.</p>");
-    } finally {
+      setIsSubmitting(false);
       setLoading(false);
     }
   };
@@ -275,150 +358,172 @@ const SmartGoalForm = () => {
 
   return (
     <div className="background-container">
+      <h2>Goal Assist</h2>
+      <img src={aicoelogo} alt="SmartHR Logo" className="aicoe-img" />
 
-      <div className="smart-form-container">
-        <h2>Goal Assist</h2>
-        <img src={aicoelogo} alt="SmartHR Logo" className="aicoe-img" />
+      <div className="action-toolbar">
+        <UserGuideButton />
+        <button 
+          className="modern-button copy-btn" 
+          title="Copy Goal"
+          onClick={copyGoalToClipboard}>
+          <FaCopy size={16} /> <span>Copy Goal</span>
+        </button>
+        <button 
+          className="modern-button save-btn" 
+          title="Save Goal as Text"
+          onClick={saveGoalAsText}>
+          <FaFileAlt size={16} /> <span>Save as Text</span>
+        </button>
+      </div>
+      
+      <form onSubmit={handleSubmit} className="smart-form">
+        <label>Goal:</label>
+        <textarea name="goal" value={formData.goal} onChange={handleChange} rows="3" required />
 
-        <form onSubmit={handleSubmit} className="smart-form">
-          <label>Goal:</label>
-          <textarea name="goal" value={formData.goal} onChange={handleChange} rows="3" required></textarea>
+        <label>Measure of Success:</label>
+        <textarea name="measureOfSuccess" value={formData.measureOfSuccess} onChange={handleChange} rows="3" required />
 
-          <label>Measure of Success:</label>
-          <textarea name="measureOfSuccess" value={formData.measureOfSuccess} onChange={handleChange} rows="3" required></textarea>
+        <label>What metrics or KPI's will be used to evaluate the achievement?</label>
+        <textarea name="kpiMetrics" value={formData.kpiMetrics} onChange={handleChange} rows="3" required />
 
-          <label>What metrics or KPI’s will be used to evaluate the achievement?</label>
-          <textarea name="kpiMetrics" value={formData.kpiMetrics} onChange={handleChange} rows="3" required></textarea>
+        <label>Can you clearly define the outcome or result?</label>
+        <select name="outcomeDefined" value={formData.outcomeDefined} onChange={handleChange} required>
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
 
-          <label>Can you clearly define the outcome or result?</label>
-          <select name="outcomeDefined" value={formData.outcomeDefined} onChange={handleChange} required>
+        <label>Can the objective be quantified (Nos., %ages etc.)?</label>
+        <input type="number" name="quantifiableObjective" value={formData.quantifiableObjective} onChange={handleChange} required min={0} max={100} step={0.10} />
+
+        <label>Are the necessary skills, knowledge, and expertise available to achieve this objective?</label>
+        <select name="skillsAvailable" value={formData.skillsAvailable} onChange={handleChange} required>
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <label>Have you considered any potential obstacles/challenges?</label>
+        <select name="obstaclesConsidered" value={formData.obstaclesConsidered} onChange={handleChange} required>
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <div>
+          <label>Choose the Thrust Area this objective aligns with:</label>
+          <select name="thrustArea" value={selectedThrust} onChange={handleThrustChange} required>
             <option value="">Select</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            {Object.keys(thrustAreas).map((thrust, index) => (
+              <option key={index} value={thrust}>
+                {thrust}
+              </option>
+            ))}
           </select>
 
-          <label>Can the objective be quantified (Nos., %ages etc.)?</label>
-          <input
-            type="number"
-            name="quantifiableObjective"
-            value={formData.quantifiableObjective}
-            onChange={handleChange}
-            required
-            min={0}
-            max={100}
-            step={0.10}
-          />
-
-          <label>Are the necessary skills, knowledge, and expertise available to achieve this objective?</label>
-          <select name="skillsAvailable" value={formData.skillsAvailable} onChange={handleChange} required>
-            <option value="">Select</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-
-          <label>Have you considered any potential obstacles/challenges?</label>
-          <select name="obstaclesConsidered" value={formData.obstaclesConsidered} onChange={handleChange} required>
-            <option value="">Select</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-
-          <div>
-            {/* Main Thrust Area Dropdown */}
-            <label>Choose the Thrust Area this objective aligns with:</label>
-            <select name="thrustArea" value={selectedThrust} onChange={handleThrustChange} required>
-              <option value="">Select</option>
-              {Object.keys(thrustAreas).map((thrust, index) => (
-                <option key={index} value={thrust}>
-                  {thrust}
-                </option>
-              ))}
-            </select>
-
-            {/* Dynamic Subcategory Dropdown */}
-            {selectedThrust && (
-              <>
-                <label>Select a sub-category for Thrust Area:</label>
-                <select
-                  name="subCategory"
-                  value={selectedSubCategory}
-                  onChange={handleSubCategoryChange}
-                  required
-                >
-                  <option value="">Select</option>
-                  {thrustAreas[selectedThrust].map((sub, index) => (
-                    <option key={index} value={sub}>
-                      {sub}
-                    </option>
-                  ))}
-                </select>
-              </>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="groupObjective">Group Objective:</label>
-            <select id="groupObjective" value={selectedObjective} onChange={handleObjectiveChange}>
-              <option value="">Select Group Objective</option>
-              {Object.keys(groupObjectives).map((objective) => (
-                <option key={objective} value={objective}>{objective}</option>
-              ))}
-            </select>
-          </div>
-
-          {selectedObjective && (
-            <div>
-              <label htmlFor="objectiveSubCategory">Sub Category for Group Objectives:</label>
+          {selectedThrust && (
+            <>
+              <label>Select a sub-category for Thrust Area:</label>
               <select
-                id="objectiveSubCategory"
-                value={selectedObjectiveSubCategory}
-                onChange={handleObjectiveSubCategoryChange}
+                name="subCategory"
+                value={selectedSubCategory}
+                onChange={handleSubCategoryChange}
+                required
               >
-                <option value="">Select Sub Category</option>
-                {groupObjectives[selectedObjective].map((sub, index) => (
-                  <option key={index} value={sub}>{sub}</option>
+                <option value="">Select</option>
+                {thrustAreas[selectedThrust].map((sub, index) => (
+                  <option key={index} value={sub}>
+                    {sub}
+                  </option>
                 ))}
               </select>
+            </>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="groupObjective">Group Objective:</label>
+          <select id="groupObjective" value={selectedObjective} onChange={handleObjectiveChange}>
+            <option value="">Select Group Objective</option>
+            {Object.keys(groupObjectives).map((objective) => (
+              <option key={objective} value={objective}>{objective}</option>
+            ))}
+          </select>
+        </div>
+
+        {selectedObjective && (
+          <div>
+            <label htmlFor="objectiveSubCategory">Sub Category for Group Objectives:</label>
+            <select
+              id="objectiveSubCategory"
+              value={selectedObjectiveSubCategory}
+              onChange={handleObjectiveSubCategoryChange}
+            >
+              <option value="">Select Sub Category</option>
+              {groupObjectives[selectedObjective].map((sub, index) => (
+                <option key={index} value={sub}>{sub}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        <label>Start Date of Activity:</label>
+        <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
+
+        <label>End Date of Activity:</label>
+        <input type="date" name="endDate" value={formData.endDate} onChange={handleChange} required />
+
+        <div className="response">
+          {wsError && (
+            <div className="message error">
+              <p>Note: WebSocket connection failed. Real-time updates may not work correctly. 
+              The response will still be displayed when analysis is complete.</p>
             </div>
           )}
+          {loading ? (
+            <div className="loading-container">
+              <img src={loadingGif} alt="Loading..." className="loading-icon" />
+              <p>Analyzing your goal, please wait...</p>
+            </div>
+          ) : (
+            <div 
+              className="html-response" 
+              dangerouslySetInnerHTML={{ __html: htmlResponse }} 
+              style={{ 
+                overflowY: 'visible', 
+                width: '100%', 
+                height: 'auto', 
+                minHeight: '100px',
+                display: 'block',
+                wordWrap: 'break-word',
+                whiteSpace: 'normal'
+              }}
+            />
+          )}
+          <div ref={bottomRef} />
 
-          <label>Start Date of Activity:</label>
-          <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
-
-          <label>End Date of Activity:</label>
-          <input type="date" name="endDate" value={formData.endDate} onChange={handleChange} required />
-
-          <div className="response">
-            {loading ? (
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <img src={loadingGif} alt="Loading..." style={{ width: "50px", height: "50px" }} />
-              </div>
-
-            ) : (
-              <div
-                className="html-response"
-
-                dangerouslySetInnerHTML={{ __html: htmlResponse }}
+          {showFinalGoalCheckbox && (
+            <div className="final-goal-checkbox">
+              <input
+                type="checkbox"
+                id="finalGoal"
+                checked={isFinalGoal}
+                onChange={handleFinalGoalChange}
               />
-            )}
-            <div ref={bottomRef} />
+              <label htmlFor="finalGoal">Have you reviewed all the details above and confirmed this as your final goal?</label>
+            </div>
+          )}
+        </div>
 
-            {showFinalGoalCheckbox && (
-              <div className="final-goal-checkbox">
-                <input
-                  type="checkbox"
-                  id="finalGoal"
-                  checked={isFinalGoal}
-                  onChange={handleFinalGoalChange}
-                />
-                <label htmlFor="finalGoal">Have you reviewed all the details above and confirmed this as your final goal?</label>
-              </div>
-            )}
-
-          </div>
-          <button type="submit" className="submit-btn">Analyse Goal</button>
-        </form>
-      </div>
+        <button 
+          type="submit" 
+          className="submit-btn" 
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Analyzing...' : 'Analyse Goal'}
+        </button>
+      </form>
     </div>
   );
 };

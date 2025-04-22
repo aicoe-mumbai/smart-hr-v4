@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./PreviousValidations.css";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-import { FaDownload } from "react-icons/fa";
+import { FaDownload, FaCopy, FaFileAlt } from "react-icons/fa";
 import loadingGif from "../assets/loading-7528_256.gif";
+import { UserGuideButton } from './UserGuide';
 
 
 const PreviousValidations = () => {
@@ -17,7 +18,7 @@ const PreviousValidations = () => {
   const username = sessionStorage.getItem("username");
   const [loading, setLoading] = useState(false);
 
-  const fetchUserGoals = async () => {
+  const fetchUserGoals = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch(`${apiUrl}/api/user-goals/?page=${currentPage}&username=${username}`, {
@@ -41,7 +42,7 @@ const PreviousValidations = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, token, apiUrl, username]);
 
   const handleDelete = async (goalId) => {
     if (!window.confirm("Are you sure you want to delete this goal?")) return;
@@ -140,18 +141,52 @@ const PreviousValidations = () => {
     }
   };
 
+  const copyGoalToClipboard = (goalText) => {
+    navigator.clipboard.writeText(goalText)
+      .then(() => {
+        alert("Goal copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Error copying text: ", err);
+        alert("Failed to copy goal. Please try again.");
+      });
+  };
+
+  const saveGoalAsText = (goal) => {
+    const goalDetails = `
+Goal: ${goal.goal}
+Measure of Success: ${goal.measure_of_success}
+KPI Metrics: ${goal.kpi_metrics}
+Outcome Defined: ${goal.outcome_defined}
+Quantifiable Objective: ${goal.quantifiable_objective}
+Skills Available: ${goal.skills_available}
+Obstacles Considered: ${goal.obstacles_considered}
+Thrust Area: ${goal.thrust_area}
+Sub Category: ${goal.sub_category}
+Group Objectives: ${goal.group_objectives}
+Sub Category Group Objectives: ${goal.additional_sub_category}
+Start Date: ${goal.start_date}
+End Date: ${goal.end_date}
+    `;
+    
+    const blob = new Blob([goalDetails], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, `goal-${goal.id}.txt`);
+  };
 
   useEffect(() => {
     fetchUserGoals();
-  }, [currentPage]);
+  }, [fetchUserGoals]);
 
   return (
     <div className="previous-validations-container">
       <div className="table-header">
         <h2 className="table-heading">Previous Validations</h2>
-        <button className="export-btn" onClick={exportToExcel}>
-          <FaDownload size={20} />
-        </button>
+        <div className="actions-container">
+          <UserGuideButton />
+          <button className="export-btn" onClick={exportToExcel}>
+            <FaDownload size={20} />
+          </button>
+        </div>
       </div>
       <table className="validations-table">
         <thead>
@@ -162,18 +197,19 @@ const PreviousValidations = () => {
             <th>Final</th>
             <th>Edit</th>
             <th>Delete</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {loading ? (
             <tr>
-              <td colSpan="6" className="no-data">
+              <td colSpan="7" className="no-data">
                 <img src={loadingGif} alt="Loading..." className="loading-icon-table" />
               </td>
             </tr>
           ) : userGoals.length === 0 ? (
             <tr>
-              <td colSpan="6" className="no-data">No Validations Found</td>
+              <td colSpan="7" className="no-data">No Validations Found</td>
             </tr>
           ) : (
             userGoals.map((goal, index) => (
@@ -200,12 +236,24 @@ const PreviousValidations = () => {
                     Delete
                   </button>
                 </td>
+                <td className="action-buttons">
+                  <button 
+                    className="copy-btn" 
+                    title="Copy Goal"
+                    onClick={() => copyGoalToClipboard(goal.goal)}>
+                    <FaCopy size={16} />
+                  </button>
+                  <button 
+                    className="save-text-btn" 
+                    title="Save Goal as Text"
+                    onClick={() => saveGoalAsText(goal)}>
+                    <FaFileAlt size={16} />
+                  </button>
+                </td>
               </tr>
             ))
           )}
         </tbody>
-
-
       </table>
 
       {/* Pagination & Export Buttons */}
@@ -231,8 +279,6 @@ const PreviousValidations = () => {
         >
           Next
         </button>
-
-
       </div>
     </div>
   );

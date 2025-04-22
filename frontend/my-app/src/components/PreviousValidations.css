@@ -161,22 +161,85 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; /* Ensures it spans the full container */
+  margin-bottom: 20px;
 }
 
 .table-heading {
-  margin: 0; /* Removes any unwanted margin */
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.actions-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.download-guide-btn {
+  background-color: #e7f5ff;
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .export-btn {
-  padding: 8px 12px;
-  color: black;
+  background-color: #f1f1f1;
   border: none;
   border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
+.export-btn:hover,
+.download-guide-btn:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
+.action-buttons {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.copy-btn,
+.save-text-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.copy-btn {
+  color: #28a745;
+}
+
+.save-text-btn {
+  color: #ff9800;
+}
+
+.copy-btn:hover,
+.save-text-btn:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
 
 .no-data {
   text-align: center;
