@@ -1,0 +1,3627 @@
+=== GOAL EVALUATION INPUT ===
+Goal: hi bi
+Measure of Success: hi 
+KPI Metrics: bi
+Outcome Defined: No
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-1 Core Values
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+=== END INPUT ===
+=== GOAL EVALUATION INPUT ===
+Goal: Increase adherence to TA-1 Core Values by implementing three key initiatives that improve employee understanding, commitment, and practical application within the organization.
+Measure of Success: Achieve at least 80% positive feedback in employee surveys regarding core values adherence, with tangible improvements demonstrated in organizational behavior by March 8, 2026.
+KPI Metrics: Achieve at least 80% positive feedback in employee surveys regarding core values adherence, with tangible improvements demonstrated in organizational behavior by March 8, 2026.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-1 Core Values
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+=== END INPUT ===
+=== GOAL EVALUATION INPUT ===
+Goal: Increase adherence to TA-1 Core Values by implementing three key initiatives that improve employee understanding, commitment, and practical application within the organization.
+Measure of Success: Achieve at least 80% positive feedback in employee surveys regarding core values adherence, with tangible improvements demonstrated in organizational behavior by March 8, 2026.
+KPI Metrics: Achieve at least 80% positive feedback in employee surveys regarding core values adherence, with tangible improvements demonstrated in organizational behavior by March 8, 2026.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-1 Core Values
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+=== END INPUT ===
+Goal created with ID: 5
+=== ALIGNMENT CALCULATION ===
+Goal ID: 5
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA QC', 'MPES- MES']
+Thrust Area: TA-1 Core Values
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 0 aligned objectives:
+=== END ALIGNMENT ===
+=== GOAL EVALUATION INPUT ===
+Goal: Increase adherence to TA-1 Core Values by implementing three key initiatives that improve employee understanding, commitment, and practical application within the organization.
+Measure of Success: Achieve at least 80% positive feedback in employee surveys regarding core values adherence, with tangible improvements demonstrated in organizational behavior by March 8, 2026.
+KPI Metrics: Achieve at least 80% positive feedback in employee surveys regarding core values adherence, with tangible improvements demonstrated in organizational behavior by March 8, 2026.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-1 Core Values
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+=== END INPUT ===
+Goal created with ID: 6
+=== ALIGNMENT CALCULATION ===
+Goal ID: 6
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA QC', 'MPES- MES']
+Thrust Area: TA-1 Core Values
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 0 aligned objectives:
+=== END ALIGNMENT ===
+=== GOAL EVALUATION INPUT ===
+Goal: hi
+Measure of Success: hi
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+=== END INPUT ===
+Goal created with ID: 7
+=== ALIGNMENT CALCULATION ===
+Goal ID: 7
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: MPES- SVP
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: QA QC
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+=== END ALIGNMENT ===
+=== GOAL EVALUATION INPUT ===
+Goal: hi
+Measure of Success: hi
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+=== END INPUT ===
+=== ALIGNMENT CALCULATION ===
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: MPES- SVP
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: QA QC
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+=== END ALIGNMENT ===
+PROMPT SENT TO AI MODEL: User entered Goal Details for Evaluation:<br><p><strong>Goal:</strong> hi</p><p><strong>Measure of Success:</strong> hi</p><p><strong>KPI Metrics:</strong> hi</p><p><strong>Outcome Defined (Yes/No):</strong> Yes</p><p><strong>Quantifiable Objective:</strong> 1</p><p><strong>Skills Available (Yes/No):</strong> Yes</p><p><strong>Obstacles Considered (Yes/No):</strong> Yes</p><p><strong>Thrust Area:</strong> TA-3 Business Growth</p><p><strong>Start Date:</strong> 2026-03-01</p><p><strong>End Date:</strong> 2026-03-08</p><br><br><strong>Related BU Objectives for Alignment:</strong><br><p><strong>BU:</strong> MPES- MES<br><strong>Objective:</strong> Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance</p><p><strong>BU:</strong> MPES- SVP<br><strong>Objective:</strong> Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance</p><p><strong>BU:</strong> QA QC<br><strong>Objective:</strong> Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance</p>
+Goal created with ID: 8
+=== ALIGNMENT CALCULATION ===
+Goal ID: 8
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: MPES- SVP
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: QA QC
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+=== END ALIGNMENT ===
+=== ALIGNMENT CALCULATION ===
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    Objective: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+  - BU: MPES- SVP
+    Objective: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+  - BU: QA QC
+    Objective: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+=== END ALIGNMENT ===
+=== GOAL EVALUATION INPUT ===
+Goal: hi
+Measure of Success: hi
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+=== END INPUT ===
+=== ALIGNMENT CALCULATION ===
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: MPES- SVP
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: QA QC
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+=== END ALIGNMENT ===
+PROMPT SENT TO AI MODEL: User entered Goal Details for Evaluation:<br><p><strong>Goal:</strong> hi</p><p><strong>Measure of Success:</strong> hi</p><p><strong>KPI Metrics:</strong> hi</p><p><strong>Outcome Defined (Yes/No):</strong> Yes</p><p><strong>Quantifiable Objective:</strong> 1</p><p><strong>Skills Available (Yes/No):</strong> Yes</p><p><strong>Obstacles Considered (Yes/No):</strong> Yes</p><p><strong>Thrust Area:</strong> TA-3 Business Growth</p><p><strong>Start Date:</strong> 2026-03-01</p><p><strong>End Date:</strong> 2026-03-08</p><br><br><strong>Related BU Objectives for Alignment:</strong><br><p><strong>BU:</strong> MPES- MES<br><strong>Objective:</strong> Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance</p><p><strong>BU:</strong> MPES- SVP<br><strong>Objective:</strong> Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance</p><p><strong>BU:</strong> QA QC<br><strong>Objective:</strong> Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance</p>
+Goal created with ID: 9
+=== ALIGNMENT CALCULATION ===
+Goal ID: 9
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: MPES- SVP
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: QA QC
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+=== END ALIGNMENT ===
+=== GOAL EVALUATION INPUT ===
+Goal: hi
+Measure of Success: hi
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+=== END INPUT ===
+=== ALIGNMENT CALCULATION ===
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: MPES- SVP
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: QA QC
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+=== END ALIGNMENT ===
+PROMPT SENT TO AI MODEL: User entered Goal Details for Evaluation:<br><p><strong>Goal:</strong> hi</p><p><strong>Measure of Success:</strong> hi</p><p><strong>KPI Metrics:</strong> hi</p><p><strong>Outcome Defined (Yes/No):</strong> Yes</p><p><strong>Quantifiable Objective:</strong> 1</p><p><strong>Skills Available (Yes/No):</strong> Yes</p><p><strong>Obstacles Considered (Yes/No):</strong> Yes</p><p><strong>Thrust Area:</strong> TA-3 Business Growth</p><p><strong>Start Date:</strong> 2026-03-01</p><p><strong>End Date:</strong> 2026-03-08</p><br><br><strong>Related BU Objectives for Alignment:</strong><br><p><strong>BU:</strong> MPES- MES<br><strong>Objective:</strong> Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance</p><p><strong>BU:</strong> MPES- SVP<br><strong>Objective:</strong> Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance</p><p><strong>BU:</strong> QA QC<br><strong>Objective:</strong> Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance</p>
+Goal created with ID: 10
+=== ALIGNMENT CALCULATION ===
+Goal ID: 10
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: MPES- SVP
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: QA QC
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+=== END ALIGNMENT ===
+=== GOAL EVALUATION INPUT ===
+Goal: hi
+Measure of Success: hi
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+=== END INPUT ===
+=== ALIGNMENT CALCULATION ===
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: MPES- SVP
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: QA QC
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+=== END ALIGNMENT ===
+Goal created with ID: 11
+=== ALIGNMENT CALCULATION ===
+Goal ID: 11
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP', 'MPES- MES']
+All BUs to check: ['QA QC', 'MPES- SVP', 'MPES- MES']
+Thrust Area: TA-3 Business Growth
+Group Objective: Environment, Safety, Sustainability & Governance
+Found 3 aligned objectives:
+  - BU: MPES- MES
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- MES - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: MPES- SVP
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for MPES- SVP - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+  - BU: QA QC
+    TA: TA-3 Business Growth
+    GO: Environment, Safety, Sustainability & Governance
+    Objective Text: Sample objective for QA QC - TA-3 Business Growth - Environment, Safety, Sustainability & Governance
+    ---
+=== END ALIGNMENT ===
+=== CLEARED ALL EXISTING DATA ===
+
+=== LOADING FILE: /home/aicoe/Desktop/smart-hr-v4/mpes-mes_objectives.xlsx ===
+OrgUnit: MPES-MES (created)
+Headers found: ['BU Objectives - MPES-  MES']
+
+=== COMPLETED MPES-MES: 0 objectives loaded ===
+
+=== LOADING FILE: /home/aicoe/Desktop/smart-hr-v4/qa-qc_objectives.xlsx ===
+OrgUnit: QA-QC (created)
+Headers found: ['Objectives - QA, QC & NDE']
+
+=== COMPLETED QA-QC: 0 objectives loaded ===
+=== CLEARED ALL EXISTING DATA ===
+
+=== LOADING FILE: /home/aicoe/Desktop/smart-hr-v4/mpes-mes_objectives.xlsx ===
+OrgUnit: MPES-MES (created)
+Found headers in row 2
+Headers found: ['Goal Sheet Owner- PCH, MMP']
+
+=== COMPLETED MPES-MES: 0 objectives loaded ===
+
+=== LOADING FILE: /home/aicoe/Desktop/smart-hr-v4/qa-qc_objectives.xlsx ===
+OrgUnit: QA-QC (created)
+Found headers in row 2
+Headers found: ['Goal Sheet Owner- MSE']
+
+=== COMPLETED QA-QC: 0 objectives loaded ===
+=== CLEARED ALL EXISTING DATA ===
+
+=== LOADING FILE: /home/aicoe/Desktop/smart-hr-v4/mpes-mes_objectives.xlsx ===
+OrgUnit: MPES-MES (created)
+Found headers in row 4
+Headers found: ['S.No.', 'Goal', 'Measure of Success', 'Linkage to Thrust Area', 'Linkage to Group Objective', 'SSC Talegaon', 'PMSC, Coimbatore', 'TLS', 'HR', 'F&A', 'IT', 'Corp Center', 'SCM', 'QA QC', 'TIC', 'IBD']
+
+--- Row 5 ---
+Parameter: None
+Goal: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: ...
+TA Raw: TA-3
+GO Raw: GO-2
+  Created TA Link: TA-3
+  Created GO Link: GO-2
+
+--- Row 6 ---
+Parameter: None
+Goal: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controlla...
+TA Raw: TA-3
+GO Raw: GO-2
+  Created TA Link: TA-3
+  Created GO Link: GO-2
+
+--- Row 7 ---
+Parameter: None
+Goal: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed ...
+TA Raw: TA-3
+GO Raw: GO-2
+  Created TA Link: TA-3
+  Created GO Link: GO-2
+
+--- Row 8 ---
+Parameter: None
+Goal: d)  Collect all overdue customer outstanding more than 90 days....
+TA Raw: TA-3
+GO Raw: GO-2
+  Created TA Link: TA-3
+  Created GO Link: GO-2
+
+--- Row 9 ---
+Parameter: None
+Goal: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractua...
+TA Raw: TA-3
+GO Raw: GO-2
+  Created TA Link: TA-3
+  Created GO Link: GO-2
+
+--- Row 10 ---
+Parameter: None
+Goal: a) Complete Project Sankalp roadmap for MES business segment....
+TA Raw: TA-4
+GO Raw: GO-5
+  Created TA Link: TA-4
+  Created GO Link: GO-5
+
+--- Row 11 ---
+Parameter: None
+Goal: b) Sustain and digitalise CMMI practices across MES, covering all projects with >50 Cr. contract val...
+TA Raw: TA-4
+GO Raw: GO-5
+  Created TA Link: TA-4
+  Created GO Link: GO-5
+
+--- Row 12 ---
+Parameter: None
+Goal: c) Initiate new Parivartan initiatives in line with Sankalp roadmaps and implement the same....
+TA Raw: TA-4
+GO Raw: GO-5
+  Created TA Link: TA-4
+  Created GO Link: GO-5
+
+--- Row 13 ---
+Parameter: None
+Goal: d) Implement Contract Management, Cost fact and Active risk management (ARM) for all contracts valui...
+TA Raw: TA-4
+GO Raw: GO-3
+  Created TA Link: TA-4
+  Created GO Link: GO-3
+
+--- Row 14 ---
+Parameter: None
+Goal: e) Design and Deliver Lakshya-31 plan for achieving business growth objectives....
+TA Raw: TA-4
+GO Raw: GO-5
+  Created TA Link: TA-4
+  Created GO Link: GO-5
+
+--- Row 15 ---
+Parameter: None
+Goal: f) File at least 01 patent in MES D&DC....
+TA Raw: TA-4
+GO Raw: GO-4
+  Created TA Link: TA-4
+  Created GO Link: GO-4
+
+--- Row 16 ---
+Parameter: None
+Goal: g) IP registration for all new products developed...
+TA Raw: TA-4
+GO Raw: GO-4
+  Created TA Link: TA-4
+  Created GO Link: GO-4
+
+--- Row 17 ---
+Parameter: None
+Goal: a) Ensure implementation of Contract management across MES for all contracts by Q2....
+TA Raw: TA-3, TA-4
+GO Raw: GO-3
+  Created TA Link: TA-3
+  Created TA Link: TA-4
+  Created GO Link: GO-3
+
+--- Row 18 ---
+Parameter: None
+Goal: b) Leverage Digitalization and Industry 4.0 to drive efficiency and business growth to achieve ROI a...
+TA Raw: TA-3, TA-4
+GO Raw: GO-3
+  Created TA Link: TA-3
+  Created TA Link: TA-4
+  Created GO Link: GO-3
+
+--- Row 19 ---
+Parameter: None
+Goal: c) Implementation of AI interventions....
+TA Raw: TA-3, TA-4
+GO Raw: GO-3
+  Created TA Link: TA-3
+  Created TA Link: TA-4
+  Created GO Link: GO-3
+
+--- Row 20 ---
+Parameter: None
+Goal: a) Create an agile, open, inclusive and psychologically safe work environment....
+TA Raw: TA-5
+GO Raw: GO-7
+  Created TA Link: TA-5
+  Created GO Link: GO-7
+
+--- Row 21 ---
+Parameter: None
+Goal: b) Enhance Gender Diversity with focus on work centres, Equity and Inclusion in the workforce....
+TA Raw: TA-5
+GO Raw: GO-7
+  Created TA Link: TA-5
+  Created GO Link: GO-7
+
+--- Row 22 ---
+Parameter: None
+Goal: c) Focus on upskilling / reskilling to stay ahead in the emerging business environment, including ar...
+TA Raw: TA-5
+GO Raw: GO-7
+  Created TA Link: TA-5
+  Created GO Link: GO-7
+
+--- Row 23 ---
+Parameter: None
+Goal: d) Positive progress career path conversion for Tier-2 and above....
+TA Raw: TA-5
+GO Raw: GO-7
+  Created TA Link: TA-5
+  Created GO Link: GO-7
+
+--- Row 24 ---
+Parameter: None
+Goal: a) Ensure 80% OTD for all project milestones. Ensure zero attributability to L&T for milestones dela...
+TA Raw: TA-3
+GO Raw: GO-3
+  Created TA Link: TA-3
+  Created GO Link: GO-3
+
+--- Row 25 ---
+Parameter: None
+Goal: b) Ensure registering of all customer feedbacks in CFAR system and 25% Y-o-Y reduction in average cy...
+TA Raw: TA-2
+GO Raw: GO-6
+  Created TA Link: TA-2
+  Created GO Link: GO-6
+
+--- Row 26 ---
+Parameter: None
+Goal: c) Establish a system driven measurement for FTR and achieve >96% internal FTR and >98% external FTR...
+TA Raw: TA-3
+GO Raw: GO-3
+  Created TA Link: TA-3
+  Created GO Link: GO-3
+
+--- Row 27 ---
+Parameter: None
+Goal: d) Achieve 15% reduction in NCRs over last year....
+TA Raw: TA-3
+GO Raw: GO-3
+  Created TA Link: TA-3
+  Created GO Link: GO-3
+
+--- Row 28 ---
+Parameter: None
+Goal: e) Implementation of CRM system - Track and achieve an increasing trend in number of customer intera...
+TA Raw: TA-2
+GO Raw: GO-6
+  Created TA Link: TA-2
+  Created GO Link: GO-6
+
+--- Row 29 ---
+Parameter: None
+Goal: a) Ensure 100% safe operations (nil reportable incidents) across all functions and work centres, wit...
+TA Raw: TA-1
+GO Raw: GO-1
+  Created TA Link: TA-1
+  Created GO Link: GO-1
+
+--- Row 30 ---
+Parameter: None
+Goal: b) Adhere to the information security advisories being promulgated by the business....
+TA Raw: TA-1
+GO Raw: GO-1
+  Created TA Link: TA-1
+  Created GO Link: GO-1
+
+--- Row 31 ---
+Parameter: None
+Goal: c) Ensure no 'High Risk' observation during any audit....
+TA Raw: TA-1
+GO Raw: GO-1
+  Created TA Link: TA-1
+  Created GO Link: GO-1
+
+=== COMPLETED MPES-MES: 27 objectives loaded ===
+
+=== LOADING FILE: /home/aicoe/Desktop/smart-hr-v4/qa-qc_objectives.xlsx ===
+OrgUnit: QA-QC (created)
+Found headers in row 4
+Headers found: ['S.No.', 'Goal Category', 'Goal', 'Measure of Success', 'Linkage to Thrust Area', 'Linkage to Group Objective', 'MPES Shipbuilding', 'MPES SVP', 'MPES MES', 'LPES', 'AS', 'EPS', 'SSC Talegaon', 'Kattupalli Yard', 'PMSC Coimbatore', 'Hazira Strategic Mfg Complex', 'Vizag Prod Center', 'TLS', 'HR', 'F&A', 'IT', 'Corp. Center', 'SCM', 'TIC', 'IBD']
+
+--- Row 5 ---
+Parameter: Functional and Financial
+Goal: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiatio...
+TA Raw: TA-3
+GO Raw: GO-2
+  Created TA Link: TA-3
+  Created GO Link: GO-2
+
+--- Row 6 ---
+Parameter: Functional and Financial
+Goal: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual o...
+TA Raw: TA-3
+GO Raw: GO-2
+  Created TA Link: TA-3
+  Created GO Link: GO-2
+
+--- Row 7 ---
+Parameter: Espousing Corporate Values
+Goal: Encourage teams for BBS rounds and RSCs.
+Target - one BBS round per month for in house workcentres a...
+TA Raw: TA-1
+GO Raw: GO-1
+  Created TA Link: TA-1
+  Created GO Link: GO-1
+
+--- Row 8 ---
+Parameter: Espousing Corporate Values
+Goal: Ensure compliance and adhere of team members to ISMS guidelines...
+TA Raw: TA-1
+GO Raw: GO-1
+  Created TA Link: TA-1
+  Created GO Link: GO-1
+
+--- Row 9 ---
+Parameter: Espousing Corporate Values
+Goal: Participate and encourage participation in sustainability initiatives....
+TA Raw: TA-1
+GO Raw: GO-1
+  Created TA Link: TA-1
+  Created GO Link: GO-1
+
+--- Row 10 ---
+Parameter: Espousing Corporate Values
+Goal: Achieve nil high risk observation in CAS audit...
+TA Raw: TA-1
+GO Raw: GO-1
+  Created TA Link: TA-1
+  Created GO Link: GO-1
+
+--- Row 11 ---
+Parameter: Strategic Approach
+Goal: Implement and digitize CMMI practice areas for all projects > 50cr. Integrate Apex manuals covering ...
+TA Raw: TA-3,
+TA-4
+GO Raw: GO-3,
+GO-5
+  Created TA Link: TA-3
+  Created TA Link: TA-4
+  Created GO Link: GO-3
+  Created GO Link: GO-5
+
+--- Row 12 ---
+Parameter: Strategic Approach
+Goal: Identify and Implement at least 06 improvement projects (lean, 6 sigma, process improvement, cycle t...
+TA Raw: TA-3,
+TA-4
+GO Raw: GO-3,
+GO-5
+  Created TA Link: TA-3
+  Created TA Link: TA-4
+  Created GO Link: GO-3
+  Created GO Link: GO-5
+
+--- Row 13 ---
+Parameter: Digital Initiaves
+Goal: (i) Implement paperless QA QC work flows/processes across Talegaon, Hazira, Kattupalli. 3D based ins...
+TA Raw: TA-3
+TA-4
+GO Raw: GO-3
+  Created TA Link: TA-3
+  Created GO Link: GO-3
+
+--- Row 14 ---
+Parameter: Digital Initiaves
+Goal: Identify and implement AI projects in collaboration with AICOE.
+i) Proposed Root causes & corrective...
+TA Raw: TA-3
+TA-4
+GO Raw: GO-3
+  Created TA Link: TA-3
+  Created GO Link: GO-3
+
+--- Row 15 ---
+Parameter: Resource Management
+Goal: Achieve >85 GPTW score and >82 Amber score in QA QC functions across locations...
+TA Raw: TA-5
+GO Raw: GO-7
+  Created TA Link: TA-5
+  Created GO Link: GO-7
+
+--- Row 16 ---
+Parameter: Resource Management
+Goal: (i) Promote Gender diversity in QA/QC functions.
+(ii) Development plan for team members with CPR <5...
+TA Raw: TA-5
+GO Raw: GO-7
+  Created TA Link: TA-5
+  Created GO Link: GO-7
+
+--- Row 17 ---
+Parameter: Resource Management
+Goal: (i) Cover 100% QAQC teams in skill matrix exercise.  Target 04 Technical training man-days.  Create ...
+TA Raw: TA-5
+GO Raw: GO-7
+  Created TA Link: TA-5
+  Created GO Link: GO-7
+
+--- Row 18 ---
+Parameter: Resource Management
+Goal: Initiate career path for above Tier-2...
+TA Raw: TA-5
+GO Raw: GO-7
+  Created TA Link: TA-5
+  Created GO Link: GO-7
+
+--- Row 19 ---
+Parameter: Resource Management
+Goal: Complete RBO exercise for all QAQC colleagues...
+TA Raw: TA-5
+GO Raw: GO-7
+  Created TA Link: TA-5
+  Created GO Link: GO-7
+
+--- Row 20 ---
+Parameter: Customer Relations
+Goal: Mentor OTD Sankalp Team. Improve inspection attendance cycle time and achieve inspection cycle time ...
+TA Raw: TA-2
+GO Raw: GO-6
+  Created TA Link: TA-2
+  Created GO Link: GO-6
+
+--- Row 21 ---
+Parameter: Customer Relations
+Goal: Log all CFARs (Customer Complaints) in the system and ensure cycle time reduction for closure....
+TA Raw: TA-2
+GO Raw: GO-6
+  Created TA Link: TA-2
+  Created GO Link: GO-6
+
+--- Row 22 ---
+Parameter: Customer Relations
+Goal: Establish a common/unified platform to measure both Internal and External FTR across all work centre...
+TA Raw: TA-2
+GO Raw: GO-6
+  Created TA Link: TA-2
+  Created GO Link: GO-6
+
+--- Row 23 ---
+Parameter: Customer Relations
+Goal: Establish structured RCA & CAPA procedures and achieve YoY 15% reduction in NCR across Business Segm...
+TA Raw: TA-2
+GO Raw: GO-6
+  Created TA Link: TA-2
+  Created GO Link: GO-6
+
+--- Row 24 ---
+Parameter: Customer Relations
+Goal: Collaborate in implementation of CRM system.  Enhance customer connect (QA/ inspection agencies) so ...
+TA Raw: TA-2
+GO Raw: GO-6
+  Created TA Link: TA-2
+  Created GO Link: GO-6
+
+=== COMPLETED QA-QC: 20 objectives loaded ===
+=== ALIGNMENT CALCULATION ===
+Goal ID: 13
+User BU: QA-QC
+Crosslinked BUs: ['MPES-MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP']
+All BUs to check: ['QA QC', 'MPES- SVP']
+TA Codes: ['TA-3']
+GO Codes: []
+Found 0 aligned objectives:
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: hi...
+Measure of Success: hi...
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.1 Improve on budgeted targets for Order Inflow, Earnings, Cash flow, Working Capital and Revenue
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+Complete prompt length: 523 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: 15
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+=== ALIGNMENT CALCULATION ===
+Goal ID: 16
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP']
+All BUs to check: ['QA-QC', 'MPES-SVP']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 2 aligned objectives:
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: hi...
+Measure of Success: hi...
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.1 Improve on budgeted targets for Order Inflow, Earnings, Cash flow, Working Capital and Revenue
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- SVP']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: hi...
+
+Total BU Objectives to compare: 2
+
+--- Comparing with BU Objective #1 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 3.1%
+
+--- Comparing with BU Objective #2 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 3.57%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 3.33%
+================================================================================
+
+Top Matches:
+1. QA-QC - 3.57%
+2. QA-QC - 3.1%
+================================================================================
+
+Added 2 BU objectives to AI prompt
+Added alignment score to prompt: 3.33%
+Complete prompt length: 1026 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: hi...
+Measure of Success: hi...
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.1 Improve on budgeted targets for Order Inflow, Earnings, Cash flow, Working Capital and Revenue
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: hi...
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 1.98%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 3.33%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 2.34%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 3.08%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 3.45%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 3.1%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 3.57%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 2.98%
+================================================================================
+
+Top Matches:
+1. QA-QC - 3.57%
+2. MPES-MES - 3.45%
+3. MPES-MES - 3.33%
+================================================================================
+
+Added 7 BU objectives to AI prompt
+Added alignment score to prompt: 2.98%
+Complete prompt length: 2030 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: 19
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: hi...
+Measure of Success: hi...
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.1 Improve on budgeted targets for Order Inflow, Earnings, Cash flow, Working Capital and Revenue
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: hi...
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 1.98%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 3.33%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 2.34%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 3.08%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 3.45%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 3.1%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 3.57%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 2.98%
+================================================================================
+
+Top Matches:
+1. QA-QC - 3.57%
+2. MPES-MES - 3.45%
+3. MPES-MES - 3.33%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: hi
+USER MEASURE OF SUCCESS: hi
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives to AI prompt for comparison
+Added alignment score to prompt: 2.98%
+Complete prompt length: 5014 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: 21
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Improve quality control processes and reduce defects by 15%...
+Measure of Success: Defect rate reduced by 15% and quality metrics improved...
+KPI Metrics: Defect percentage, quality score
+Outcome Defined: Yes
+Quantifiable Objective: 15.0
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.1 Test
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2024-01-01
+End Date: 2024-12-31
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Improve quality control processes and reduce defects by 15%...
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 10.04%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 35.03%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 16.67%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 29.51%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 21.97%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 30.11%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 23.67%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 23.86%
+================================================================================
+
+Top Matches:
+1. MPES-MES - 35.03%
+2. QA-QC - 30.11%
+3. MPES-MES - 29.51%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Improve quality control processes and reduce defects by 15%
+USER MEASURE OF SUCCESS: Defect rate reduced by 15% and quality metrics improved
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives to AI prompt for comparison
+Added alignment score to prompt: 23.86%
+Complete prompt length: 5158 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: hi...
+Measure of Success: hi...
+KPI Metrics: hi
+Outcome Defined: Yes
+Quantifiable Objective: 1
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.1 Improve on budgeted targets for Order Inflow, Earnings, Cash flow, Working Capital and Revenue
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: hi...
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 1.98%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 3.33%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 2.34%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 3.08%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 3.45%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 3.1%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 3.57%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 2.98%
+================================================================================
+
+Top Matches:
+1. QA-QC - 3.57%
+2. MPES-MES - 3.45%
+3. MPES-MES - 3.33%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: hi
+USER MEASURE OF SUCCESS: hi
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 2.98%
+Complete prompt length: 5251 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Measure of Success: 5% reduction in QA/QC revenue budget....
+KPI Metrics: 5% reduction in QA/QC revenue budget.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.1 Improve on budgeted targets for Order Inflow, Earnings, Cash flow, Working Capital and Revenue
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2025-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 11.01%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 28.57%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 26.35%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 27.37%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 26.56%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 100.0%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 33.76%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 36.23%
+================================================================================
+
+Top Matches:
+1. QA-QC - 100.0%
+2. QA-QC - 33.76%
+3. MPES-MES - 28.57%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+USER MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 36.23%
+Complete prompt length: 5449 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Implement targeted strategies, including QC manpower rationalization, contract negotiation, and travel expense optimization, to achieve a 5% reduction in QA/QC revenue
+
+...
+Measure of Success: 5% reduction in QA/QC revenue budget....
+KPI Metrics: 5% reduction in QA/QC revenue budget.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.1 Improve on budgeted targets for Order Inflow, Earnings, Cash flow, Working Capital and Revenue
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2025-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Implement targeted strategies, including QC manpower rationalization, contract negotiation, and travel expense optimization, to achieve a 5% reduction in QA/QC revenue
+
+...
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 4.9%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 32.98%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 13.1%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 16.52%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 19.93%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 58.5%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 24.55%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 24.35%
+================================================================================
+
+Top Matches:
+1. QA-QC - 58.5%
+2. MPES-MES - 32.98%
+3. QA-QC - 24.55%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Implement targeted strategies, including QC manpower rationalization, contract negotiation, and travel expense optimization, to achieve a 5% reduction in QA/QC revenue
+
+
+USER MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 24.35%
+Complete prompt length: 5491 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Implement targeted strategies, including QC manpower rationalization, contract negotiation, and travel expense optimization, to achieve a 5% reduction in QA/QC revenue
+
+...
+Measure of Success: 5% reduction in QA/QC revenue budget....
+KPI Metrics: 5% reduction in QA/QC revenue budget.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.2 Achieve significant YoY improvement in key performance metrics - OTD, FTR, PEI, PAT/Manhour
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2025-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Implement targeted strategies, including QC manpower rationalization, contract negotiation, and travel expense optimization, to achieve a 5% reduction in QA/QC revenue
+
+...
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 4.9%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 32.98%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 13.1%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 16.52%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 19.93%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 58.5%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 24.55%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 24.35%
+================================================================================
+
+Top Matches:
+1. QA-QC - 58.5%
+2. MPES-MES - 32.98%
+3. QA-QC - 24.55%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Implement targeted strategies, including QC manpower rationalization, contract negotiation, and travel expense optimization, to achieve a 5% reduction in QA/QC revenue
+
+
+USER MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 24.35%
+Complete prompt length: 5491 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Measure of Success: 5% reduction in QA/QC revenue budget....
+KPI Metrics: 5% reduction in QA/QC revenue budget.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.2 Achieve significant YoY improvement in key performance metrics - OTD, FTR, PEI, PAT/Manhour
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 11.01%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 28.57%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 26.35%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 27.37%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 26.56%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 100.0%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 33.76%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 36.23%
+================================================================================
+
+Top Matches:
+1. QA-QC - 100.0%
+2. QA-QC - 33.76%
+3. MPES-MES - 28.57%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+USER MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 36.23%
+Complete prompt length: 5449 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Measure of Success: 5% reduction in QA/QC revenue budget....
+KPI Metrics: 5% reduction in QA/QC revenue budget.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.2 Achieve significant YoY improvement in key performance metrics - OTD, FTR, PEI, PAT/Manhour
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 11.01%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 28.57%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 26.35%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 27.37%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 26.56%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 100.0%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 33.76%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 36.23%
+================================================================================
+
+Top Matches:
+1. QA-QC - 100.0%
+2. QA-QC - 33.76%
+3. MPES-MES - 28.57%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+USER MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 36.23%
+Complete prompt length: 5449 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Measure of Success: 5% reduction in QA/QC revenue budget....
+KPI Metrics: 5% reduction in QA/QC revenue budget.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.2 Achieve significant YoY improvement in key performance metrics - OTD, FTR, PEI, PAT/Manhour
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 11.01%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 28.57%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 26.35%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 27.37%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 26.56%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 100.0%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 33.76%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 36.23%
+================================================================================
+
+Top Matches:
+1. QA-QC - 100.0%
+2. QA-QC - 33.76%
+3. MPES-MES - 28.57%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+USER MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 36.23%
+Complete prompt length: 5449 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Measure of Success: 5% reduction in QA/QC revenue budget....
+KPI Metrics: 5% reduction in QA/QC revenue budget.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.2 Achieve significant YoY improvement in key performance metrics - OTD, FTR, PEI, PAT/Manhour
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 11.01%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 28.57%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 26.35%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 27.37%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 26.56%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 100.0%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 33.76%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 36.23%
+================================================================================
+
+Top Matches:
+1. QA-QC - 100.0%
+2. QA-QC - 33.76%
+3. MPES-MES - 28.57%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+USER MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 36.23%
+Complete prompt length: 5449 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: d)  Collect all overdue customer outstanding more than 90 days.
+    ---
+  - BU: MPES-MES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+    ---
+  - BU: QA-QC
+    TA: TA-3
+    GO: GO-2
+    Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Measure of Success: 5% reduction in QA/QC revenue budget....
+KPI Metrics: 5% reduction in QA/QC revenue budget.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-3 Business Growth
+Sub Category: 3.2 Achieve significant YoY improvement in key performance metrics - OTD, FTR, PEI, PAT/Manhour
+Group Objectives: Financial Parameters
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow...
+Similarity Score: 11.01%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%...
+Similarity Score: 28.57%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project....
+Similarity Score: 26.35%
+
+--- Comparing with BU Objective #4 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: d)  Collect all overdue customer outstanding more than 90 days....
+Similarity Score: 27.37%
+
+--- Comparing with BU Objective #5 ---
+BU: MPES-MES
+TA: TA-3
+GO: GO-2
+Objective Text: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations....
+Similarity Score: 26.56%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Similarity Score: 100.0%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-3
+GO: GO-2
+Objective Text: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation....
+Similarity Score: 33.76%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 36.23%
+================================================================================
+
+Top Matches:
+1. QA-QC - 100.0%
+2. QA-QC - 33.76%
+3. MPES-MES - 28.57%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+USER MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: a) Achieve the financial targets as below (in Rs Cr):
+i) MES: Order Inflow: 1138, Sales: 626, PBIT: 241, Progress Billing: 388, Collections: 527 and NWC: 225. Target at least 50 Cr export order inflow
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 5
+
+2. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: b) Strive to manage revenue expenses within the allotted budget (in Cr. Rs): 38 and reduce controllable expenses by 5%
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 6
+
+3. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: c) Reduce Slow and Non-Moving inventory by at least 25% and Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 7
+
+4. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: d)  Collect all overdue customer outstanding more than 90 days.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 8
+
+5. BU: MPES-MES
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: e) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations.
+   MEASURE OF SUCCESS: Financial reports for MES issued by F&A.
+   SOURCE: MPES-MES Objectives, Row 9
+
+6. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+   MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+   SOURCE: QA-QC Objectives, Row 5
+
+7. BU: QA-QC
+   TA: TA-3 (Raw: TA-3)
+   GO: GO-2 (Raw: GO-2)
+   OBJECTIVE TEXT: Ensure timely closer of QC /QA documents in the system to enable Project Teams to meet contractual obligation.
+   MEASURE OF SUCCESS: Closure of QA documents within 02 months of project completion.
+   SOURCE: QA-QC Objectives, Row 6
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 36.23%
+Complete prompt length: 5449 characters
+=== ALIGNMENT CALCULATION ===
+Goal ID: None
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+All BUs to check: ['QA-QC', 'MPES-MES']
+TA Codes: ['TA-1']
+GO Codes: []
+Found 7 aligned objectives:
+  - BU: MPES-MES
+    TA: TA-1
+    GO: GO-1
+    Objective Text: a) Ensure 100% safe operations (nil reportable incidents) across all functions and work centres, with focus on RSC and BBS.
+    ---
+  - BU: MPES-MES
+    TA: TA-1
+    GO: GO-1
+    Objective Text: b) Adhere to the information security advisories being promulgated by the business.
+    ---
+  - BU: MPES-MES
+    TA: TA-1
+    GO: GO-1
+    Objective Text: c) Ensure no 'High Risk' observation during any audit.
+    ---
+  - BU: QA-QC
+    TA: TA-1
+    GO: GO-1
+    Objective Text: Encourage teams for BBS rounds and RSCs.
+Target - one BBS round per month for in house workcentres and 50 suppliers in a year.
+    ---
+  - BU: QA-QC
+    TA: TA-1
+    GO: GO-1
+    Objective Text: Ensure compliance and adhere of team members to ISMS guidelines
+    ---
+  - BU: QA-QC
+    TA: TA-1
+    GO: GO-1
+    Objective Text: Participate and encourage participation in sustainability initiatives.
+    ---
+  - BU: QA-QC
+    TA: TA-1
+    GO: GO-1
+    Objective Text: Achieve nil high risk observation in CAS audit
+    ---
+=== END ALIGNMENT ===
+
+================================================================================
+=== GOAL SUBMISSION ===
+================================================================================
+Goal: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+Measure of Success: 5% reduction in QA/QC revenue budget....
+KPI Metrics: 5% reduction in QA/QC revenue budget.
+Outcome Defined: Yes
+Quantifiable Objective: 100
+Skills Available: Yes
+Obstacles Considered: Yes
+Thrust Area: TA-1 Core Values
+Sub Category: 1.1 Conduct business in line with L&T's philosophy of 'Mission Zero Harm' and 'Carbon and Water Neutrality'
+Group Objectives: Environment, Safety, Sustainability & Governance
+User BU: QA QC
+Crosslinked BUs: ['MPES- MES']
+Start Date: 2026-03-01
+End Date: 2026-03-08
+================================================================================
+
+
+================================================================================
+=== ALIGNMENT PERCENTAGE CALCULATION ===
+================================================================================
+
+User Goal Text: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc....
+
+Total BU Objectives to compare: 7
+
+--- Comparing with BU Objective #1 ---
+BU: MPES-MES
+TA: TA-1
+GO: GO-1
+Objective Text: a) Ensure 100% safe operations (nil reportable incidents) across all functions and work centres, with focus on RSC and BBS....
+Similarity Score: 28.8%
+
+--- Comparing with BU Objective #2 ---
+BU: MPES-MES
+TA: TA-1
+GO: GO-1
+Objective Text: b) Adhere to the information security advisories being promulgated by the business....
+Similarity Score: 28.57%
+
+--- Comparing with BU Objective #3 ---
+BU: MPES-MES
+TA: TA-1
+GO: GO-1
+Objective Text: c) Ensure no 'High Risk' observation during any audit....
+Similarity Score: 24.31%
+
+--- Comparing with BU Objective #4 ---
+BU: QA-QC
+TA: TA-1
+GO: GO-1
+Objective Text: Encourage teams for BBS rounds and RSCs.
+Target - one BBS round per month for in house workcentres and 50 suppliers in a year....
+Similarity Score: 17.39%
+
+--- Comparing with BU Objective #5 ---
+BU: QA-QC
+TA: TA-1
+GO: GO-1
+Objective Text: Ensure compliance and adhere of team members to ISMS guidelines...
+Similarity Score: 23.16%
+
+--- Comparing with BU Objective #6 ---
+BU: QA-QC
+TA: TA-1
+GO: GO-1
+Objective Text: Participate and encourage participation in sustainability initiatives....
+Similarity Score: 25.38%
+
+--- Comparing with BU Objective #7 ---
+BU: QA-QC
+TA: TA-1
+GO: GO-1
+Objective Text: Achieve nil high risk observation in CAS audit...
+Similarity Score: 28.9%
+
+================================================================================
+OVERALL ALIGNMENT PERCENTAGE: 25.22%
+================================================================================
+
+Top Matches:
+1. QA-QC - 28.9%
+2. MPES-MES - 28.8%
+3. MPES-MES - 28.57%
+================================================================================
+
+
+================================================================================
+=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===
+================================================================================
+USER GOAL TO COMPARE: Achieve reduction on planned controllable expenses (QC manpower rationalization, Contract negotiation and travel expenses, etc.
+USER MEASURE OF SUCCESS: 5% reduction in QA/QC revenue budget.
+
+FETCHED BU OBJECTIVES FROM DATABASE:
+
+1. BU: MPES-MES
+   TA: TA-1 (Raw: TA-1)
+   GO: GO-1 (Raw: GO-1)
+   OBJECTIVE TEXT: a) Ensure 100% safe operations (nil reportable incidents) across all functions and work centres, with focus on RSC and BBS.
+   MEASURE OF SUCCESS: a) Each team member to share evidences of his personal contribution to L&T's philosophy of 'Zero Harm' by reporting no. of RSCs and BBS rounds
+   SOURCE: MPES-MES Objectives, Row 29
+
+2. BU: MPES-MES
+   TA: TA-1 (Raw: TA-1)
+   GO: GO-1 (Raw: GO-1)
+   OBJECTIVE TEXT: b) Adhere to the information security advisories being promulgated by the business.
+   MEASURE OF SUCCESS: b) No information breach incidence from the team members
+   SOURCE: MPES-MES Objectives, Row 30
+
+3. BU: MPES-MES
+   TA: TA-1 (Raw: TA-1)
+   GO: GO-1 (Raw: GO-1)
+   OBJECTIVE TEXT: c) Ensure no 'High Risk' observation during any audit.
+   MEASURE OF SUCCESS: c) Audit Reports by corporate audit.
+   SOURCE: MPES-MES Objectives, Row 31
+
+4. BU: QA-QC
+   TA: TA-1 (Raw: TA-1)
+   GO: GO-1 (Raw: GO-1)
+   OBJECTIVE TEXT: Encourage teams for BBS rounds and RSCs.
+Target - one BBS round per month for in house workcentres and 50 suppliers in a year.
+   MEASURE OF SUCCESS: No. of BBS rounds and RSCs
+   SOURCE: QA-QC Objectives, Row 7
+
+5. BU: QA-QC
+   TA: TA-1 (Raw: TA-1)
+   GO: GO-1 (Raw: GO-1)
+   OBJECTIVE TEXT: Ensure compliance and adhere of team members to ISMS guidelines
+   MEASURE OF SUCCESS: Nil incidents
+   SOURCE: QA-QC Objectives, Row 8
+
+6. BU: QA-QC
+   TA: TA-1 (Raw: TA-1)
+   GO: GO-1 (Raw: GO-1)
+   OBJECTIVE TEXT: Participate and encourage participation in sustainability initiatives.
+   MEASURE OF SUCCESS: Participation
+   SOURCE: QA-QC Objectives, Row 9
+
+7. BU: QA-QC
+   TA: TA-1 (Raw: TA-1)
+   GO: GO-1 (Raw: GO-1)
+   OBJECTIVE TEXT: Achieve nil high risk observation in CAS audit
+   MEASURE OF SUCCESS: Nil high risk remarks.
+   SOURCE: QA-QC Objectives, Row 10
+
+================================================================================
+=== LLM WILL COMPARE THESE VALUES ===
+================================================================================
+Added 7 BU objectives from 2 BUs to AI prompt for comparison
+Added alignment score to prompt: 25.22%
+Complete prompt length: 5115 characters

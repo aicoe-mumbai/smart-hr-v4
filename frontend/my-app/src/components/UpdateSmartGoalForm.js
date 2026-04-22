@@ -21,9 +21,17 @@ const UpdateSmartGoalForm = () => {
     obstaclesConsidered: "",
     thrustArea: "",
     subCategory: "",
+    userBu: "",
+    crosslinkedBus: [],
     startDate: "",
     endDate: "",
   });
+
+  const [availableBUs, setAvailableBUs] = useState([
+    "MPES- SVP", "MPES- Shipbuilding", "LPES", "MPES- MES", "EPS", "AS", 
+    "SSC Talegaon", "Hazira Strategic Mfg Comp", "Kattupalli Yard", "PMSC Coimbatore",
+    "TLS", "HR", "VPC", "F&A", "IT", "QA QC", "Corporate Center", "TIC", "IBD", "SCM"
+  ]);
 
 
   const thrustAreas = {
@@ -203,6 +211,8 @@ const UpdateSmartGoalForm = () => {
           subCategory: data.sub_category,
           groupObjective: data.group_objectives,
           subgroupObjectiveCategory: data.additional_sub_category,
+          userBu: data.user_bu || "",
+          crosslinkedBus: data.crosslinked_bus || [],
           startDate: data.start_date,
           endDate: data.end_date,
         });
@@ -257,6 +267,8 @@ const UpdateSmartGoalForm = () => {
       sub_category: formData.subCategory,
       group_objectives: formData.groupObjective,
       additional_sub_category: formData.subgroupObjectiveCategory,
+      user_bu: formData.userBu,
+      crosslinked_bus: formData.crosslinkedBus,
       start_date: formData.startDate,
       end_date: formData.endDate,
       goalId: goalId || "",
@@ -499,6 +511,43 @@ const handleSectionChange = (section) => {
                 </select>
               </div>
             )}
+
+            <label>User's BU:</label>
+            <select 
+              name="userBu" 
+              value={formData.userBu} 
+              onChange={handleChange} 
+              required
+            >
+              <option value="">Select Your BU</option>
+              {availableBUs.map((bu, index) => (
+                <option key={index} value={bu}>{bu}</option>
+              ))}
+            </select>
+
+            <label>Cross-linked BUs (Select BUs with which your goals have cross linkage):</label>
+            <div className="checkbox-group">
+              {availableBUs.filter(bu => bu !== formData.userBu).map((bu, index) => (
+                <div key={index} className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id={`bu-${index}`}
+                    value={bu}
+                    checked={formData.crosslinkedBus.includes(bu)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setFormData(prev => ({
+                        ...prev,
+                        crosslinkedBus: e.target.checked
+                          ? [...prev.crosslinkedBus, value]
+                          : prev.crosslinkedBus.filter(b => b !== value)
+                      }));
+                    }}
+                  />
+                  <label htmlFor={`bu-${index}`}>{bu}</label>
+                </div>
+              ))}
+            </div>
 
             <label>Start Date of Activity:</label>
             <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />

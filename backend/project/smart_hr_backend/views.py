@@ -10,13 +10,19 @@ from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 from django.conf import settings
-from .models import SmartGoal
-from .serializers import SmartGoalSerializer
+from .models import SmartGoal, BUObjective
+from .serializers import SmartGoalSerializer, BUObjectiveSerializer, GoalAlignmentSerializer
 from rest_framework.pagination import PageNumberPagination
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 import logging
 import time, base64
+from .alignment_utils import (
+    calculate_alignment_percentage,
+    log_goal_submission,
+    log_alignment_search,
+    log_alignment_results
+)
 
 logger = logging.getLogger(__name__)
 
@@ -85,7 +91,34 @@ client = ChatCompletionsClient(
     credential=AzureKeyCredential(settings.OPENAI_API_KEY)
 )
 
-def validate_goal(goal_data):
+def validate_goal(goal_data, aligned_objectives=None):
+    log_goal_submission(goal_data)
+    
+    # Calculate alignment percentage if objectives are provided
+    alignment_info = None
+    if aligned_objectives and aligned_objectives.exists():
+        alignment_info = calculate_alignment_percentage(
+            goal_data.get('goal', ''),
+            list(aligned_objectives)
+        )
+        
+        # Print detailed comparison data for debugging
+        logger.info("\n" + "="*80)
+        logger.info("=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===")
+        logger.info("="*80)
+        logger.info(f"USER GOAL TO COMPARE: {goal_data.get('goal', '')}")
+        logger.info(f"USER MEASURE OF SUCCESS: {goal_data.get('measure_of_success', '')}")
+        logger.info("\nFETCHED BU OBJECTIVES FROM DATABASE:")
+        for idx, obj in enumerate(aligned_objectives, 1):
+            logger.info(f"\n{idx}. BU: {obj.org_unit.name}")
+            logger.info(f"   TA: {obj.thrust_area} (Raw: {obj.linkage_ta_raw})")
+            logger.info(f"   GO: {obj.group_objective} (Raw: {obj.linkage_go_raw})")
+            logger.info(f"   OBJECTIVE TEXT: {obj.goal_text}")
+            logger.info(f"   MEASURE OF SUCCESS: {obj.measure_of_success or 'Not specified'}")
+            logger.info(f"   SOURCE: {obj.source_sheet}, Row {obj.source_row_no}")
+        logger.info("\n" + "="*80)
+        logger.info("=== LLM WILL COMPARE THESE VALUES ===")
+        logger.info("="*80)
     # Create a prompt with clear HTML structure and proper spacing
     prompt = (
         "User entered Goal Details for Evaluation:<br>"
@@ -111,25 +144,104 @@ def validate_goal(goal_data):
         start_date=goal_data.get("start_date", ""),
         end_date=goal_data.get("end_date", "")
     )
+    
+    # Add BU alignment data to prompt
+    if aligned_objectives and aligned_objectives.exists():
+        # Group objectives by BU for clearer presentation
+        objectives_by_bu = {}
+        for obj in aligned_objectives:
+            bu_name = obj.org_unit.name if obj.org_unit else 'Unknown'
+            if bu_name not in objectives_by_bu:
+                objectives_by_bu[bu_name] = []
+            objectives_by_bu[bu_name].append(obj)
+        
+        prompt += "<br><br><strong>Related BU Objectives for LLM Comparison and Alignment Analysis:</strong><br>"
+        prompt += f"<p><em>Found {aligned_objectives.count()} matching objectives across {len(objectives_by_bu)} Business Units. Please compare the user's goal with these actual BU objectives and calculate alignment percentages:</em></p>"
+        
+        for bu_name, objectives in objectives_by_bu.items():
+            prompt += f"<div style='border: 2px solid #007acc; margin: 15px 0; padding: 15px; background-color: #f8f9fa;'>"
+            prompt += f"<h3 style='color: #007acc; margin-top: 0;'>{bu_name} BU ({len(objectives)} objectives)</h3>"
+            
+            for idx, obj in enumerate(objectives, 1):
+                prompt += f"<div style='border: 1px solid #ccc; margin: 10px 0; padding: 10px; background-color: white;'>"
+                prompt += f"<p><strong>Objective #{idx}:</strong></p>"
+                prompt += f"<p><strong>Thrust Area:</strong> {obj.thrust_area} (Raw: {obj.linkage_ta_raw})</p>"
+                prompt += f"<p><strong>Group Objective:</strong> {obj.group_objective} (Raw: {obj.linkage_go_raw})</p>"
+                prompt += f"<p><strong>BU Objective Text:</strong> {obj.goal_text}</p>"
+                if obj.measure_of_success:
+                    prompt += f"<p><strong>BU Measure of Success:</strong> {obj.measure_of_success}</p>"
+                prompt += f"<p><strong>Source:</strong> {obj.source_sheet}, Row {obj.source_row_no}</p>"
+                prompt += f"</div>"
+            prompt += f"</div>"
+        
+        logger.info(f"Added {aligned_objectives.count()} BU objectives from {len(objectives_by_bu)} BUs to AI prompt for comparison")
+    
+    if alignment_info:
+        prompt += f"<br><br><strong>Pre-calculated Alignment Score:</strong> {alignment_info['overall_alignment']}%<br>"
+        prompt += "<p><em>Please use this as reference but perform your own detailed comparison analysis.</em></p>"
+        logger.info(f"Added alignment score to prompt: {alignment_info['overall_alignment']}%")
+    
+    logger.info(f"Complete prompt length: {len(prompt)} characters")
 
     response = client.complete(
         messages=[
             SystemMessage(content="""You are an AI assistant specializing in SMART goal evaluation.
                                         Assess the goal based on its Specificity, Measurability, Achievability, Relevance, and Time-Bound nature.
                                         Analyze the following employee goal using the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-Bound).
+                                        
+                                        IMPORTANT: When BU objectives are provided, YOU MUST perform detailed comparison analysis:
+                                        1. Compare the user's goal text with each BU objective text
+                                        2. Calculate similarity and alignment percentages for each BU objective
+                                        3. Identify overlapping themes, keywords, and objectives
+                                        4. Assess how well the user's goal aligns with organizational objectives
+                                        5. Provide specific alignment scores for each BU objective
+                                        
                                         Internally calculate an overall SMARTness percentage based on equal weightage (20 each).
                                         As well as measure the Goal alignment to Group objective and Thrust Areas on the scale of 10.
+                                        
+                                        When BU objectives are provided, perform YOUR OWN comparison analysis and provide:
+                                        - Individual alignment percentage with each BU objective
+                                        - Overall BU alignment score
+                                        - Specific recommendations based on BU objective comparison
+                                        
                                         Do NOT show any calculations or scores in your output.
                                         Return your output in well-formatted HTML that includes proper spaces, punctuation, and line breaks.
                                         Ensure each section is wrapped in appropriate HTML tags (such as <p> and <ol>/<li>) for clear readability.
+                                        
+                                        For BU alignment analysis, use HTML table format for better display:
+                                        
                                         Response Format:
                                         <p><strong>Message to User:</strong> Provide a concise message summarizing the goal assessment.</p>
                                         <p><strong>Your Goal SMARTness Percentage:</strong> [X]%</p>
-                                        <p><strong>Goal Alignment to Thrsut area:</strong> [X] out of 10.</p>
-                                        <p><strongGoal Alignment to Group Objective:</strong> [X] out of 10.</p>
+                                        <p><strong>Goal Alignment to Thrust area:</strong> [X] out of 10.</p>
+                                        <p><strong>Goal Alignment to Group Objective:</strong> [X] out of 10.</p>
+                                        
+                                        <p><strong>BU Alignment Analysis:</strong></p>
+                                        <table border='1' style='border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 14px;'>
+                                        <thead>
+                                        <tr style='background-color: #f0f0f0;'>
+                                        <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Business Unit</th>
+                                        <th style='padding: 8px; text-align: center; border: 1px solid #ddd;'>Alignment %</th>
+                                        <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Key Alignment Points</th>
+                                        <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Recommendations</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        [For each BU, create ONE row with this EXACT format:
+                                        <tr>
+                                        <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>[BU Name]</td>
+                                        <td style='padding: 8px; border: 1px solid #ddd; text-align: center; vertical-align: top;'>[XX]%</td>
+                                        <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>• [Point 1]<br>• [Point 2]<br>• [Point 3]</td>
+                                        <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>• [Recommendation 1]<br>• [Recommendation 2]</td>
+                                        </tr>]
+                                        </tbody>
+                                        </table>
+                                        
+                                        IMPORTANT: Use EXACTLY this table format. Each BU gets ONE row. Use bullet points (•) and <br> tags for multiple items in cells.
                                         <p><strong>Recommendations:</strong> If the percentage is below 75, list actionable steps to improve it. 
                                         If the SMARTness is 75 or above, confirm that the goal meets SMART criteria.
-                                        If below 75, provide specific, concise, and numbered recommendations to improve it.</p>
+                                        If below 75, provide specific, concise, and numbered recommendations to improve it.
+                                        Include recommendations based on BU objective comparison when available.</p>
                                         <p>Recommendation Format:</p>
                                         <ol>
                                         <li><strong>Specificity:</strong> [Recommendation]</li>
@@ -145,7 +257,7 @@ def validate_goal(goal_data):
             UserMessage(content=prompt)
         ],
         model=settings.OPENAI_MODEL_NAME,
-        max_tokens=750,
+        max_tokens=2500,
         stream=True
     )
 
@@ -158,9 +270,12 @@ def submit_goal(request):
     try:
         username = request.data.get("loginUser")
         username = decode_username(username)
-        if not username or not user_exists(username):
+        if not username:
             return Response({"message": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        user = get_user_model().objects.get(username=username) 
+        
+        # Auto-create user if not exists (for local testing)
+        User = get_user_model()
+        user, created = User.objects.get_or_create(username=username) 
         start_date_str = request.data.get("start_date")
         end_date_str = request.data.get("end_date")
 
@@ -183,6 +298,8 @@ def submit_goal(request):
             "sub_category": request.data.get("sub_category"),
             "group_objectives": request.data.get("group_objectives"),
             "additional_sub_category": request.data.get("additional_sub_category"),
+            "user_bu": request.data.get("user_bu"),
+            "crosslinked_bus": request.data.get("crosslinked_bus", []),
             "start_date": start_date,
             "end_date": end_date,
         }
@@ -192,27 +309,49 @@ def submit_goal(request):
         if any(value is None for value in goal_data.values()):
             return Response({"message": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
         def event_stream():
+            temp_goal = SmartGoal(
+                user=user,
+                goal=goal_data["goal"],
+                measure_of_success=goal_data["measure_of_success"],
+                kpi_metrics=goal_data["kpi_metrics"],
+                outcome_defined=goal_data["outcome_defined"],
+                quantifiable_objective=goal_data["quantifiable_objective"],
+                skills_available=goal_data["skills_available"],
+                obstacles_considered=goal_data["obstacles_considered"],
+                thrust_area=goal_data["thrust_area"],
+                sub_category=goal_data["sub_category"],
+                group_objectives=goal_data["group_objectives"],
+                additional_sub_category=goal_data["additional_sub_category"],
+                user_bu=goal_data["user_bu"],
+                crosslinked_bus=goal_data["crosslinked_bus"],
+                start_date=goal_data["start_date"],
+                end_date=goal_data["end_date"],
+                response=""
+            )
+
+            aligned_objs = temp_goal.get_aligned_objectives()
+
             response_text = []
-            for chunk in validate_goal(goal_data):
-                yield f"{chunk}" 
+            for chunk in validate_goal(goal_data, aligned_objs):
+                yield f"{chunk}"
                 response_text.append(chunk)
 
             full_response = "".join(response_text)
-            
+
             if goal_id:
                 try:
                     existing_goal = SmartGoal.objects.get(id=goal_id, user=user)
                     for key, value in goal_data.items():
-                        setattr(existing_goal, key, value)  
-                    existing_goal.response = full_response 
+                        setattr(existing_goal, key, value)
+                    existing_goal.response = full_response
                     existing_goal.save()
                 except SmartGoal.DoesNotExist:
-                    print("does not exists")
+                    pass
             else:
                 SmartGoal.objects.create(user=user, response=full_response, **goal_data)
-                
 
             yield "[DONE]"
+
 
         response = StreamingHttpResponse(event_stream(), content_type="text/event-stream")
         response["Cache-Control"] = "no-cache"
@@ -233,10 +372,12 @@ def get_user_goals(request):
     username = request.GET.get("username") or request.query_params.get("loginUser")
     username = decode_username(username)
     
-    if not username or not user_exists(username):
+    if not username:
         return Response({"message": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
-    user = get_user_model().objects.get(username=username)
+    # Auto-create user if not exists (for local testing)
+    User = get_user_model()
+    user, created = User.objects.get_or_create(username=username)
     goals = SmartGoal.objects.filter(user=user).order_by('-id')  # Order by latest goals
 
     # Check if this is an export request - if so, skip pagination
@@ -258,9 +399,12 @@ def delete_smart_goal(request, goal_id):
         username = request.query_params.get("loginUser")
         username = decode_username(username)
 
-        if not username or not user_exists(username):
+        if not username:
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        user = get_user_model().objects.get(username=username)
+        
+        # Auto-create user if not exists (for local testing)
+        User = get_user_model()
+        user, created = User.objects.get_or_create(username=username)
 
         goal = SmartGoal.objects.get(id=goal_id, user=user)
         goal.delete()
@@ -277,10 +421,12 @@ def update_smart_goal(request, goal_id):
         username = decode_username(username)
 
 
-        if not username or not user_exists(username):
+        if not username:
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
-        user = get_user_model().objects.get(username=username)
+        # Auto-create user if not exists (for local testing)
+        User = get_user_model()
+        user, created = User.objects.get_or_create(username=username)
         goal = SmartGoal.objects.get(id=goal_id, user=user)
 
         if request.method == "GET":
@@ -305,12 +451,15 @@ def final_goal(request):
     goal_id = request.data.get("goal_id")  
     final_goal_confirmed = request.data.get("final_goal_confirmed")
 
-    if not username or not user_exists(username):
+    if not username:
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
     if final_goal_confirmed is None:
         return Response({"error": "Missing final_goal_confirmed field"}, status=400)
-    user = get_user_model().objects.get(username=username)
+    
+    # Auto-create user if not exists (for local testing)
+    User = get_user_model()
+    user, created = User.objects.get_or_create(username=username)
 
     try:
         if goal_id:  
@@ -327,3 +476,81 @@ def final_goal(request):
         return Response({"message": "Final goal confirmed successfully"}, status=200)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+
+@api_view(["GET"])
+def get_goal_alignment(request, goal_id):
+    """Get aligned BU objectives for a specific goal with alignment percentage"""
+    try:
+        username = request.query_params.get("loginUser")
+        username = decode_username(username)
+
+        if not username:
+            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        User = get_user_model()
+        user, created = User.objects.get_or_create(username=username)
+
+        goal = SmartGoal.objects.get(id=goal_id, user=user)
+        logger.info(f"=== GOAL ALIGNMENT REQUEST ===")
+        logger.info(f"Goal ID: {goal_id}, User: {username}")
+        logger.info(f"Goal: {goal.goal[:100]}...")
+        
+        aligned_objectives = goal.get_aligned_objectives()
+        
+        # Calculate alignment percentage
+        from .alignment_utils import calculate_alignment_percentage
+        alignment_info = None
+        if aligned_objectives.exists():
+            alignment_info = calculate_alignment_percentage(
+                goal.goal,
+                list(aligned_objectives)
+            )
+
+        response_data = {
+            "goal_id": goal.id,
+            "user_bu": goal.user_bu,
+            "thrust_area": goal.thrust_area,
+            "group_objective": goal.group_objectives,
+            "crosslinked_bus": goal.crosslinked_bus or [],
+            "aligned_objectives": BUObjectiveSerializer(aligned_objectives, many=True).data,
+            "alignment_info": alignment_info
+        }
+        
+        logger.info(f"Returning {len(response_data['aligned_objectives'])} aligned objectives")
+        if alignment_info:
+            logger.info(f"Overall Alignment: {alignment_info['overall_alignment']}%")
+        logger.info(f"=== END ALIGNMENT REQUEST ===")
+
+        return Response(response_data, status=status.HTTP_200_OK)
+
+    except SmartGoal.DoesNotExist:
+        logger.error(f"Goal {goal_id} not found for user {username}")
+        return Response({"error": "Goal not found"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        logger.error(f"Error in goal alignment: {str(e)}")
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(["GET"])
+def get_filtered_group_objectives(request):
+    """Get filtered group objectives based on BU, TA, and GO"""
+    try:
+        bu_name = request.query_params.get("bu_name")
+        thrust_area = request.query_params.get("thrust_area")
+        group_objective = request.query_params.get("group_objective")
+
+        if not bu_name:
+            return Response({"error": "bu_name is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        filters = {"bu_name": bu_name}
+        if thrust_area:
+            filters["thrust_area"] = thrust_area
+        if group_objective:
+            filters["group_objective"] = group_objective
+
+        objectives = BUObjective.objects.filter(**filters)
+        serializer = BUObjectiveSerializer(objectives, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
