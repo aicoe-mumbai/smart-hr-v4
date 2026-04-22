@@ -4,6 +4,8 @@ import { loginRequest } from "./authConfig";
 import { useNavigate } from "react-router-dom";
 import "./Login.css"; 
 
+const BYPASS_AUTH = true; // Set to false to enable Azure AD
+
 const Login = ({ onLogin }) => {
   const [loading, setLoading] = useState(false); 
   const { instance } = useMsal();
@@ -12,6 +14,16 @@ const Login = ({ onLogin }) => {
   const handleLogin = async () => {
     setLoading(true); 
     try {
+      if (BYPASS_AUTH) {
+        // Bypass authentication for local testing
+        const testUsername = "testuser@local.dev";
+        const encodedUsername = btoa(testUsername);
+        sessionStorage.setItem("username", encodedUsername);
+        onLogin();
+        navigate("/smarthr-form", { replace: true });
+        return;
+      }
+
       if (instance.getActiveAccount()) {
         console.warn("Login already in progress");
         return;
@@ -55,9 +67,9 @@ const Login = ({ onLogin }) => {
     <div className={`login-page ${loading ? "loading" : ""}`}>
       <div className={`login-box ${loading ? "loading-box" : ""}`}>
         <h2>Welcome to Goal Assist</h2>
-        <p>Sign in using Azure Microsoft Account</p>
+        <p>{BYPASS_AUTH ? "Click to continue (Dev Mode)" : "Sign in using Azure Microsoft Account"}</p>
         <button onClick={handleLogin} className="login-btn">
-          Sign in with Azure AD
+          {BYPASS_AUTH ? "Continue" : "Sign in with Azure AD"}
         </button>
       </div>
       

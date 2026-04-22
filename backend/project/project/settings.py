@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hkg1)yy@4l5(_3kkp1$jr5)jipgkxyc$g_j0#003upl#qis_ip'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "*"
@@ -98,31 +98,31 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'goalanalyser',
-        'USER': 'goalanalyser',   
-        'PASSWORD': 'Defence@goal2025', 
-        'HOST': 'goalanalyser.database.windows.net',          
-        # 'PORT': '1433',     
-        'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
-            # 'timeout': 60,
-            # 'encrypt': 'yes',
-            # 'trustServerCertificate': 'no',
-        },      
-        "CONN_MAX_AGE": 600,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mssql',
+#         'NAME': 'goalanalyser',
+#         'USER': 'goalanalyser',   
+#         'PASSWORD': 'Defence@goal2025', 
+#         'HOST': 'goalanalyser.database.windows.net',          
+#         # 'PORT': '1433',     
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 18 for SQL Server',
+#             # 'timeout': 60,
+#             # 'encrypt': 'yes',
+#             # 'trustServerCertificate': 'no',
+#         },      
+#         "CONN_MAX_AGE": 600,
+#     }
+# }
 
 
 # Password validation

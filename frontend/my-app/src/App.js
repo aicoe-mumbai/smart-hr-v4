@@ -10,11 +10,10 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check both token and MSAL account
+    // Check both token and MSAL account (bypass MSAL check for local dev)
     const checkAuth = async () => {
       const token = sessionStorage.getItem("username");
-      const accounts = msalInstance.getAllAccounts();
-      setIsAuthenticated(!!(token && accounts.length > 0));
+      setIsAuthenticated(!!token);
     };
     
     checkAuth();
