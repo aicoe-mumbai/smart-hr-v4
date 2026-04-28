@@ -19,6 +19,7 @@ import logging
 import time, base64
 from .alignment_utils import (
     calculate_alignment_percentage,
+    calculate_alignment_with_llm,
     log_goal_submission,
     log_alignment_search,
     log_alignment_results
@@ -97,10 +98,31 @@ def validate_goal(goal_data, aligned_objectives=None):
     # Calculate alignment percentage if objectives are provided
     alignment_info = None
     if aligned_objectives and aligned_objectives.exists():
-        alignment_info = calculate_alignment_percentage(
-            goal_data.get('goal', ''),
-            list(aligned_objectives)
+        # Use LLM-based alignment calculation
+        from django.conf import settings
+        from azure.ai.inference import ChatCompletionsClient
+        from azure.core.credentials import AzureKeyCredential
+        
+        azure_client = ChatCompletionsClient(
+            endpoint=settings.OPENAI_ENDPOINT,
+            credential=AzureKeyCredential(settings.OPENAI_API_KEY)
         )
+        
+        try:
+            alignment_info = calculate_alignment_with_llm(
+                goal_data,
+                list(aligned_objectives),
+                azure_client,
+                settings.OPENAI_MODEL_NAME
+            )
+            logger.info(f"✅ LLM-based alignment calculation successful")
+        except Exception as e:
+            logger.error(f"❌ LLM alignment failed: {str(e)}")
+            logger.info("Falling back to SequenceMatcher...")
+            alignment_info = calculate_alignment_percentage(
+                goal_data.get('goal', ''),
+                list(aligned_objectives)
+            )
         
         # Print detailed comparison data for debugging
         logger.info("\n" + "="*80)
@@ -119,7 +141,40 @@ def validate_goal(goal_data, aligned_objectives=None):
         logger.info("\n" + "="*80)
         logger.info("=== LLM WILL COMPARE THESE VALUES ===")
         logger.info("="*80)
-    # Create a prompt with clear HTML structure and proper spacing
+        
+        # NEW: Display detailed matched objectives with similarity scores
+        if alignment_info and 'matched_by_bu' in alignment_info:
+            logger.info("\n" + "#"*80)
+            logger.info("### DETAILED CROSSLINKED BU COMPARISON RESULTS ###")
+            logger.info("#"*80)
+            logger.info(f"\nUSER BU: {goal_data.get('user_bu', 'Not specified')}")
+            logger.info(f"CROSSLINKED BUs: {', '.join(goal_data.get('crosslinked_bus', []))}")
+            logger.info(f"\nOVERALL ALIGNMENT: {alignment_info['overall_alignment']}%")
+            logger.info(f"TOTAL OBJECTIVES COMPARED: {alignment_info['total_objectives']}")
+            
+            for bu_name, matches in alignment_info['matched_by_bu'].items():
+                bu_percentage = alignment_info['bu_alignment_percentages'].get(bu_name, 0)
+                logger.info("\n" + "-"*80)
+                logger.info(f"BUSINESS UNIT: {bu_name}")
+                logger.info(f"BU ALIGNMENT PERCENTAGE: {bu_percentage}%")
+                logger.info(f"NUMBER OF MATCHED OBJECTIVES: {len(matches)}")
+                logger.info("-"*80)
+                
+                for idx, match in enumerate(matches, 1):
+                    logger.info(f"\n  Match #{idx}:")
+                    logger.info(f"  Similarity Score: {match['similarity_percentage']}%")
+                    logger.info(f"  Thrust Area: {match['thrust_area']}")
+                    logger.info(f"  Group Objective: {match['group_objective']}")
+                    logger.info(f"  Parameter: {match['parameter_name']}")
+                    logger.info(f"  Objective Text: {match['objective_text']}")
+                    logger.info(f"  Measure of Success: {match['measure_of_success']}")
+                    logger.info(f"  Source: {match['source_sheet']}, Row {match['source_row']}")
+                    logger.info(f"  Relevance: {'HIGH' if match['similarity_percentage'] > 70 else 'MEDIUM' if match['similarity_percentage'] > 40 else 'LOW'}")
+            
+            logger.info("\n" + "#"*80)
+            logger.info("### END OF CROSSLINKED BU COMPARISON ###")
+            logger.info("#"*80 + "\n")
+    # Create a prompt with clear HTML structure (include user's MoS for SMART evaluation)
     prompt = (
         "User entered Goal Details for Evaluation:<br>"
         "<p><strong>Goal:</strong> {goal}</p>"
@@ -156,23 +211,11 @@ def validate_goal(goal_data, aligned_objectives=None):
             objectives_by_bu[bu_name].append(obj)
         
         prompt += "<br><br><strong>Related BU Objectives for LLM Comparison and Alignment Analysis:</strong><br>"
-        prompt += f"<p><em>Found {aligned_objectives.count()} matching objectives across {len(objectives_by_bu)} Business Units. Please compare the user's goal with these actual BU objectives and calculate alignment percentages:</em></p>"
+        prompt += f"<p><em>Found {aligned_objectives.count()} matching objectives across {len(objectives_by_bu)} Business Units.</em></p>"
         
+        # Only include objective summaries, not full text
         for bu_name, objectives in objectives_by_bu.items():
-            prompt += f"<div style='border: 2px solid #007acc; margin: 15px 0; padding: 15px; background-color: #f8f9fa;'>"
-            prompt += f"<h3 style='color: #007acc; margin-top: 0;'>{bu_name} BU ({len(objectives)} objectives)</h3>"
-            
-            for idx, obj in enumerate(objectives, 1):
-                prompt += f"<div style='border: 1px solid #ccc; margin: 10px 0; padding: 10px; background-color: white;'>"
-                prompt += f"<p><strong>Objective #{idx}:</strong></p>"
-                prompt += f"<p><strong>Thrust Area:</strong> {obj.thrust_area} (Raw: {obj.linkage_ta_raw})</p>"
-                prompt += f"<p><strong>Group Objective:</strong> {obj.group_objective} (Raw: {obj.linkage_go_raw})</p>"
-                prompt += f"<p><strong>BU Objective Text:</strong> {obj.goal_text}</p>"
-                if obj.measure_of_success:
-                    prompt += f"<p><strong>BU Measure of Success:</strong> {obj.measure_of_success}</p>"
-                prompt += f"<p><strong>Source:</strong> {obj.source_sheet}, Row {obj.source_row_no}</p>"
-                prompt += f"</div>"
-            prompt += f"</div>"
+            prompt += f"<p><strong>{bu_name} BU:</strong> {len(objectives)} aligned objectives</p>"
         
         logger.info(f"Added {aligned_objectives.count()} BU objectives from {len(objectives_by_bu)} BUs to AI prompt for comparison")
     
@@ -309,48 +352,77 @@ def submit_goal(request):
         if any(value is None for value in goal_data.values()):
             return Response({"message": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
         def event_stream():
-            temp_goal = SmartGoal(
-                user=user,
-                goal=goal_data["goal"],
-                measure_of_success=goal_data["measure_of_success"],
-                kpi_metrics=goal_data["kpi_metrics"],
-                outcome_defined=goal_data["outcome_defined"],
-                quantifiable_objective=goal_data["quantifiable_objective"],
-                skills_available=goal_data["skills_available"],
-                obstacles_considered=goal_data["obstacles_considered"],
-                thrust_area=goal_data["thrust_area"],
-                sub_category=goal_data["sub_category"],
-                group_objectives=goal_data["group_objectives"],
-                additional_sub_category=goal_data["additional_sub_category"],
-                user_bu=goal_data["user_bu"],
-                crosslinked_bus=goal_data["crosslinked_bus"],
-                start_date=goal_data["start_date"],
-                end_date=goal_data["end_date"],
-                response=""
-            )
+            try:
+                temp_goal = SmartGoal(
+                    user=user,
+                    goal=goal_data["goal"],
+                    measure_of_success=goal_data["measure_of_success"],
+                    kpi_metrics=goal_data["kpi_metrics"],
+                    outcome_defined=goal_data["outcome_defined"],
+                    quantifiable_objective=goal_data["quantifiable_objective"],
+                    skills_available=goal_data["skills_available"],
+                    obstacles_considered=goal_data["obstacles_considered"],
+                    thrust_area=goal_data["thrust_area"],
+                    sub_category=goal_data["sub_category"],
+                    group_objectives=goal_data["group_objectives"],
+                    additional_sub_category=goal_data["additional_sub_category"],
+                    user_bu=goal_data["user_bu"],
+                    crosslinked_bus=goal_data["crosslinked_bus"],
+                    start_date=goal_data["start_date"],
+                    end_date=goal_data["end_date"],
+                    response=""
+                )
 
-            aligned_objs = temp_goal.get_aligned_objectives()
+                aligned_objs = temp_goal.get_aligned_objectives()
+                logger.info(f"Found {aligned_objs.count()} aligned objectives for analysis")
 
-            response_text = []
-            for chunk in validate_goal(goal_data, aligned_objs):
-                yield f"{chunk}"
-                response_text.append(chunk)
-
-            full_response = "".join(response_text)
-
-            if goal_id:
+                response_text = []
                 try:
-                    existing_goal = SmartGoal.objects.get(id=goal_id, user=user)
-                    for key, value in goal_data.items():
-                        setattr(existing_goal, key, value)
-                    existing_goal.response = full_response
-                    existing_goal.save()
-                except SmartGoal.DoesNotExist:
-                    pass
-            else:
-                SmartGoal.objects.create(user=user, response=full_response, **goal_data)
+                    for chunk in validate_goal(goal_data, aligned_objs):
+                        yield f"{chunk}"
+                        response_text.append(chunk)
+                except Exception as ai_error:
+                    logger.error(f"AI API Error: {str(ai_error)}")
+                    error_msg = (
+                        "<p style='color: red;'><strong>⚠️ AI Service Error</strong></p>"
+                        "<p>Unable to connect to AI service. This could be due to:</p>"
+                        "<ul>"
+                        "<li>Network connectivity issues</li>"
+                        "<li>Azure service timeout</li>"
+                        "<li>API rate limits</li>"
+                        "</ul>"
+                        f"<p><strong>Found {aligned_objs.count()} matching BU objectives:</strong></p>"
+                    )
+                    yield error_msg
+                    
+                    # Show aligned objectives even if AI fails
+                    if aligned_objs.exists():
+                        for idx, obj in enumerate(aligned_objs[:5], 1):
+                            yield f"<p>{idx}. <strong>{obj.org_unit.name}</strong>: {obj.goal_text[:100]}...</p>"
+                    
+                    yield "<p>Please try again or contact support if the issue persists.</p>"
+                    response_text.append(error_msg)
 
-            yield "[DONE]"
+                full_response = "".join(response_text)
+
+                if goal_id:
+                    try:
+                        existing_goal = SmartGoal.objects.get(id=goal_id, user=user)
+                        for key, value in goal_data.items():
+                            setattr(existing_goal, key, value)
+                        existing_goal.response = full_response
+                        existing_goal.save()
+                    except SmartGoal.DoesNotExist:
+                        pass
+                else:
+                    SmartGoal.objects.create(user=user, response=full_response, **goal_data)
+
+                yield "[DONE]"
+            
+            except Exception as stream_error:
+                logger.error(f"Stream Error: {str(stream_error)}")
+                yield f"<p style='color: red;'>Error: {str(stream_error)}</p>"
+                yield "[DONE]"
 
 
         response = StreamingHttpResponse(event_stream(), content_type="text/event-stream")

@@ -207,18 +207,34 @@ AUTH_ADFS = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': 'debug.log',
+            'formatter': 'verbose',
         },
     },
     'loggers': {
         'smart_hr_backend': {
-            'handlers': ['file'],
+            'handlers': ['console', 'file'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
     },
 }
