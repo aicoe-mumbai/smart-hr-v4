@@ -7,6 +7,22 @@ import re
 logger = logging.getLogger(__name__)
 
 
+class GapAnalysisRecord(models.Model):
+    """Track gap analysis completion for users"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='gap_analyses')
+    analysis_date = models.DateTimeField(auto_now_add=True)
+    goals_analyzed = models.JSONField(default=list)  # List of goal IDs
+    ta_coverage = models.FloatField()
+    go_coverage = models.FloatField()
+    analysis_result = models.JSONField()  # Store full analysis result
+    
+    class Meta:
+        ordering = ['-analysis_date']
+    
+    def __str__(self):
+        return f"{self.user.username} - Gap Analysis on {self.analysis_date.strftime('%Y-%m-%d')}"
+
+
 class ThrustArea(models.Model):
     """Thrust Areas with main headings and sub-headings"""
     code = models.CharField(max_length=50, unique=True)  # e.g., TA-1, TA-1.1

@@ -11,4 +11,7 @@ urlpatterns = [
     path('final-goal/', final_goal),
     path('goals/<int:goal_id>/alignment/', get_goal_alignment, name='goal-alignment'),
     path('group-objectives/filter/', get_filtered_group_objectives, name='filtered-group-objectives'),
+    path('goals/gap-analysis/', analyze_goals_gap, name='gap-analysis'),
+    path('gap-analysis-status/', gap_analysis_status, name='gap-analysis-status'),
+    path('gap-analysis-history/', gap_analysis_history, name='gap-analysis-history'),
 ]
