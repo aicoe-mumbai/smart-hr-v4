@@ -239,11 +239,17 @@ def get_user_goals(request):
     user = get_user_model().objects.get(username=username)
     goals = SmartGoal.objects.filter(user=user).order_by('-id')  # Order by latest goals
 
-    paginator = CustomPagination()
-    paginated_goals = paginator.paginate_queryset(goals, request)
-
-    serializer = SmartGoalSerializer(paginated_goals, many=True)
-    return paginator.get_paginated_response(serializer.data)
+    # Check if this is an export request - if so, skip pagination
+    export_to_excel = request.query_params.get('export') == 'true'
+    
+    if export_to_excel:
+        serializer = SmartGoalSerializer(goals, many=True)
+        return Response({"results": serializer.data})
+    else:
+        paginator = CustomPagination()
+        paginated_goals = paginator.paginate_queryset(goals, request)
+        serializer = SmartGoalSerializer(paginated_goals, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(["DELETE"])

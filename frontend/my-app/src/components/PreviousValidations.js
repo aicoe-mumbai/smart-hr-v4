@@ -70,7 +70,7 @@ const PreviousValidations = () => {
 
   const exportToExcel = async () => {
     try {
-      const response = await fetch(`${apiUrl}/api/user-goals/?loginUser=${encodeURIComponent(username)}`, {
+      const response = await fetch(`${apiUrl}/api/user-goals/?loginUser=${encodeURIComponent(username)}&export=true`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`, // Ensure the token is valid

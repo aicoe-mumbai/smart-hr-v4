@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hkg1)yy@4l5(_3kkp1$jr5)jipgkxyc$g_j0#003upl#qis_ip'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "*"
@@ -108,19 +108,13 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'goalanalyser.mysql.database.azure.com',
         'NAME': 'goalanalyser',
         'USER': 'goalanalyser',   
-        'PASSWORD': 'Defence@goal2025', 
-        'HOST': 'goalanalyser.database.windows.net',          
-        # 'PORT': '1433',     
-        'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
-            # 'timeout': 60,
-            # 'encrypt': 'yes',
-            # 'trustServerCertificate': 'no',
-        },      
+        'PASSWORD': 'Defence@apr2026',      
         "CONN_MAX_AGE": 600,
+        'PORT': '3306',
     }
 }
 
