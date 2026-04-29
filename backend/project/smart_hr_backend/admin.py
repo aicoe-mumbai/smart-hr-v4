@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import SmartGoal, BUObjective
 
-# Register your models here.
+admin.site.register(SmartGoal)
+admin.site.register(BUObjective)

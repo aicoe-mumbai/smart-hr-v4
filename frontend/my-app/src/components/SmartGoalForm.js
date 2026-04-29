@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./SmartGoalForm.css";
 import loadingGif from "../assets/__Iphone-spinner-1.gif";
 import aicoelogo from "../assets/AICoE logo transparent.png";
@@ -8,9 +9,17 @@ import { UserGuideButton } from "./UserGuide";
 
 
 const SmartGoalForm = () => {
+  const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = sessionStorage.getItem("access_token");
   const loginUser = sessionStorage.getItem("username");
+  
+  // Redirect to login if user is not authenticated
+  useEffect(() => {
+    if (!loginUser || !apiUrl) {
+      navigate('/login');
+    }
+  }, [loginUser, apiUrl, navigate]);
   const [formData, setFormData] = useState({
     goal: "",
     measureOfSuccess: "",
@@ -21,9 +30,22 @@ const SmartGoalForm = () => {
     obstaclesConsidered: "",
     thrustArea: "",
     subCategory: "",
+    userBu: "",
+    crosslinkedBus: [],
     startDate: "",
     endDate: ""
   });
+
+  const [availableBUs, setAvailableBUs] = useState([
+    "Corporate Center",
+    "EPS", 
+    "F&A",
+    "Hazira Manufacturing",
+    "IT & Digital",
+    "LPES",
+    "SCM",
+    "T&IC"
+  ]);
 
 
   const thrustAreas = {
@@ -31,76 +53,76 @@ const SmartGoalForm = () => {
       "1.1 Conduct business in line with L&T's philosophy of 'Mission Zero Harm' and 'Carbon and Water Neutrality'"
     ],
     "TA-2 Customer Focus": [
-      "2.1 Nurture customer relationship through engagement at multiple levels"
+      "2.1 Reinforce market credibility by deepening customer relationships, ensuring delivery reliability, and creating superior customer delight"
     ],
     "TA-3 Business Growth": [
       "3.1 Improve on budgeted targets for Order Inflow, Earnings, Cash flow, Working Capital and Revenue",
-      "3.2 Achieve significant YoY improvement in key performance metrics - OTD, FTR, PEI, PAT/Manhour"
+      "3.2 Prioritize excellence in On-Time Delivery (OTD) while driving sustained YoY improvements in FTR, PEI, and PAT/Manhour",
+      "3.3 Focus on improved GWC and FCF through faster Build–Bill–Collect Execution cycle",
+      "3.4 Ensure reliable and timely product delivery through accelerated clearance of the past backlog"
     ],
     "TA-4 Strategy and Org Excellence": [
-      "4.1 Implement Sankalp roadmaps and arrive at strategic plans for Lakshya 31 for business transformation and growth",
-      "4.2 Productivity and quality improvement through Organisational excellence initiatives",
-      "4.3 Proliferate use of AI and advanced digital technologies in our products and day to day processes",
-      "4.4 Value chain control through IP creation, indigenization and building robust supply chain"
+      "4.1 Support Lakshya 31 targets through innovation-led growth by academia & start-up integration and future-focused development in-house",
+      "4.2 Productivity and quality improvement driven by automation and structured Organisational Excellence initiatives",
+      "4.3 Enable enterprise-wide digital transformation through SAP implementation and large-scale deployment of Gen AI solutions",
+      "4.4 Strengthen value chain resilience by developing proprietary IP, advancing indigenization, and ensuring robust and secure sourcing ecosystems. Increase value chain control by at least 10%"
     ],
     "TA-5 Work Culture and Employee Engagement": [
-      "5.1 Enable culture of openness, inclusivity and psychologically safe work environment",
-      "5.2 Enhance employee engagement to drive high performance and productivity",
-      "5.3 Focus on upskilling / reskilling to stay ahead in the emerging business environment"
+      "5.1 Enable organizational excellence by strengthening overall employee engagement through leadership connect, open communication, recognition and psychologically safe work environment",
+      "5.2 Enhance gender diversity and inclusivity across roles while promoting an equitable work environment",
+      "5.3 Strengthen workforce readiness by addressing critical skill gaps and scaling capabilities to meet evolving business needs"
     ]
   };
 
   const groupObjectives = {
     "Environment, Safety, Sustainability & Governance": [
-      "Ensure 100% safe operations (nil reportable incidents) across all functions and work centres, with focus on RSC and BBS.",
-      "Ensure operations that drive sustainable development of the Organisation, Society & Environment, with a target of 5% improvement Y-o-Y in achieving water consumption, energy efficiency improvement Y-o-Y of 2.5% and achieve renewable energy substitution target of 50%.",
-      "Effective implementation of Audit recommendations.",
-      "Ensure Zero incidents with regards to Information Security Breach and compliance to ILDC security guidelines.",
-      "Uphold highest standards of governance across all operations for sustainable business excellence."
+      "1a) Ensure 100% safe operations (nil reportable incidents) across all functions, work centres and sites with focus on Vision Know Harm Campaign",
+      "1b) Ensure operations that drive sustainable development of the Organisation, Society & Environment, with a target of 5% improvement Y-o-Y in achieving water consumption, energy efficiency improvement Y-o-Y of 2.5% and achieve renewable energy substitution target of 50%",
+      "1c) Strengthen governance through effective implementation of audit recommendations across all operations for sustainable business Excellence",
+      "1d) Institute a robust IC-wide review mechanism. Ensure cross-pollination of audit observations across functions to achieve nil High-Risk Observations",
+      "1e) Ensure Zero incidents with regards to Information Security Breach and compliance to ILDC security guidelines",
+      "1f) Strengthen ESG adoption across the organization through training, awareness, and bring accountability at the team level"
     ],
     "Financial Parameters": [
-      "Exceed OI by at least 10% over the budget.",
-      "Target Exports at 10% of Total Budgeted OI.",
-      "Meet/Exceed Quarter wise budget of Sales, PAT, Progress billing, Collections, NWC, Revenue per employee and PAT per man hour.",
-      "Reduce controllable revenue expenses by 5% as compared to budget.",
-      "Reduce slow and non-moving inventory by at least 25%. Liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project.",
-      "Collect all overdue customer outstanding more than 90 days."
+      "2a) Exceed OI by at least 10% over the budget",
+      "2b) Drive Export OI to outperform the budget by a minimum of 10%",
+      "2c) Exceed Quarter wise budget of Sales, PAT, Progress billing, Collections, NWC and PAT per man hour",
+      "2d) Reduce controllable revenue expenses by 5% as compared to budget",
+      "2e) Reduce slow and non-moving inventory, closed project inventory by at least 25%. Ensure liquidation of Inventory for all closed projects within one quarter of the end of warranty period of project",
+      "2f) Bring down current average overdue customer outstanding from 44 days to 33 days of Trailing 12 months of sales (25% Improvement)"
     ],
     "Operational Excellence": [
-      "Target 100% OTD (zero LD) for all project milestones defined in ERP LN.",
-      "Establish a system driven measurement for FTR and achieve >96% internal FTR and >98% external FTR across all functions.",
-      "Achieve and sustain a reducing trend in NCR by 15% (YoY).",
-      "Institutionalize robust contract, cost and risk management practices by implementing Cost fact and Active risk management (ARM) for all contracts valuing ≥ 50 Crs.",
-      "Leverage Digitalization and Industry 4.0 to drive efficiency and business growth to achieve ROI and Cycle Time reduction.",
-      "Implementation of AI interventions in at least 5 identified areas in each function.",
-      "Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations."
+      "3a) Target 100% OTD (zero LD) for all project milestones defined in ERP LN except for developmental projects",
+      "3b) Adopt system driven measurement for FTR (in production contracts) and achieve >96% internal FTR and >98% external FTR across all functions. Develop and Institutionalise system driven FTR measurement for all Development Projects",
+      "3c) Achieve and sustain a reducing trend in NCR by 15% (YoY)",
+      "3d) Institutionalize robust contract, cost and risk management practices by implementing Cost fact and Active risk management (ARM) for all contracts valuing ≥ 50 Crs",
+      "3e) Accelerate digitalization and AI adoption by implementing AI interventions across at least five areas in each function, enhancing process efficiency by eliminating non-value-added activities, and achieving a 10% improvement in cycle time and PAT per manhour vis-à-vis budget",
+      "3f) Ensure timely closure of projects in ERP system - within 2 months of completion of all contractual obligations"
     ],
-    "R&D and Design": [
-      "Develop roadmaps and business cases for new technology adoption.",
-      "Ensure all R&D projects planned for the FY meet defined milestones and are executed within sanctioned budget.",
-      "File at least 4 patents in TIC and 1 each in every D&DC.",
-      "Implement Automation and AI driven processes to cut down Design Cycle Time across all projects by 50%.",
-      "Strengthen R&D through crowdsourcing, collaborative research, and partnerships with start-ups and academia to drive innovation and accelerate development."
+    "Technology & Innovation": [
+      "4a) Identify and develop roadmaps, backed by business cases, for adoption of new strategic technologies aligned with future business opportunities",
+      "4b) Ensure all R&D projects planned for the FY meet defined milestones and are executed within sanctioned budget",
+      "4c) Accelerate execution of priority technology programs (e.g., lasers, semiconductors, aero engines, etc.) by defining gated milestones and achieving them in a time-bound manner through partnerships, and prototype development",
+      "4d) Strengthen the company's IP portfolio through patents, copyrights, industrial design registrations, and structured knowledge/IP repositories, including at least 4 TIC patents and 1 patent from each BU design Center",
+      "4e) Implement Automation and AI driven processes to cut down Design Cycle Time across all projects by 50%",
+      "4f) Obtain RDI funding of 100Cr for identified projects"
     ],
     "Organisational Excellence": [
-      "Project Sankalp: Implement business roadmaps with focus on Internationalisation and Value chain control.",
-      "Project Parivartan: Synergize existing and initiate new Parivartan initiatives in line with Sankalp roadmaps and implement the same.",
-      "Design and Deliver Lakshya-31 plan for achieving business growth objectives and creating sustainable value through Innovation and Market leadership.",
-      "Target 'Role Model' category in L&T Business Excellence Model and HR Excellence Model.",
-      "Sustain and digitalise CMMI practices across organisation, covering all projects with >50 Cr. contract value.",
-      "Secure Excellence Recognitions in business/operations from CII, FICCI, etc.",
-      "Secure at least one international/ national safety excellence award by every work centre."
+      "5a) Define & Execute Project Sankalp tracks for: 1) Growing Strategic Partnerships with DPSUs, FOEMs & Technology Partners with an impetus on higher workshare, IP creation and enhanced value chain control. 2) Consolidation of domain specific operations for creating Centers of Manufacturing Excellence leading to higher indigenisation / in-house production",
+      "5d) Target Role Model category in L&T Business Excellence Model and HR Excellence Model",
+      "5e) Sustain and digitalise CMMI practices across organisation, covering all projects with >50 Cr. contract value",
+      "5f) Secure Excellence Recognitions in business/ operations from CII, FICCI, etc",
+      "5g) Secure at least one international/ national safety excellence award by every work centre"
     ],
     "Customer Delight": [
-      "Log all Customer complaints in CFAR system and ensure closure in a focused manner, with 25% Y-o-Y reduction in average cycle time.",
-      "Implementation of CRM system - Track and achieve an increasing trend in number of customer interactions/meetings for proactively understanding their needs and acting upon them.",
-      "Continue to register all Customers Feedbacks in Pratibimbh quarterly and achieve increasing trend in customer centricity."
+      "6a) Log all Customer complaints in CFAR system and ensure closure in a focused manner, with 25% Y-o-Y reduction in average cycle time"
     ],
     "Work Culture and Employee Engagement": [
-      "Create a conducive culture which enables higher level of engagement and reduce attrition by 25% YoY across departments.",
-      "Achieve GPTW score of >85 and Amber score of >82 across the locations and functions, by implementation of feedbacks received from workforce.",
-      "Enhance Gender Diversity to 14% at IC level with focus on work centers, Equity and Inclusion in the workforce.",
-      "Focus on upskilling / reskilling to stay ahead in the emerging business environment, including at least 1 course on artificial intelligence by each employee."
+      "7a) Create a conducive culture which enables higher level of engagement and productivity. Improve employee retention by 2%",
+      "7b) Implement atleast 80% of plans identified by Abhivyakti Taskforces",
+      "7c) Target GPTW score of >90 across the locations and functions by implementation of feedbacks received from workforce",
+      "7d) Enhance Gender Diversity to 15% at IC level with focus on work centers, equity and inclusion in the workforce",
+      "7e) Focus on upskilling / reskilling to stay ahead in the emerging business environment, including at least 1 course on artificial intelligence by each employee"
     ]
   };
 
@@ -108,6 +130,8 @@ const SmartGoalForm = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [showFinalGoalCheckbox, setShowFinalGoalCheckbox] = useState(false);
   const [isFinalGoal, setIsFinalGoal] = useState(false);
+  const [showAllGoalsSubmittedCheckbox, setShowAllGoalsSubmittedCheckbox] = useState(false);
+  const [allGoalsSubmitted, setAllGoalsSubmitted] = useState(false);
 
   const [selectedObjective, setSelectedObjective] = useState("");
   const [selectedObjectiveSubCategory, setSelectedObjectiveSubCategory] = useState("");
@@ -195,6 +219,24 @@ const SmartGoalForm = () => {
       return;
     }
     
+    // Check if clipboard API is available
+    if (!navigator.clipboard) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = formData.goal;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        alert("Goal copied to clipboard!");
+      } catch (err) {
+        console.error("Error copying text: ", err);
+        alert("Failed to copy goal. Please try again.");
+      }
+      document.body.removeChild(textArea);
+      return;
+    }
+    
     navigator.clipboard.writeText(formData.goal)
       .then(() => {
         alert("Goal copied to clipboard!");
@@ -238,12 +280,25 @@ End Date: ${formData.endDate}
     setLoading(true);
     setIsSubmitting(true);
 
-    // Ensure quantifiableObjective does not exceed 100%
-    if (formData.quantifiableObjective > 100) {
-      setHtmlResponse("<p>Quantifiable Objective cannot exceed 100%.</p>");
+    // Validate quantifiable objective
+    const quantObj = parseFloat(formData.quantifiableObjective);
+    if (isNaN(quantObj) || quantObj < 0 || quantObj > 100) {
+      setHtmlResponse("<p>Quantifiable Objective must be a number between 0 and 100.</p>");
       setLoading(false);
       setIsSubmitting(false);
       return;
+    }
+
+    // Validate dates
+    if (formData.startDate && formData.endDate) {
+      const start = new Date(formData.startDate);
+      const end = new Date(formData.endDate);
+      if (end <= start) {
+        setHtmlResponse("<p>End date must be after start date.</p>");
+        setLoading(false);
+        setIsSubmitting(false);
+        return;
+      }
     }
 
     const formattedData = {
@@ -259,6 +314,8 @@ End Date: ${formData.endDate}
       sub_category: formData.subCategory,
       group_objectives: formData.groupObjective,
       additional_sub_category: formData.subgroupObjectiveCategory,
+      user_bu: formData.userBu,
+      crosslinked_bus: formData.crosslinkedBus,
       start_date: formData.startDate,
       end_date: formData.endDate,
     };
@@ -288,6 +345,7 @@ End Date: ${formData.endDate}
         const cleanedText = fullText.replace('[DONE]', '');
         setHtmlResponse(cleanedText);
         setShowFinalGoalCheckbox(true);
+        setShowAllGoalsSubmittedCheckbox(true);
         setIsSubmitting(false);
         setLoading(false);
       } catch (streamError) {
@@ -314,6 +372,7 @@ End Date: ${formData.endDate}
           }
         }
         setShowFinalGoalCheckbox(true);
+        setShowAllGoalsSubmittedCheckbox(true);
         setIsSubmitting(false);
       }
     } catch (error) {
@@ -324,6 +383,26 @@ End Date: ${formData.endDate}
     }
   };
 
+
+  const handleAllGoalsSubmittedChange = (e) => {
+    const isChecked = e.target.checked;
+    setAllGoalsSubmitted(isChecked);
+
+    if (isChecked) {
+      const confirmRedirect = window.confirm(
+        "✅ You've indicated that all goals for the upcoming year have been submitted.\n\n" +
+        "📊 You will now be redirected to the Gap Analysis page to analyze your goals.\n\n" +
+        "⚠️ Note: You can always come back to submit more goals if needed.\n\n" +
+        "Click OK to proceed to Gap Analysis, or Cancel to stay on this page."
+      );
+
+      if (confirmRedirect) {
+        navigate('/gap-analysis');
+      } else {
+        setAllGoalsSubmitted(false);
+      }
+    }
+  };
 
   const handleFinalGoalChange = async (e) => {
     const isChecked = e.target.checked;
@@ -349,7 +428,18 @@ End Date: ${formData.endDate}
         throw new Error(data.error || "Something went wrong");
       }
 
-      alert("Final goal confirmed successfully!");
+      if (data.gap_analysis_required) {
+        alert(
+          "✅ Final goal confirmed successfully!\n\n" +
+          "⚠️ IMPORTANT: You have confirmed goals but haven't run Gap Analysis yet.\n\n" +
+          "📊 Please navigate to 'Gap Analysis' page to analyze all your confirmed goals against company Thrust Areas and Group Objectives.\n\n" +
+          "This is mandatory to ensure comprehensive coverage of organizational priorities."
+        );
+      } else if (data.has_gap_analysis) {
+        alert("✅ Final goal confirmed successfully! Gap Analysis already completed.");
+      } else {
+        alert("✅ Final goal confirmed successfully!");
+      }
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to confirm the final goal.");
@@ -468,6 +558,43 @@ End Date: ${formData.endDate}
           </div>
         )}
 
+        <label>User's BU:</label>
+        <select 
+          name="userBu" 
+          value={formData.userBu} 
+          onChange={handleChange} 
+          required
+        >
+          <option value="">Select Your BU</option>
+          {availableBUs.map((bu, index) => (
+            <option key={index} value={bu}>{bu}</option>
+          ))}
+        </select>
+
+        <label>Cross-linked BUs (Select BUs with which your goals have cross linkage):</label>
+        <div className="checkbox-group">
+          {availableBUs.filter(bu => bu !== formData.userBu).map((bu, index) => (
+            <div key={index} className="checkbox-item">
+              <input
+                type="checkbox"
+                id={`bu-${index}`}
+                value={bu}
+                checked={formData.crosslinkedBus.includes(bu)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setFormData(prev => ({
+                    ...prev,
+                    crosslinkedBus: e.target.checked
+                      ? [...prev.crosslinkedBus, value]
+                      : prev.crosslinkedBus.filter(b => b !== value)
+                  }));
+                }}
+              />
+              <label htmlFor={`bu-${index}`}>{bu}</label>
+            </div>
+          ))}
+        </div>
+
         <label>Start Date of Activity:</label>
         <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
 
@@ -502,6 +629,23 @@ End Date: ${formData.endDate}
             />
           )}
           <div ref={bottomRef} />
+
+          {showAllGoalsSubmittedCheckbox && (
+            <div className="final-goal-checkbox" style={{ marginTop: '20px', padding: '15px', background: '#f0f8ff', borderRadius: '8px', border: '2px solid #3498db' }}>
+              <input
+                type="checkbox"
+                id="allGoalsSubmitted"
+                checked={allGoalsSubmitted}
+                onChange={handleAllGoalsSubmittedChange}
+              />
+              <label htmlFor="allGoalsSubmitted" style={{ fontWeight: '600', color: '#2c3e50' }}>
+                📊 Have you submitted all goals for the upcoming year?
+              </label>
+              <p style={{ margin: '10px 0 0 25px', fontSize: '0.9rem', color: '#7f8c8d' }}>
+                Check this box if you've completed submitting all your goals. You'll be redirected to Gap Analysis.
+              </p>
+            </div>
+          )}
 
           {showFinalGoalCheckbox && (
             <div className="final-goal-checkbox">
