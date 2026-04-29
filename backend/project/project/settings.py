@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hkg1)yy@4l5(_3kkp1$jr5)jipgkxyc$g_j0#003upl#qis_ip'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "*"
@@ -108,13 +108,19 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'goalanalyser.mysql.database.azure.com',
+        'ENGINE': 'mssql',
         'NAME': 'goalanalyser',
         'USER': 'goalanalyser',   
-        'PASSWORD': 'Defence@apr2026',      
+        'PASSWORD': 'Defence@goal2025', 
+        'HOST': 'goalanalyser.database.windows.net',          
+        # 'PORT': '1433',     
+        'OPTIONS': {
+            'driver': 'ODBC Driver 18 for SQL Server',
+            # 'timeout': 60,
+            # 'encrypt': 'yes',
+            # 'trustServerCertificate': 'no',
+        },      
         "CONN_MAX_AGE": 600,
-        'PORT': '3306',
     }
 }
 
@@ -207,37 +213,20 @@ AUTH_ADFS = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
-    },
     'handlers': {
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': 'debug.log',
-            'formatter': 'verbose',
         },
     },
     'loggers': {
         'smart_hr_backend': {
-            'handlers': ['console', 'file'],
+            'handlers': ['file'],
             'level': 'INFO',
-            'propagate': False,
+            'propagate': True,
         },
     },
 }
-
 
 
