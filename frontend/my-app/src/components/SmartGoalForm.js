@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./SmartGoalForm.css";
 import loadingGif from "../assets/__Iphone-spinner-1.gif";
 import aicoelogo from "../assets/AICoE logo transparent.png";
@@ -8,9 +9,17 @@ import { UserGuideButton } from "./UserGuide";
 
 
 const SmartGoalForm = () => {
+  const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = sessionStorage.getItem("access_token");
   const loginUser = sessionStorage.getItem("username");
+  
+  // Redirect to login if user is not authenticated
+  useEffect(() => {
+    if (!loginUser || !apiUrl) {
+      navigate('/login');
+    }
+  }, [loginUser, apiUrl, navigate]);
   const [formData, setFormData] = useState({
     goal: "",
     measureOfSuccess: "",
@@ -121,6 +130,8 @@ const SmartGoalForm = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [showFinalGoalCheckbox, setShowFinalGoalCheckbox] = useState(false);
   const [isFinalGoal, setIsFinalGoal] = useState(false);
+  const [showAllGoalsSubmittedCheckbox, setShowAllGoalsSubmittedCheckbox] = useState(false);
+  const [allGoalsSubmitted, setAllGoalsSubmitted] = useState(false);
 
   const [selectedObjective, setSelectedObjective] = useState("");
   const [selectedObjectiveSubCategory, setSelectedObjectiveSubCategory] = useState("");
@@ -208,6 +219,24 @@ const SmartGoalForm = () => {
       return;
     }
     
+    // Check if clipboard API is available
+    if (!navigator.clipboard) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = formData.goal;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        alert("Goal copied to clipboard!");
+      } catch (err) {
+        console.error("Error copying text: ", err);
+        alert("Failed to copy goal. Please try again.");
+      }
+      document.body.removeChild(textArea);
+      return;
+    }
+    
     navigator.clipboard.writeText(formData.goal)
       .then(() => {
         alert("Goal copied to clipboard!");
@@ -251,12 +280,25 @@ End Date: ${formData.endDate}
     setLoading(true);
     setIsSubmitting(true);
 
-    // Ensure quantifiableObjective does not exceed 100%
-    if (formData.quantifiableObjective > 100) {
-      setHtmlResponse("<p>Quantifiable Objective cannot exceed 100%.</p>");
+    // Validate quantifiable objective
+    const quantObj = parseFloat(formData.quantifiableObjective);
+    if (isNaN(quantObj) || quantObj < 0 || quantObj > 100) {
+      setHtmlResponse("<p>Quantifiable Objective must be a number between 0 and 100.</p>");
       setLoading(false);
       setIsSubmitting(false);
       return;
+    }
+
+    // Validate dates
+    if (formData.startDate && formData.endDate) {
+      const start = new Date(formData.startDate);
+      const end = new Date(formData.endDate);
+      if (end <= start) {
+        setHtmlResponse("<p>End date must be after start date.</p>");
+        setLoading(false);
+        setIsSubmitting(false);
+        return;
+      }
     }
 
     const formattedData = {
@@ -303,6 +345,7 @@ End Date: ${formData.endDate}
         const cleanedText = fullText.replace('[DONE]', '');
         setHtmlResponse(cleanedText);
         setShowFinalGoalCheckbox(true);
+        setShowAllGoalsSubmittedCheckbox(true);
         setIsSubmitting(false);
         setLoading(false);
       } catch (streamError) {
@@ -329,6 +372,7 @@ End Date: ${formData.endDate}
           }
         }
         setShowFinalGoalCheckbox(true);
+        setShowAllGoalsSubmittedCheckbox(true);
         setIsSubmitting(false);
       }
     } catch (error) {
@@ -339,6 +383,26 @@ End Date: ${formData.endDate}
     }
   };
 
+
+  const handleAllGoalsSubmittedChange = (e) => {
+    const isChecked = e.target.checked;
+    setAllGoalsSubmitted(isChecked);
+
+    if (isChecked) {
+      const confirmRedirect = window.confirm(
+        "✅ You've indicated that all goals for the upcoming year have been submitted.\n\n" +
+        "📊 You will now be redirected to the Gap Analysis page to analyze your goals.\n\n" +
+        "⚠️ Note: You can always come back to submit more goals if needed.\n\n" +
+        "Click OK to proceed to Gap Analysis, or Cancel to stay on this page."
+      );
+
+      if (confirmRedirect) {
+        navigate('/gap-analysis');
+      } else {
+        setAllGoalsSubmitted(false);
+      }
+    }
+  };
 
   const handleFinalGoalChange = async (e) => {
     const isChecked = e.target.checked;
@@ -364,7 +428,18 @@ End Date: ${formData.endDate}
         throw new Error(data.error || "Something went wrong");
       }
 
-      alert("Final goal confirmed successfully!");
+      if (data.gap_analysis_required) {
+        alert(
+          "✅ Final goal confirmed successfully!\n\n" +
+          "⚠️ IMPORTANT: You have confirmed goals but haven't run Gap Analysis yet.\n\n" +
+          "📊 Please navigate to 'Gap Analysis' page to analyze all your confirmed goals against company Thrust Areas and Group Objectives.\n\n" +
+          "This is mandatory to ensure comprehensive coverage of organizational priorities."
+        );
+      } else if (data.has_gap_analysis) {
+        alert("✅ Final goal confirmed successfully! Gap Analysis already completed.");
+      } else {
+        alert("✅ Final goal confirmed successfully!");
+      }
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to confirm the final goal.");
@@ -554,6 +629,23 @@ End Date: ${formData.endDate}
             />
           )}
           <div ref={bottomRef} />
+
+          {showAllGoalsSubmittedCheckbox && (
+            <div className="final-goal-checkbox" style={{ marginTop: '20px', padding: '15px', background: '#f0f8ff', borderRadius: '8px', border: '2px solid #3498db' }}>
+              <input
+                type="checkbox"
+                id="allGoalsSubmitted"
+                checked={allGoalsSubmitted}
+                onChange={handleAllGoalsSubmittedChange}
+              />
+              <label htmlFor="allGoalsSubmitted" style={{ fontWeight: '600', color: '#2c3e50' }}>
+                📊 Have you submitted all goals for the upcoming year?
+              </label>
+              <p style={{ margin: '10px 0 0 25px', fontSize: '0.9rem', color: '#7f8c8d' }}>
+                Check this box if you've completed submitting all your goals. You'll be redirected to Gap Analysis.
+              </p>
+            </div>
+          )}
 
           {showFinalGoalCheckbox && (
             <div className="final-goal-checkbox">

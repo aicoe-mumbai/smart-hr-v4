@@ -24,6 +24,7 @@ from .alignment_utils import (
     log_alignment_search,
     log_alignment_results
 )
+from .gap_analysis import analyze_goal_coverage, get_recommendations
 
 logger = logging.getLogger(__name__)
 
@@ -99,10 +100,6 @@ def validate_goal(goal_data, aligned_objectives=None):
     alignment_info = None
     if aligned_objectives and aligned_objectives.exists():
         # Use LLM-based alignment calculation
-        from django.conf import settings
-        from azure.ai.inference import ChatCompletionsClient
-        from azure.core.credentials import AzureKeyCredential
-        
         azure_client = ChatCompletionsClient(
             endpoint=settings.OPENAI_ENDPOINT,
             credential=AzureKeyCredential(settings.OPENAI_API_KEY)
@@ -226,83 +223,89 @@ def validate_goal(goal_data, aligned_objectives=None):
     
     logger.info(f"Complete prompt length: {len(prompt)} characters")
 
-    response = client.complete(
-        messages=[
-            SystemMessage(content="""You are an AI assistant specializing in SMART goal evaluation.
-                                        Assess the goal based on its Specificity, Measurability, Achievability, Relevance, and Time-Bound nature.
-                                        Analyze the following employee goal using the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-Bound).
-                                        
-                                        IMPORTANT: When BU objectives are provided, YOU MUST perform detailed comparison analysis:
-                                        1. Compare the user's goal text with each BU objective text
-                                        2. Calculate similarity and alignment percentages for each BU objective
-                                        3. Identify overlapping themes, keywords, and objectives
-                                        4. Assess how well the user's goal aligns with organizational objectives
-                                        5. Provide specific alignment scores for each BU objective
-                                        
-                                        Internally calculate an overall SMARTness percentage based on equal weightage (20 each).
-                                        As well as measure the Goal alignment to Group objective and Thrust Areas on the scale of 10.
-                                        
-                                        When BU objectives are provided, perform YOUR OWN comparison analysis and provide:
-                                        - Individual alignment percentage with each BU objective
-                                        - Overall BU alignment score
-                                        - Specific recommendations based on BU objective comparison
-                                        
-                                        Do NOT show any calculations or scores in your output.
-                                        Return your output in well-formatted HTML that includes proper spaces, punctuation, and line breaks.
-                                        Ensure each section is wrapped in appropriate HTML tags (such as <p> and <ol>/<li>) for clear readability.
-                                        
-                                        For BU alignment analysis, use HTML table format for better display:
-                                        
-                                        Response Format:
-                                        <p><strong>Message to User:</strong> Provide a concise message summarizing the goal assessment.</p>
-                                        <p><strong>Your Goal SMARTness Percentage:</strong> [X]%</p>
-                                        <p><strong>Goal Alignment to Thrust area:</strong> [X] out of 10.</p>
-                                        <p><strong>Goal Alignment to Group Objective:</strong> [X] out of 10.</p>
-                                        
-                                        <p><strong>BU Alignment Analysis:</strong></p>
-                                        <table border='1' style='border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 14px;'>
-                                        <thead>
-                                        <tr style='background-color: #f0f0f0;'>
-                                        <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Business Unit</th>
-                                        <th style='padding: 8px; text-align: center; border: 1px solid #ddd;'>Alignment %</th>
-                                        <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Key Alignment Points</th>
-                                        <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Recommendations</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        [For each BU, create ONE row with this EXACT format:
-                                        <tr>
-                                        <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>[BU Name]</td>
-                                        <td style='padding: 8px; border: 1px solid #ddd; text-align: center; vertical-align: top;'>[XX]%</td>
-                                        <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>• [Point 1]<br>• [Point 2]<br>• [Point 3]</td>
-                                        <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>• [Recommendation 1]<br>• [Recommendation 2]</td>
-                                        </tr>]
-                                        </tbody>
-                                        </table>
-                                        
-                                        IMPORTANT: Use EXACTLY this table format. Each BU gets ONE row. Use bullet points (•) and <br> tags for multiple items in cells.
-                                        <p><strong>Recommendations:</strong> If the percentage is below 75, list actionable steps to improve it. 
-                                        If the SMARTness is 75 or above, confirm that the goal meets SMART criteria.
-                                        If below 75, provide specific, concise, and numbered recommendations to improve it.
-                                        Include recommendations based on BU objective comparison when available.</p>
-                                        <p>Recommendation Format:</p>
-                                        <ol>
-                                        <li><strong>Specificity:</strong> [Recommendation]</li>
-                                        <li><strong>Measurability:</strong> [Recommendation]</li>
-                                        <li><strong>Achievability:</strong> [Recommendation]</li>
-                                        <li><strong>Relevance:</strong> [Recommendation]</li>
-                                        <li><strong>Time-Bound:</strong> [Recommendation]</li>
-                                        <li><strong>Overall:</strong> [Recommendation]</li>
-                                        </ol>
-                                        <p><strong>Suggestions:</strong> Rewrite the Goal and Measure of Success in such a way so that the same goal can achieve better Smartness as well as to improve the Goal alignment to Group objective and Thrust areas.</p>
+    try:
+        response = client.complete(
+            messages=[
+                SystemMessage(content="""You are an AI assistant specializing in SMART goal evaluation.
+                                            Assess the goal based on its Specificity, Measurability, Achievability, Relevance, and Time-Bound nature.
+                                            Analyze the following employee goal using the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-Bound).
+                                            
+                                            IMPORTANT: When BU objectives are provided, YOU MUST perform detailed comparison analysis:
+                                            1. Compare the user's goal text with each BU objective text
+                                            2. Calculate similarity and alignment percentages for each BU objective
+                                            3. Identify overlapping themes, keywords, and objectives
+                                            4. Assess how well the user's goal aligns with organizational objectives
+                                            5. Provide specific alignment scores for each BU objective
+                                            
+                                            Internally calculate an overall SMARTness percentage based on equal weightage (20 each).
+                                            As well as measure the Goal alignment to Group objective and Thrust Areas on the scale of 10.
+                                            
+                                            When BU objectives are provided, perform YOUR OWN comparison analysis and provide:
+                                            - Individual alignment percentage with each BU objective
+                                            - Overall BU alignment score
+                                            - Specific recommendations based on BU objective comparison
+                                            
+                                            Do NOT show any calculations or scores in your output.
+                                            Return your output in well-formatted HTML that includes proper spaces, punctuation, and line breaks.
+                                            Ensure each section is wrapped in appropriate HTML tags (such as <p> and <ol>/<li>) for clear readability.
+                                            
+                                            For BU alignment analysis, use HTML table format for better display:
+                                            
+                                            Response Format:
+                                            <p><strong>Message to User:</strong> Provide a concise message summarizing the goal assessment.</p>
+                                            <p><strong>Your Goal SMARTness Percentage:</strong> [X]%</p>
+                                            <p><strong>Goal Alignment to Thrust area:</strong> [X] out of 10.</p>
+                                            <p><strong>Goal Alignment to Group Objective:</strong> [X] out of 10.</p>
+                                            
+                                            <p><strong>BU Alignment Analysis:</strong></p>
+                                            <table border='1' style='border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 14px;'>
+                                            <thead>
+                                            <tr style='background-color: #f0f0f0;'>
+                                            <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Business Unit</th>
+                                            <th style='padding: 8px; text-align: center; border: 1px solid #ddd;'>Alignment %</th>
+                                            <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Key Alignment Points</th>
+                                            <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Recommendations</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            [For each BU, create ONE row with this EXACT format:
+                                            <tr>
+                                            <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>[BU Name]</td>
+                                            <td style='padding: 8px; border: 1px solid #ddd; text-align: center; vertical-align: top;'>[XX]%</td>
+                                            <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>• [Point 1]<br>• [Point 2]<br>• [Point 3]</td>
+                                            <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>• [Recommendation 1]<br>• [Recommendation 2]</td>
+                                            </tr>]
+                                            </tbody>
+                                            </table>
+                                            
+                                            IMPORTANT: Use EXACTLY this table format. Each BU gets ONE row. Use bullet points (•) and <br> tags for multiple items in cells.
+                                            <p><strong>Recommendations:</strong> If the percentage is below 75, list actionable steps to improve it. 
+                                            If the SMARTness is 75 or above, confirm that the goal meets SMART criteria.
+                                            If below 75, provide specific, concise, and numbered recommendations to improve it.
+                                            Include recommendations based on BU objective comparison when available.</p>
+                                            <p>Recommendation Format:</p>
+                                            <ol>
+                                            <li><strong>Specificity:</strong> [Recommendation]</li>
+                                            <li><strong>Measurability:</strong> [Recommendation]</li>
+                                            <li><strong>Achievability:</strong> [Recommendation]</li>
+                                            <li><strong>Relevance:</strong> [Recommendation]</li>
+                                            <li><strong>Time-Bound:</strong> [Recommendation]</li>
+                                            <li><strong>Overall:</strong> [Recommendation]</li>
+                                            </ol>
+                                            <p><strong>Suggestions:</strong> Rewrite the Goal and Measure of Success in such a way so that the same goal can achieve better Smartness as well as to improve the Goal alignment to Group objective and Thrust areas.</p>
 
-                                        """),
-            UserMessage(content=prompt)
-        ],
-        model=settings.OPENAI_MODEL_NAME,
-        max_tokens=2500,
-        stream=True
-    )
+                                            """),
+                UserMessage(content=prompt)
+            ],
+            model=settings.OPENAI_MODEL_NAME,
+            max_tokens=2500,
+            stream=True
+        )
+    except Exception as api_error:
+        logger.error(f"Azure OpenAI API Error: {str(api_error)}")
+        logger.error(f"Endpoint: {settings.OPENAI_ENDPOINT}")
+        logger.error(f"Model: {settings.OPENAI_MODEL_NAME}")
+        raise
 
     for chunk in response:
         if chunk.choices and chunk.choices[0].delta:
@@ -381,15 +384,31 @@ def submit_goal(request):
                     for chunk in validate_goal(goal_data, aligned_objs):
                         yield f"{chunk}"
                         response_text.append(chunk)
+                except ConnectionError as conn_error:
+                    logger.error(f"Connection Error: {str(conn_error)}")
+                    error_msg = (
+                        "<p style='color: red;'><strong>⚠️ Connection Error</strong></p>"
+                        "<p>Unable to connect to Azure OpenAI service. Please check:</p>"
+                        "<ul>"
+                        "<li>Network connectivity</li>"
+                        "<li>Azure endpoint URL configuration</li>"
+                        "<li>DNS resolution</li>"
+                        "<li>Firewall settings</li>"
+                        "</ul>"
+                        f"<p><strong>Found {aligned_objs.count()} matching BU objectives for your goal.</strong></p>"
+                    )
+                    yield error_msg
+                    response_text.append(error_msg)
                 except Exception as ai_error:
                     logger.error(f"AI API Error: {str(ai_error)}")
                     error_msg = (
                         "<p style='color: red;'><strong>⚠️ AI Service Error</strong></p>"
-                        "<p>Unable to connect to AI service. This could be due to:</p>"
+                        "<p>Unable to process your goal with AI service. This could be due to:</p>"
                         "<ul>"
                         "<li>Network connectivity issues</li>"
                         "<li>Azure service timeout</li>"
                         "<li>API rate limits</li>"
+                        "<li>Invalid API configuration</li>"
                         "</ul>"
                         f"<p><strong>Found {aligned_objs.count()} matching BU objectives:</strong></p>"
                     )
@@ -544,8 +563,18 @@ def final_goal(request):
 
         smart_goal.final_goal = final_goal_confirmed
         smart_goal.save()
-
-        return Response({"message": "Final goal confirmed successfully"}, status=200)
+        
+        # Check if user has any confirmed goals and if gap analysis has been done
+        confirmed_goals = SmartGoal.objects.filter(user=user, final_goal="True").count()
+        from .models import GapAnalysisRecord
+        has_gap_analysis = GapAnalysisRecord.objects.filter(user=user).exists()
+        
+        return Response({
+            "message": "Final goal confirmed successfully",
+            "confirmed_goals_count": confirmed_goals,
+            "gap_analysis_required": confirmed_goals > 0 and not has_gap_analysis,
+            "has_gap_analysis": has_gap_analysis
+        }, status=200)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
 
@@ -625,4 +654,116 @@ def get_filtered_group_objectives(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(["GET"])
+def gap_analysis_status(request):
+    """Check if user has completed gap analysis"""
+    try:
+        username = request.query_params.get("loginUser")
+        username = decode_username(username)
+
+        if not username:
+            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        User = get_user_model()
+        user, created = User.objects.get_or_create(username=username)
+
+        from .models import GapAnalysisRecord
+        has_gap_analysis = GapAnalysisRecord.objects.filter(user=user).exists()
+        confirmed_goals_count = SmartGoal.objects.filter(user=user, final_goal="True").count()
+        
+        latest_analysis = None
+        if has_gap_analysis:
+            latest = GapAnalysisRecord.objects.filter(user=user).first()
+            latest_analysis = {
+                'date': latest.analysis_date.strftime('%Y-%m-%d %H:%M'),
+                'goals_count': len(latest.goals_analyzed),
+                'ta_coverage': latest.ta_coverage,
+                'go_coverage': latest.go_coverage
+            }
+
+        return Response({
+            "has_gap_analysis": has_gap_analysis,
+            "confirmed_goals_count": confirmed_goals_count,
+            "gap_analysis_required": confirmed_goals_count > 0 and not has_gap_analysis,
+            "latest_analysis": latest_analysis
+        }, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        logger.error(f"Error checking gap analysis status: {str(e)}")
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(["GET"])
+def gap_analysis_history(request):
+    """Get all gap analysis records for a user"""
+    try:
+        username = request.query_params.get("loginUser")
+        username = decode_username(username)
+
+        if not username:
+            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        User = get_user_model()
+        user, created = User.objects.get_or_create(username=username)
+
+        from .models import GapAnalysisRecord
+        from .serializers import GapAnalysisRecordSerializer
+        
+        analyses = GapAnalysisRecord.objects.filter(user=user).order_by('-analysis_date')
+        serializer = GapAnalysisRecordSerializer(analyses, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        logger.error(f"Error fetching gap analysis history: {str(e)}")
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(["POST"])
+@log_execution_time
+def analyze_goals_gap(request):
+    """Analyze gap between selected goals and company GO/TA"""
+    try:
+        username = request.data.get("loginUser")
+        username = decode_username(username)
+
+        if not username:
+            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        User = get_user_model()
+        user, created = User.objects.get_or_create(username=username)
+
+        selected_goal_ids = request.data.get("goal_ids", [])
+        
+        if not selected_goal_ids:
+            return Response({"error": "No goals selected for analysis"}, status=status.HTTP_400_BAD_REQUEST)
+
+        logger.info(f"Gap analysis requested by {username} for goals: {selected_goal_ids}")
+        
+        # Perform gap analysis
+        analysis_result = analyze_goal_coverage(selected_goal_ids, user)
+        
+        if 'error' in analysis_result:
+            return Response(analysis_result, status=status.HTTP_404_NOT_FOUND)
+        
+        # Generate recommendations
+        recommendations = get_recommendations(analysis_result)
+        analysis_result['recommendations'] = recommendations
+        
+        # Save gap analysis record
+        from .models import GapAnalysisRecord
+        GapAnalysisRecord.objects.create(
+            user=user,
+            goals_analyzed=selected_goal_ids,
+            ta_coverage=analysis_result['coverage']['thrust_areas']['coverage_percentage'],
+            go_coverage=analysis_result['coverage']['group_objectives']['coverage_percentage'],
+            analysis_result=analysis_result
+        )
+        
+        logger.info(f"Gap analysis completed: TA coverage {analysis_result['coverage']['thrust_areas']['coverage_percentage']}%, GO coverage {analysis_result['coverage']['group_objectives']['coverage_percentage']}%")
+        
+        return Response(analysis_result, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        logger.error(f"Error in gap analysis: {str(e)}")
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

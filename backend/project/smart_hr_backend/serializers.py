@@ -7,6 +7,7 @@ from .models import (
     BUObjective,
     BUObjectiveTALink,
     BUObjectiveGOLink,
+    GapAnalysisRecord,
 )
 
 
@@ -127,3 +128,29 @@ class GoalAlignmentSerializer(serializers.Serializer):
         required=False
     )
     aligned_objectives = BUObjectiveSerializer(many=True)
+
+
+class GapAnalysisRecordSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+    analysis_date_formatted = serializers.SerializerMethodField()
+    goals_count = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = GapAnalysisRecord
+        fields = [
+            'id',
+            'username',
+            'analysis_date',
+            'analysis_date_formatted',
+            'goals_analyzed',
+            'goals_count',
+            'ta_coverage',
+            'go_coverage',
+            'analysis_result'
+        ]
+    
+    def get_analysis_date_formatted(self, obj):
+        return obj.analysis_date.strftime('%Y-%m-%d %H:%M:%S')
+    
+    def get_goals_count(self, obj):
+        return len(obj.goals_analyzed)

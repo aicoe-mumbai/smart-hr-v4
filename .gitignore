@@ -33,3 +33,16 @@ backend/project/db.sqlite3
 backend/project/setup_bu_objectives.sh
 backend/project/verify_data.py
 analyze_leaders_excel.py
+AZURE_OPENAI_TROUBLESHOOTING.md
+BUG_FIXES_SUMMARY.md
+BUG_REPORT_AND_FIXES.md
+COMPILATION_FIXES.md
+GAP_ANALYSIS_FEATURE.md
+GAP_ANALYSIS_INTEGRATION_SUMMARY.md
+GAP_ANALYSIS_QUICK_START.md
+FRONTEND_DATA_MISSING_DEBUG.md
+backend/project/smart_hr_backend/__pycache__/models.cpython-310.pyc
+backend/project/smart_hr_backend/__pycache__/serializers.cpython-310.pyc
+backend/project/smart_hr_backend/__pycache__/urls.cpython-310.pyc
+backend/project/smart_hr_backend/__pycache__/views.cpython-310.pyc
+LLM_ALIGNMENT_IMPLEMENTATION.md

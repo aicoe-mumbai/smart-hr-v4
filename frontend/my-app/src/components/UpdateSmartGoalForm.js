@@ -251,12 +251,25 @@ const UpdateSmartGoalForm = () => {
     setLoadingforGif(true);
     setIsSubmitting(true);
 
-    // Ensure quantifiableObjective does not exceed 100%
-    if (formData.quantifiableObjective > 100) {
-      setHtmlResponse("<p>Quantifiable Objective cannot exceed 100%.</p>");
+    // Validate quantifiable objective
+    const quantObj = parseFloat(formData.quantifiableObjective);
+    if (isNaN(quantObj) || quantObj < 0 || quantObj > 100) {
+      setHtmlResponse("<p>Quantifiable Objective must be a number between 0 and 100.</p>");
       setLoadingforGif(false);
       setIsSubmitting(false);
       return;
+    }
+
+    // Validate dates
+    if (formData.startDate && formData.endDate) {
+      const start = new Date(formData.startDate);
+      const end = new Date(formData.endDate);
+      if (end <= start) {
+        setHtmlResponse("<p>End date must be after start date.</p>");
+        setLoadingforGif(false);
+        setIsSubmitting(false);
+        return;
+      }
     }
 
     const formattedData = {
@@ -358,6 +371,29 @@ const handleFinalGoalChange = async (e) => {
 };
 
 const copyGoalToClipboard = () => {
+  if (!formData.goal) {
+    alert("No goal to copy.");
+    return;
+  }
+  
+  // Check if clipboard API is available
+  if (!navigator.clipboard) {
+    // Fallback for older browsers
+    const textArea = document.createElement('textarea');
+    textArea.value = formData.goal;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      alert("Goal copied to clipboard!");
+    } catch (err) {
+      console.error("Error copying text: ", err);
+      alert("Failed to copy goal. Please try again.");
+    }
+    document.body.removeChild(textArea);
+    return;
+  }
+  
   navigator.clipboard.writeText(formData.goal)
     .then(() => {
       alert("Goal copied to clipboard!");
@@ -369,6 +405,11 @@ const copyGoalToClipboard = () => {
 };
 
 const saveGoalAsText = () => {
+  if (!formData.goal) {
+    alert("No goal details to save.");
+    return;
+  }
+  
   const goalDetails = `
 Goal: ${formData.goal}
 Measure of Success: ${formData.measureOfSuccess}
