@@ -313,7 +313,7 @@ const generatePDF = () => {
 
 const UserGuideButton = () => (
   <button
-    onClick={downloadUserGuide}
+    onClick={generatePDF}
     className="download-guide-btn"
   >
     Download User Guide
