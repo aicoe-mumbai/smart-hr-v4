@@ -20,6 +20,12 @@ def calculate_alignment_with_llm(user_goal_data, bu_objectives, azure_client, mo
     """
     Use Azure OpenAI LLM to calculate semantic alignment between user goal and BU objectives
     Returns detailed alignment information with reasoning
+    
+    Args:
+        user_goal_data: Dict with user's goal information
+        bu_objectives: List of dicts from goals.db (not Django ORM objects)
+        azure_client: Azure OpenAI client
+        model_name: Model name to use
     """
     logger.info("\n" + "="*80)
     logger.info("=== LLM-BASED ALIGNMENT CALCULATION ===")
@@ -34,14 +40,14 @@ def calculate_alignment_with_llm(user_goal_data, bu_objectives, azure_client, mo
             'total_objectives': 0
         }
     
-    # Format BU objectives for LLM (exclude MoS to reduce prompt size)
+    # Format BU objectives for LLM (ONLY goal text, exclude MoS)
     objectives_text = ""
     for idx, obj in enumerate(bu_objectives, 1):
         objectives_text += f"\n--- Objective #{idx} ---\n"
-        objectives_text += f"BU: {obj.org_unit.name}\n"
-        objectives_text += f"TA: {obj.thrust_area}\n"
-        objectives_text += f"GO: {obj.group_objective}\n"
-        objectives_text += f"Objective: {obj.goal_text}\n"
+        objectives_text += f"BU: {obj['bu_name']}\n"
+        objectives_text += f"TA: {obj['thrust_area_str']}\n"
+        objectives_text += f"GO: {obj['group_objective_str']}\n"
+        objectives_text += f"Goal: {obj['goal_text']}\n"
     
     # Create prompt for LLM (only use goal text for alignment, not MoS)
     prompt = f"""You are an expert at analyzing organizational goal alignment.
@@ -122,21 +128,20 @@ Return ONLY valid JSON in this EXACT format (no markdown, no code blocks):
         
         for idx, llm_alignment in enumerate(llm_result.get('alignments', [])):
             obj = bu_objectives[llm_alignment['objective_number'] - 1]
-            bu_name = obj.org_unit.name
+            bu_name = obj['bu_name']
             
             match_data = {
-                'bu_objective_id': obj.id,
+                'bu_objective_id': obj['id'],
                 'bu_name': bu_name,
-                'thrust_area': obj.thrust_area,
-                'group_objective': obj.group_objective,
-                'objective_text': obj.goal_text,
-                'measure_of_success': obj.measure_of_success or 'Not specified',
-                'parameter_name': obj.parameter_name or 'Not specified',
+                'thrust_area': obj['thrust_area_str'],
+                'group_objective': obj['group_objective_str'],
+                'objective_text': obj['goal_text'],
+                'parameter_name': obj.get('parameter') or 'Not specified',
                 'similarity_percentage': llm_alignment['alignment_score'],
                 'reasoning': llm_alignment.get('reasoning', ''),
                 'key_overlaps': llm_alignment.get('key_overlaps', []),
-                'source_sheet': obj.source_sheet,
-                'source_row': obj.source_row_no
+                'source_sheet': obj.get('bu_table', 'goals.db'),
+                'source_row': obj.get('id', '')
             }
             
             alignments.append(match_data)
@@ -185,6 +190,10 @@ def calculate_alignment_percentage(user_goal, bu_objectives):
     """
     Calculate alignment percentage between user goal and BU objectives
     Returns detailed alignment information with logging
+    
+    Args:
+        user_goal: String with user's goal text
+        bu_objectives: List of dicts from goals.db (not Django ORM objects)
     """
     logger.info("\n" + "="*80)
     logger.info("=== ALIGNMENT PERCENTAGE CALCULATION ===")
@@ -206,28 +215,27 @@ def calculate_alignment_percentage(user_goal, bu_objectives):
     bu_grouped = {}  # Group by BU for better organization
     
     for idx, obj in enumerate(bu_objectives, 1):
-        bu_name = obj.org_unit.name
+        bu_name = obj['bu_name']
         logger.info(f"\n--- Comparing with BU Objective #{idx} ---")
         logger.info(f"BU: {bu_name}")
-        logger.info(f"TA: {obj.thrust_area}")
-        logger.info(f"GO: {obj.group_objective}")
-        logger.info(f"Objective Text: {obj.goal_text[:200]}...")
+        logger.info(f"TA: {obj['thrust_area_str']}")
+        logger.info(f"GO: {obj['group_objective_str']}")
+        logger.info(f"Objective Text: {obj['goal_text'][:200]}...")
         
-        similarity = calculate_text_similarity(user_goal, obj.goal_text)
+        similarity = calculate_text_similarity(user_goal, obj['goal_text'])
         
         logger.info(f"Similarity Score: {similarity}%")
         
         match_data = {
-            'bu_objective_id': obj.id,
+            'bu_objective_id': obj['id'],
             'bu_name': bu_name,
-            'thrust_area': obj.thrust_area,
-            'group_objective': obj.group_objective,
-            'objective_text': obj.goal_text,
-            'measure_of_success': obj.measure_of_success or 'Not specified',
-            'parameter_name': obj.parameter_name or 'Not specified',
+            'thrust_area': obj['thrust_area_str'],
+            'group_objective': obj['group_objective_str'],
+            'objective_text': obj['goal_text'],
+            'parameter_name': obj.get('parameter') or 'Not specified',
             'similarity_percentage': similarity,
-            'source_sheet': obj.source_sheet,
-            'source_row': obj.source_row_no
+            'source_sheet': obj.get('bu_table', 'goals.db'),
+            'source_row': obj.get('id', '')
         }
         
         alignments.append(match_data)
@@ -313,17 +321,16 @@ def log_alignment_results(aligned_objectives):
     logger.info("\n" + "="*80)
     logger.info("=== ALIGNMENT SEARCH RESULTS ===")
     logger.info("="*80)
-    logger.info(f"Total Aligned Objectives Found: {aligned_objectives.count()}")
+    logger.info(f"Total Aligned Objectives Found: {len(aligned_objectives)}")
     
-    if aligned_objectives.exists():
+    if aligned_objectives:
         logger.info("\nMatched Objectives:")
         for idx, obj in enumerate(aligned_objectives, 1):
-            logger.info(f"\n{idx}. BU: {obj.org_unit.name}")
-            logger.info(f"   Parameter: {obj.parameter_name}")
-            logger.info(f"   TA: {obj.thrust_area}")
-            logger.info(f"   GO: {obj.group_objective}")
-            logger.info(f"   Objective: {obj.goal_text[:150]}...")
-            logger.info(f"   Source: {obj.source_sheet}, Row {obj.source_row_no}")
+            logger.info(f"\n{idx}. BU: {obj['bu_name']}")
+            logger.info(f"   Parameter: {obj.get('parameter', 'N/A')}")
+            logger.info(f"   TA: {obj['thrust_area_str']}")
+            logger.info(f"   GO: {obj['group_objective_str']}")
+            logger.info(f"   Objective: {obj['goal_text'][:150]}...")
     else:
         logger.info("\nNo matching objectives found!")
         logger.info("This could mean:")

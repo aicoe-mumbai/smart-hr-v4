@@ -10,8 +10,8 @@ from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 from django.conf import settings
-from .models import SmartGoal, BUObjective
-from .serializers import SmartGoalSerializer, BUObjectiveSerializer, GoalAlignmentSerializer
+from .models import SmartGoal
+from .serializers import SmartGoalSerializer, GoalAlignmentSerializer
 from rest_framework.pagination import PageNumberPagination
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
@@ -98,7 +98,7 @@ def validate_goal(goal_data, aligned_objectives=None):
     
     # Calculate alignment percentage if objectives are provided
     alignment_info = None
-    if aligned_objectives and aligned_objectives.exists():
+    if aligned_objectives:
         # Use LLM-based alignment calculation
         azure_client = ChatCompletionsClient(
             endpoint=settings.OPENAI_ENDPOINT,
@@ -121,25 +121,24 @@ def validate_goal(goal_data, aligned_objectives=None):
                 list(aligned_objectives)
             )
         
-        # Print detailed comparison data for debugging
+        # Print detailed comparison data for debugging (goal text only, no MoS)
         logger.info("\n" + "="*80)
         logger.info("=== DATABASE VALUES FETCHED FOR LLM COMPARISON ===")
         logger.info("="*80)
         logger.info(f"USER GOAL TO COMPARE: {goal_data.get('goal', '')}")
         logger.info(f"USER MEASURE OF SUCCESS: {goal_data.get('measure_of_success', '')}")
-        logger.info("\nFETCHED BU OBJECTIVES FROM DATABASE:")
+        logger.info("\nFETCHED BU OBJECTIVES FROM DATABASE (Goal Text Only):")
         for idx, obj in enumerate(aligned_objectives, 1):
-            logger.info(f"\n{idx}. BU: {obj.org_unit.name}")
-            logger.info(f"   TA: {obj.thrust_area} (Raw: {obj.linkage_ta_raw})")
-            logger.info(f"   GO: {obj.group_objective} (Raw: {obj.linkage_go_raw})")
-            logger.info(f"   OBJECTIVE TEXT: {obj.goal_text}")
-            logger.info(f"   MEASURE OF SUCCESS: {obj.measure_of_success or 'Not specified'}")
-            logger.info(f"   SOURCE: {obj.source_sheet}, Row {obj.source_row_no}")
+            logger.info(f"\n{idx}. BU: {obj['bu_name']}")
+            logger.info(f"   TA: {obj['thrust_area_str']}")
+            logger.info(f"   GO: {obj['group_objective_str']}")
+            logger.info(f"   GOAL TEXT: {obj['goal_text']}")
+            logger.info(f"   (Measure of Success excluded from alignment calculation)")
         logger.info("\n" + "="*80)
         logger.info("=== LLM WILL COMPARE THESE VALUES ===")
         logger.info("="*80)
         
-        # NEW: Display detailed matched objectives with similarity scores
+        # NEW: Display detailed matched objectives with similarity scores (goal text only)
         if alignment_info and 'matched_by_bu' in alignment_info:
             logger.info("\n" + "#"*80)
             logger.info("### DETAILED CROSSLINKED BU COMPARISON RESULTS ###")
@@ -163,8 +162,7 @@ def validate_goal(goal_data, aligned_objectives=None):
                     logger.info(f"  Thrust Area: {match['thrust_area']}")
                     logger.info(f"  Group Objective: {match['group_objective']}")
                     logger.info(f"  Parameter: {match['parameter_name']}")
-                    logger.info(f"  Objective Text: {match['objective_text']}")
-                    logger.info(f"  Measure of Success: {match['measure_of_success']}")
+                    logger.info(f"  Goal Text: {match['objective_text']}")
                     logger.info(f"  Source: {match['source_sheet']}, Row {match['source_row']}")
                     logger.info(f"  Relevance: {'HIGH' if match['similarity_percentage'] > 70 else 'MEDIUM' if match['similarity_percentage'] > 40 else 'LOW'}")
             
@@ -198,23 +196,33 @@ def validate_goal(goal_data, aligned_objectives=None):
     )
     
     # Add BU alignment data to prompt
-    if aligned_objectives and aligned_objectives.exists():
+    if aligned_objectives:
         # Group objectives by BU for clearer presentation
         objectives_by_bu = {}
         for obj in aligned_objectives:
-            bu_name = obj.org_unit.name if obj.org_unit else 'Unknown'
+            bu_name = obj.get('bu_name', 'Unknown')
             if bu_name not in objectives_by_bu:
                 objectives_by_bu[bu_name] = []
             objectives_by_bu[bu_name].append(obj)
         
         prompt += "<br><br><strong>Related BU Objectives for LLM Comparison and Alignment Analysis:</strong><br>"
-        prompt += f"<p><em>Found {aligned_objectives.count()} matching objectives across {len(objectives_by_bu)} Business Units.</em></p>"
+        prompt += f"<p><em>Found {len(aligned_objectives)} matching objectives across {len(objectives_by_bu)} Business Units.</em></p>"
         
         # Only include objective summaries, not full text
         for bu_name, objectives in objectives_by_bu.items():
             prompt += f"<p><strong>{bu_name} BU:</strong> {len(objectives)} aligned objectives</p>"
         
-        logger.info(f"Added {aligned_objectives.count()} BU objectives from {len(objectives_by_bu)} BUs to AI prompt for comparison")
+        logger.info(f"Added {len(aligned_objectives)} BU objectives from {len(objectives_by_bu)} BUs to AI prompt for comparison")
+    else:
+        # Explicitly tell the AI that NO objectives were found
+        prompt += "<br><br><strong>BU Alignment Status:</strong><br>"
+        prompt += "<p style='color: red;'><em>⚠️ Found 0 matching objectives from goals database.</em></p>"
+        prompt += f"<p>User selected: <strong>BU:</strong> {goal_data.get('user_bu', 'N/A')}, "
+        prompt += f"<strong>Crosslinked BUs:</strong> {', '.join(goal_data.get('crosslinked_bus', [])) or 'None'}, "
+        prompt += f"<strong>TA:</strong> {goal_data.get('thrust_area', 'N/A')}, "
+        prompt += f"<strong>GO:</strong> {goal_data.get('group_objectives', 'N/A')}</p>"
+        prompt += "<p><em>This combination of BU, TA, and GO does not have any defined objectives in the database.</em></p>"
+        logger.warning("No aligned objectives found - AI will be informed to skip BU alignment table")
     
     if alignment_info:
         prompt += f"<br><br><strong>Pre-calculated Alignment Score:</strong> {alignment_info['overall_alignment']}%<br>"
@@ -230,26 +238,12 @@ def validate_goal(goal_data, aligned_objectives=None):
                                             Assess the goal based on its Specificity, Measurability, Achievability, Relevance, and Time-Bound nature.
                                             Analyze the following employee goal using the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-Bound).
                                             
-                                            IMPORTANT: When BU objectives are provided, YOU MUST perform detailed comparison analysis:
-                                            1. Compare the user's goal text with each BU objective text
-                                            2. Calculate similarity and alignment percentages for each BU objective
-                                            3. Identify overlapping themes, keywords, and objectives
-                                            4. Assess how well the user's goal aligns with organizational objectives
-                                            5. Provide specific alignment scores for each BU objective
-                                            
                                             Internally calculate an overall SMARTness percentage based on equal weightage (20 each).
                                             As well as measure the Goal alignment to Group objective and Thrust Areas on the scale of 10.
-                                            
-                                            When BU objectives are provided, perform YOUR OWN comparison analysis and provide:
-                                            - Individual alignment percentage with each BU objective
-                                            - Overall BU alignment score
-                                            - Specific recommendations based on BU objective comparison
                                             
                                             Do NOT show any calculations or scores in your output.
                                             Return your output in well-formatted HTML that includes proper spaces, punctuation, and line breaks.
                                             Ensure each section is wrapped in appropriate HTML tags (such as <p> and <ol>/<li>) for clear readability.
-                                            
-                                            For BU alignment analysis, use HTML table format for better display:
                                             
                                             Response Format:
                                             <p><strong>Message to User:</strong> Provide a concise message summarizing the goal assessment.</p>
@@ -257,6 +251,13 @@ def validate_goal(goal_data, aligned_objectives=None):
                                             <p><strong>Goal Alignment to Thrust area:</strong> [X] out of 10.</p>
                                             <p><strong>Goal Alignment to Group Objective:</strong> [X] out of 10.</p>
                                             
+                                            CRITICAL INSTRUCTION FOR BU ALIGNMENT:
+                                            - If the prompt explicitly states "Found 0 matching objectives" or shows no BU objectives data, DO NOT create any BU Alignment Analysis table
+                                            - If BU objectives ARE provided in the prompt, ONLY THEN create the BU Alignment Analysis table
+                                            - NEVER invent or hallucinate BU names or alignment data
+                                            - ONLY use the actual BU names and objectives provided in the prompt
+                                            
+                                            When BU objectives ARE provided:
                                             <p><strong>BU Alignment Analysis:</strong></p>
                                             <table border='1' style='border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 14px;'>
                                             <thead>
@@ -268,9 +269,9 @@ def validate_goal(goal_data, aligned_objectives=None):
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            [For each BU, create ONE row with this EXACT format:
+                                            [For each BU mentioned in the prompt, create ONE row with this EXACT format:
                                             <tr>
-                                            <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>[BU Name]</td>
+                                            <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>[BU Name from prompt]</td>
                                             <td style='padding: 8px; border: 1px solid #ddd; text-align: center; vertical-align: top;'>[XX]%</td>
                                             <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>• [Point 1]<br>• [Point 2]<br>• [Point 3]</td>
                                             <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>• [Recommendation 1]<br>• [Recommendation 2]</td>
@@ -278,7 +279,15 @@ def validate_goal(goal_data, aligned_objectives=None):
                                             </tbody>
                                             </table>
                                             
-                                            IMPORTANT: Use EXACTLY this table format. Each BU gets ONE row. Use bullet points (•) and <br> tags for multiple items in cells.
+                                            When NO BU objectives are found:
+                                            <p><strong>BU Alignment Analysis:</strong></p>
+                                            <p style='color: #d9534f;'><em>⚠️ No matching BU objectives found for the selected Thrust Area and Group Objective combination. This may indicate:</em></p>
+                                            <ul>
+                                            <li>The selected TA/GO combination doesn't have defined objectives in the selected Business Units</li>
+                                            <li>Consider reviewing your TA and GO selections</li>
+                                            <li>Contact your manager or HR for guidance on appropriate TA/GO alignment</li>
+                                            </ul>
+                                            
                                             <p><strong>Recommendations:</strong> If the percentage is below 75, list actionable steps to improve it. 
                                             If the SMARTness is 75 or above, confirm that the goal meets SMART criteria.
                                             If below 75, provide specific, concise, and numbered recommendations to improve it.
@@ -377,7 +386,7 @@ def submit_goal(request):
                 )
 
                 aligned_objs = temp_goal.get_aligned_objectives()
-                logger.info(f"Found {aligned_objs.count()} aligned objectives for analysis")
+                logger.info(f"Found {len(aligned_objs)} aligned objectives for analysis")
 
                 response_text = []
                 try:
@@ -395,7 +404,7 @@ def submit_goal(request):
                         "<li>DNS resolution</li>"
                         "<li>Firewall settings</li>"
                         "</ul>"
-                        f"<p><strong>Found {aligned_objs.count()} matching BU objectives for your goal.</strong></p>"
+                        f"<p><strong>Found {len(aligned_objs)} matching BU objectives for your goal.</strong></p>"
                     )
                     yield error_msg
                     response_text.append(error_msg)
@@ -410,14 +419,14 @@ def submit_goal(request):
                         "<li>API rate limits</li>"
                         "<li>Invalid API configuration</li>"
                         "</ul>"
-                        f"<p><strong>Found {aligned_objs.count()} matching BU objectives:</strong></p>"
+                        f"<p><strong>Found {len(aligned_objs)} matching BU objectives:</strong></p>"
                     )
                     yield error_msg
                     
                     # Show aligned objectives even if AI fails
-                    if aligned_objs.exists():
+                    if aligned_objs:
                         for idx, obj in enumerate(aligned_objs[:5], 1):
-                            yield f"<p>{idx}. <strong>{obj.org_unit.name}</strong>: {obj.goal_text[:100]}...</p>"
+                            yield f"<p>{idx}. <strong>{obj['bu_name']}</strong>: {obj['goal_text'][:100]}...</p>"
                     
                     yield "<p>Please try again or contact support if the issue persists.</p>"
                     response_text.append(error_msg)
@@ -601,10 +610,10 @@ def get_goal_alignment(request, goal_id):
         # Calculate alignment percentage
         from .alignment_utils import calculate_alignment_percentage
         alignment_info = None
-        if aligned_objectives.exists():
+        if aligned_objectives:
             alignment_info = calculate_alignment_percentage(
                 goal.goal,
-                list(aligned_objectives)
+                aligned_objectives
             )
 
         response_data = {
@@ -613,7 +622,7 @@ def get_goal_alignment(request, goal_id):
             "thrust_area": goal.thrust_area,
             "group_objective": goal.group_objectives,
             "crosslinked_bus": goal.crosslinked_bus or [],
-            "aligned_objectives": BUObjectiveSerializer(aligned_objectives, many=True).data,
+            "aligned_objectives": aligned_objectives,
             "alignment_info": alignment_info
         }
         
@@ -635,6 +644,8 @@ def get_goal_alignment(request, goal_id):
 def get_filtered_group_objectives(request):
     """Get filtered group objectives based on BU, TA, and GO"""
     try:
+        from .goals_db_utils import get_bu_objectives
+        
         bu_name = request.query_params.get("bu_name")
         thrust_area = request.query_params.get("thrust_area")
         group_objective = request.query_params.get("group_objective")
@@ -642,16 +653,13 @@ def get_filtered_group_objectives(request):
         if not bu_name:
             return Response({"error": "bu_name is required"}, status=status.HTTP_400_BAD_REQUEST)
 
-        filters = {"bu_name": bu_name}
-        if thrust_area:
-            filters["thrust_area"] = thrust_area
-        if group_objective:
-            filters["group_objective"] = group_objective
+        objectives = get_bu_objectives(
+            bu_name=bu_name,
+            thrust_area_filter=thrust_area,
+            group_objective_filter=group_objective
+        )
 
-        objectives = BUObjective.objects.filter(**filters)
-        serializer = BUObjectiveSerializer(objectives, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(objectives, status=status.HTTP_200_OK)
 
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

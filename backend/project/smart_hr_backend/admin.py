@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import SmartGoal, BUObjective
+from .models import SmartGoal
 
 admin.site.register(SmartGoal)
-admin.site.register(BUObjective)

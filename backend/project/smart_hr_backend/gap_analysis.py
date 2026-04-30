@@ -1,11 +1,13 @@
 import logging
 from collections import defaultdict
-from .models import SmartGoal, BUObjective, ThrustArea, GroupObjective
+from .models import SmartGoal, GapAnalysisRecord
+from .goals_db_utils import get_thrust_areas, get_group_objectives, get_bu_objectives
 from django.conf import settings
 from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 import json
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -26,19 +28,20 @@ def analyze_goal_coverage(selected_goal_ids, user):
             'total_goals_analyzed': 0
         }
     
-    # Get all company TAs and GOs
-    all_tas = ThrustArea.objects.filter(is_sub_heading=False)
-    # Get main-level GOs by extracting unique parent codes from sub-GOs (GO-1a -> GO-1)
-    all_go_codes = set()
-    for go in GroupObjective.objects.all():
-        # Extract main code (GO-1a -> GO-1, GO-2b -> GO-2, etc.)
-        import re
-        match = re.match(r'(GO-\d+)', go.code)
-        if match:
-            all_go_codes.add(match.group(1))
+    # Get all company TAs and GOs from goals.db
+    all_tas = get_thrust_areas()
+    all_gos = get_group_objectives()
     
-    # Create a list of main GO codes for comparison
-    all_gos = sorted(list(all_go_codes))
+    # Extract unique main TA codes (TA-1, TA-2, etc.)
+    all_ta_codes = set()
+    for ta in all_tas:
+        # Extract main code (TA-1, TA-2, etc.)
+        match = re.match(r'(TA-\d+)', ta['code'])
+        if match:
+            all_ta_codes.add(match.group(1))
+    
+    # Get main GO codes (already in GO-1, GO-2 format from goals_db_utils)
+    all_go_codes = set(go['code'] for go in all_gos)
     
     # Track coverage
     covered_tas = set()
@@ -79,46 +82,34 @@ def analyze_goal_coverage(selected_goal_ids, user):
         })
     
     # Identify gaps
-    all_ta_codes = set(ta.code for ta in all_tas)
-    all_go_codes_set = set(all_gos)  # Already a set from above
-    
     missing_tas = all_ta_codes - covered_tas
-    missing_gos = all_go_codes_set - covered_gos
+    missing_gos = all_go_codes - covered_gos
     
     # Get details for missing items
     missing_ta_details = []
     for ta_code in missing_tas:
-        ta = ThrustArea.objects.filter(code=ta_code).first()
+        # Find TA with this code
+        ta = next((t for t in all_tas if t['code'] == ta_code), None)
         if ta:
             missing_ta_details.append({
-                'code': ta.code,
-                'description': ta.description
+                'code': ta['code'],
+                'description': ta['description']
             })
     
     missing_go_details = []
     for go_code in missing_gos:
-        # Find any sub-GO with this parent code to get description
-        go = GroupObjective.objects.filter(code__startswith=go_code).first()
+        # Find GO with this code
+        go = next((g for g in all_gos if g['code'] == go_code), None)
         if go:
-            # Use the parent GO name from the mapping
-            go_names = {
-                'GO-1': 'Environment, Safety, Sustainability & Governance',
-                'GO-2': 'Financial Parameters',
-                'GO-3': 'Operational Excellence',
-                'GO-4': 'Technology & Innovation',
-                'GO-5': 'Organisational Excellence',
-                'GO-6': 'Customer Delight',
-                'GO-7': 'Work Culture and Employee Engagement'
-            }
             missing_go_details.append({
-                'code': go_code,
-                'description': go_names.get(go_code, 'Group Objective'),
-                'parameter': 'N/A'
+                'code': go['code'],
+                'description': go['description'],
+                'parameter': go.get('parameter', 'N/A')
             })
     
     # Calculate coverage percentages
     ta_coverage = (len(covered_tas) / len(all_ta_codes) * 100) if all_ta_codes else 0
-    go_coverage = (len(covered_gos) / len(all_gos) * 100) if all_gos else 0
+    go_coverage = (len(covered_gos) / len(all_go_codes) * 100) if all_go_codes else 0
     
     # Get BU objectives for covered areas
     bu_objectives_coverage = analyze_bu_objectives_coverage(selected_goals)
@@ -151,7 +142,7 @@ def analyze_goal_coverage(selected_goal_ids, user):
                 'ta_to_goals': dict(ta_goal_mapping)
             },
             'group_objectives': {
-                'total': len(all_gos),
+                'total': len(all_go_codes),
                 'covered': len(covered_gos),
                 'coverage_percentage': round(go_coverage, 2),
                 'covered_list': sorted(list(covered_gos)),
@@ -166,7 +157,7 @@ def analyze_goal_coverage(selected_goal_ids, user):
 
 def analyze_bu_objectives_coverage(selected_goals):
     """
-    Analyze how well selected goals align with BU objectives
+    Analyze how well selected goals align with BU objectives from goals.db
     """
     bu_coverage = defaultdict(lambda: {
         'total_objectives': 0,
@@ -176,23 +167,25 @@ def analyze_bu_objectives_coverage(selected_goals):
     })
     
     for goal in selected_goals:
-        aligned_objs = goal.get_aligned_objectives()
+        aligned_objs = goal.get_aligned_objectives()  # Returns list of dicts from goals.db
         
         for obj in aligned_objs:
-            bu_name = obj.org_unit.name
+            bu_name = obj['bu_name']
             bu_coverage[bu_name]['aligned_objectives'] += 1
             bu_coverage[bu_name]['aligned_details'].append({
-                'objective_id': obj.id,
-                'objective_text': obj.goal_text[:100],
-                'thrust_area': obj.thrust_area,
-                'group_objective': obj.group_objective,
+                'objective_id': obj['id'],
+                'objective_text': obj['goal_text'][:100],
+                'thrust_area': obj['thrust_area_str'],
+                'group_objective': obj['group_objective_str'],
                 'goal_id': goal.id,
                 'goal_text': goal.goal[:100]
             })
     
-    # Get total objectives per BU
+    # Get total objectives per BU from goals.db
     for bu_name in bu_coverage.keys():
-        total = BUObjective.objects.filter(org_unit__name=bu_name).count()
+        # Query goals.db for total count
+        all_objs = get_bu_objectives([bu_name])
+        total = len(all_objs)
         bu_coverage[bu_name]['total_objectives'] = total
         if total > 0:
             bu_coverage[bu_name]['alignment_percentage'] = round(

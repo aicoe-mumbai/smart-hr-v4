@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 import logging
 import re
+from .goals_db_utils import get_bu_objectives, get_all_ta_codes, get_all_go_codes
 
 logger = logging.getLogger(__name__)
 
@@ -22,122 +23,6 @@ class GapAnalysisRecord(models.Model):
     def __str__(self):
         return f"{self.user.username} - Gap Analysis on {self.analysis_date.strftime('%Y-%m-%d')}"
 
-
-class ThrustArea(models.Model):
-    """Thrust Areas with main headings and sub-headings"""
-    code = models.CharField(max_length=50, unique=True)  # e.g., TA-1, TA-1.1
-    description = models.TextField()
-    is_sub_heading = models.BooleanField(default=False)
-    parent_code = models.CharField(max_length=50, blank=True, null=True)  # e.g., TA-1 for TA-1.1
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ["code"]
-
-    def __str__(self):
-        return f"{self.code} - {self.description[:50]}"
-
-
-class GroupObjective(models.Model):
-    """Group Objectives with main headings and sub-headings"""
-    code = models.CharField(max_length=50, unique=True)  # e.g., GO-1, GO-1a
-    description = models.TextField()
-    parameter = models.CharField(max_length=255, blank=True, null=True)
-    is_sub_heading = models.BooleanField(default=False)
-    parent_code = models.CharField(max_length=50, blank=True, null=True)  # e.g., GO-1 for GO-1a
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ["code"]
-
-    def __str__(self):
-        return f"{self.code} - {self.description[:50]}"
-
-
-class OrgUnit(models.Model):
-    name = models.CharField(max_length=150, unique=True)
-    description = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
-
-
-class BUObjective(models.Model):
-    org_unit = models.ForeignKey(
-        OrgUnit,
-        on_delete=models.CASCADE,
-        related_name="objectives"
-    )
-    parameter_name = models.CharField(max_length=255, blank=True, null=True)
-    goal_text = models.TextField()
-    measure_of_success = models.TextField(blank=True, null=True)
-    linkage_ta_raw = models.TextField(blank=True, null=True)
-    linkage_go_raw = models.TextField(blank=True, null=True)
-    source_sheet = models.CharField(max_length=200)
-    source_row_no = models.IntegerField(blank=True, null=True)
-    remarks = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ["org_unit__name", "source_row_no", "id"]
-
-    def __str__(self):
-        return f"{self.org_unit.name} - {self.goal_text[:80]}"
-
-    @property
-    def bu_name(self):
-        return self.org_unit.name
-
-    @property
-    def thrust_area(self):
-        vals = list(
-            self.ta_links.values_list("ta_code_normalized", flat=True).distinct()
-        )
-        return ", ".join(vals)
-
-    @property
-    def group_objective(self):
-        vals = list(
-            self.go_links.values_list("go_code_normalized", flat=True).distinct()
-        )
-        return ", ".join(vals)
-
-
-class BUObjectiveTALink(models.Model):
-    objective = models.ForeignKey(
-        BUObjective,
-        on_delete=models.CASCADE,
-        related_name="ta_links"
-    )
-    ta_code_raw = models.CharField(max_length=100)
-    ta_code_normalized = models.CharField(max_length=50, db_index=True)
-
-    class Meta:
-        ordering = ["ta_code_normalized"]
-
-    def __str__(self):
-        return f"{self.objective_id} -> {self.ta_code_normalized}"
-
-
-class BUObjectiveGOLink(models.Model):
-    objective = models.ForeignKey(
-        BUObjective,
-        on_delete=models.CASCADE,
-        related_name="go_links"
-    )
-    go_code_raw = models.CharField(max_length=100)
-    go_code_normalized = models.CharField(max_length=50, db_index=True)
-
-    class Meta:
-        ordering = ["go_code_normalized"]
-
-    def __str__(self):
-        return f"{self.objective_id} -> {self.go_code_normalized}"
 
 
 class SmartGoal(models.Model):
@@ -339,11 +224,15 @@ class SmartGoal(models.Model):
         return cleaned
 
     def get_aligned_objectives(self):
+        """
+        Get aligned objectives from goals.db based on user's BU, TA, and GO selections
+        Returns list of objective dicts from goals.db
+        """
         bus_to_check = self.get_bus_to_check()
         ta_codes = self.get_ta_codes()
         go_codes = self.get_go_codes()
 
-        logger.info("=== ALIGNMENT CALCULATION ===")
+        logger.info("=== ALIGNMENT CALCULATION (using goals.db) ===")
         logger.info(f"Goal ID: {self.id}")
         logger.info(f"User BU: {self.user_bu}")
         logger.info(f"Crosslinked BUs: {self.crosslinked_bus}")
@@ -351,70 +240,31 @@ class SmartGoal(models.Model):
         logger.info(f"TA Codes: {ta_codes}")
         logger.info(f"GO Codes: {go_codes}")
 
-        qs = BUObjective.objects.select_related("org_unit").prefetch_related(
-            "ta_links", "go_links"
-        )
+        if not bus_to_check:
+            logger.warning("No BUs to check!")
+            return []
 
-        if bus_to_check:
-            qs = qs.filter(org_unit__name__in=bus_to_check)
-        else:
-            return BUObjective.objects.none()
-
-        # STRICT FILTERING: For crosslinked BUs, REQUIRE both TA AND GO match
-        # For user's own BU, allow more flexibility
+        # Query goals.db for aligned objectives
+        # Require BOTH TA and GO match for strict alignment
         if ta_codes and go_codes:
-            # Expand GO codes to include sub-codes
-            # If user selects GO-1, also match GO-1a, GO-1b, GO-1c, etc.
-            expanded_go_codes = set()
-            for go_code in go_codes:
-                expanded_go_codes.add(go_code)  # Add exact match (e.g., GO-1)
-                # Add pattern for sub-codes (e.g., GO-1a, GO-1b, GO-1(a), GO-1(b))
-                # We'll filter in Python after fetching
-            
             logger.info(f"Filtering with BOTH TA ({ta_codes}) AND GO ({go_codes})")
-            logger.info(f"GO codes will match parent and sub-codes (e.g., GO-1 matches GO-1, GO-1a, GO-1b, etc.)")
-            
-            # First filter by TA
-            qs = qs.filter(ta_links__ta_code_normalized__in=ta_codes)
-            
-            # Then filter by GO - need to check if any GO link starts with our GO code
-            from django.db.models import Q
-            go_query = Q()
-            for go_code in go_codes:
-                # Match exact code (GO-1) or sub-codes (GO-1a, GO-1(a), etc.)
-                go_query |= Q(go_links__go_code_normalized__exact=go_code)
-                go_query |= Q(go_links__go_code_normalized__startswith=f"{go_code}a")
-                go_query |= Q(go_links__go_code_normalized__startswith=f"{go_code}b")
-                go_query |= Q(go_links__go_code_normalized__startswith=f"{go_code}c")
-                go_query |= Q(go_links__go_code_normalized__startswith=f"{go_code}d")
-                go_query |= Q(go_links__go_code_normalized__startswith=f"{go_code}e")
-                go_query |= Q(go_links__go_code_normalized__startswith=f"{go_code}f")
-                go_query |= Q(go_links__go_code_normalized__startswith=f"{go_code}g")
-                go_query |= Q(go_links__go_code_normalized__startswith=f"{go_code}(")
-            
-            qs = qs.filter(go_query)
-            
+            aligned_objs = get_bu_objectives(bus_to_check, ta_codes=ta_codes, go_codes=go_codes)
         elif ta_codes:
-            # Only TA available - still filter by TA but log warning
-            qs = qs.filter(ta_links__ta_code_normalized__in=ta_codes)
             logger.warning(f"GO codes not found! Filtering by TA only: {ta_codes}")
-            logger.warning(f"This may include objectives that don't match the user's GO selection")
+            aligned_objs = get_bu_objectives(bus_to_check, ta_codes=ta_codes)
         elif go_codes:
-            # Only GO available
-            qs = qs.filter(go_links__go_code_normalized__in=go_codes)
             logger.warning(f"TA codes not found! Filtering by GO only: {go_codes}")
+            aligned_objs = get_bu_objectives(bus_to_check, go_codes=go_codes)
         else:
             logger.error("Neither TA nor GO codes found! Cannot filter objectives.")
-            return BUObjective.objects.none()
+            return []
 
-        aligned_objs = qs.distinct()
-
-        logger.info(f"Found {aligned_objs.count()} aligned objectives:")
+        logger.info(f"Found {len(aligned_objs)} aligned objectives:")
         for obj in aligned_objs:
-            logger.info(f"  - BU: {obj.org_unit.name}")
-            logger.info(f"    TA: {obj.thrust_area}")
-            logger.info(f"    GO: {obj.group_objective}")
-            logger.info(f"    Objective Text: {obj.goal_text}")
+            logger.info(f"  - BU: {obj['bu_name']}")
+            logger.info(f"    TA: {obj['thrust_area_str']}")
+            logger.info(f"    GO: {obj['group_objective_str']}")
+            logger.info(f"    Objective Text: {obj['goal_text'][:100]}...")
             logger.info("    ---")
         logger.info("=== END ALIGNMENT ===")
 
