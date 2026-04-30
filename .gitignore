@@ -9,16 +9,6 @@ FastAPI/
 BU Objectives - FY26 (2) (3).xlsx
 xlsx_data/THRUST_AREAS.xlsx
 .gitignore
-xlsx_data/T&IC_GOALS.xlsx
-xlsx_data/SCM_GOALS.xlsx
-xlsx_data/MPES_GOALS.xlsx
-xlsx_data/LPES_GOALS.xlsx
-xlsx_data/IT_DIGITAL_GOALS.xlsx
-xlsx_data/HAZIRA_MANUFACTURING_GOALS.xlsx
-xlsx_data/GORUP_OBJECTIVES.xlsx
-xlsx_data/F&A_GOALS.xlsx
-xlsx_data/EPS_GOALS.xlsx
-xlsx_data/CORPORATE_CENTER_GOALS.xlsx
 company_objectives.xlsx
 company_thrust-areas.xlsx
 IMPLEMENTATION_COMPLETE.md
@@ -29,7 +19,6 @@ qa-qc_objectives.xlsx
 updated-ui-smart-hr-1.png
 updated-ui-smart-hr-2.png
 backend/project/BU_OBJECTIVES_README.md
-backend/project/db.sqlite3
 backend/project/setup_bu_objectives.sh
 backend/project/verify_data.py
 analyze_leaders_excel.py
