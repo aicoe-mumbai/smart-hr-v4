@@ -46,3 +46,4 @@ backend/project/smart_hr_backend/__pycache__/serializers.cpython-310.pyc
 backend/project/smart_hr_backend/__pycache__/urls.cpython-310.pyc
 backend/project/smart_hr_backend/__pycache__/views.cpython-310.pyc
 LLM_ALIGNMENT_IMPLEMENTATION.md
+backend/project/debug.log
