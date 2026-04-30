@@ -58,6 +58,7 @@ function App() {
             } 
           />
           <Route path="/previous-validations" element={isAuthenticated ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/login" replace />} />
+          <Route path="/gap-analysis" element={isAuthenticated ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/login" replace />} />
           <Route path="/update-goal/:goalId" element={isAuthenticated ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/login" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
