@@ -5,6 +5,7 @@ import SmartGoalForm from "./SmartGoalForm";
 import { useLocation, useParams } from "react-router-dom";
 import PreviousValidations from "./PreviousValidations";
 import UpdateSmartGoalForm from "./UpdateSmartGoalForm";
+import GapAnalysis from "./GapAnalysis";
 
 
 const Dashboard = ({ onLogout }) => {
@@ -19,6 +20,8 @@ const Dashboard = ({ onLogout }) => {
           <UpdateSmartGoalForm goalId={goalId} />
         ) : location.pathname === "/previous-validations" ? (
           <PreviousValidations />
+        ) : location.pathname === "/gap-analysis" ? (
+          <GapAnalysis />
         ) : (
           <SmartGoalForm />
         )}
