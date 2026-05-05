@@ -11594,3 +11594,87 @@ INFO 2026-04-24 06:13:56,557 views #############################################
 INFO 2026-04-24 06:13:56,558 views Added 7 BU objectives from 2 BUs to AI prompt for comparison
 INFO 2026-04-24 06:13:56,558 views Added alignment score to prompt: 68.57%
 INFO 2026-04-24 06:13:56,558 views Complete prompt length: 1963 characters
+Extracting GO codes from goal...
+  group_objective_code field: None
+  group_objectives field: Work Culture and Employee Engagement
+  Attempting to normalize full GO value: 'Work Culture and Employee Engagement'
+  Successfully normalized 'Work Culture and Employee Engagement' -> 'GO-7'
+  Final GO codes extracted: ['GO-7']
+Extracting GO codes from goal...
+  group_objective_code field: None
+  group_objectives field: Work Culture and Employee Engagement
+  Attempting to normalize full GO value: 'Work Culture and Employee Engagement'
+  Successfully normalized 'Work Culture and Employee Engagement' -> 'GO-7'
+  Final GO codes extracted: ['GO-7']
+=== ALIGNMENT CALCULATION (using goals.db) ===
+Goal ID: None
+User BU: HR
+Crosslinked BUs: []
+All BUs to check: ['HR']
+TA Codes: ['TA-5']
+GO Codes: ['GO-7']
+Filtering with BOTH TA (['TA-5']) AND GO (['GO-7'])
+Fetched 2 objectives from goals.db
+  BUs: ['HR']
+  TA filter: ['TA-5']
+  GO filter: ['GO-7']
+Found 2 aligned objectives:
+  - BU: HR
+    TA: TA-5
+    GO: GO-7
+    Objective Text: Enhance technical competency through intensive training and establish strategic academic partnership...
+    ---
+  - BU: HR
+    TA: TA-5
+    GO: GO-7
+    Objective Text: Foster a high-performance culture by driving engagement scores and implementing retention strategies...
+    ---
+=== END ALIGNMENT ===
+Extracting GO codes from goal...
+  group_objective_code field: None
+  group_objectives field: Work Culture and Employee Engagement
+  Attempting to normalize full GO value: 'Work Culture and Employee Engagement'
+  Successfully normalized 'Work Culture and Employee Engagement' -> 'GO-7'
+  Final GO codes extracted: ['GO-7']
+=== ALIGNMENT CALCULATION (using goals.db) ===
+Goal ID: None
+User BU: HR
+Crosslinked BUs: ['MPES']
+All BUs to check: ['HR', 'MPES']
+TA Codes: ['TA-5']
+GO Codes: ['GO-7']
+Filtering with BOTH TA (['TA-5']) AND GO (['GO-7'])
+Fetched 3 objectives from goals.db
+  BUs: ['HR', 'MPES']
+  TA filter: ['TA-5']
+  GO filter: ['GO-7']
+Found 3 aligned objectives:
+  - BU: HR
+    TA: TA-5
+    GO: GO-7
+    Objective Text: Enhance technical competency through intensive training and establish strategic academic partnership...
+    ---
+  - BU: HR
+    TA: TA-5
+    GO: GO-7
+    Objective Text: Foster a high-performance culture by driving engagement scores and implementing retention strategies...
+    ---
+  - BU: MPES
+    TA: TA-5
+    GO: GO-7
+    Objective Text: a)	Create a conducive culture which enables higher level of engagement and productivity.
+b)	Target G...
+    ---
+=== END ALIGNMENT ===
+Fetched 5 objectives from goals.db
+  BUs: ['HR']
+  TA filter: None
+  GO filter: None
+Fetched 1 objectives from goals.db
+  BUs: ['HR']
+  TA filter: ['TA-4']
+  GO filter: ['GO-5']
+Fetched 3 objectives from goals.db
+  BUs: ['HR', 'EPS']
+  TA filter: ['TA-4']
+  GO filter: ['GO-3']

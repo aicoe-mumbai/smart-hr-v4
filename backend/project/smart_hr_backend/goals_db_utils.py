@@ -29,6 +29,7 @@ def get_bu_table_name(bu_name):
     - "IT & Digital" -> "IT_DIGITAL"
     - "F&A" -> "FA"
     - "T&IC" -> "TIC"
+    - "HR" -> "HR"
     """
     bu_mapping = {
         "MPES": "MPES",
@@ -40,7 +41,8 @@ def get_bu_table_name(bu_name):
         "SCM": "SCM",
         "T&IC": "TIC",
         "Hazira Manufacturing": "HAZIRA_MANUFACTURING",
-        "Corporate Center": "CORPORATE_CENTER"
+        "Corporate Center": "CORPORATE_CENTER",
+        "HR": "HR"
     }
     return bu_mapping.get(bu_name, bu_name.upper().replace(" ", "_").replace("&", ""))
 

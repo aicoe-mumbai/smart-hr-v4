@@ -41,6 +41,7 @@ const SmartGoalForm = () => {
     "EPS", 
     "F&A",
     "Hazira Manufacturing",
+    "HR",
     "IT & Digital",
     "LPES",
     "MPES",
