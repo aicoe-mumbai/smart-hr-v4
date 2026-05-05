@@ -43,6 +43,7 @@ const SmartGoalForm = () => {
     "Hazira Manufacturing",
     "IT & Digital",
     "LPES",
+    "MPES",
     "SCM",
     "T&IC"
   ]);
