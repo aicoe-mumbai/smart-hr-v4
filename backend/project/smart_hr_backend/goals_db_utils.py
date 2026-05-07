@@ -30,6 +30,7 @@ def get_bu_table_name(bu_name):
     - "F&A" -> "FA"
     - "T&IC" -> "TIC"
     - "HR" -> "HR"
+    - "AS-Aerospace" -> "AS_AEROSPACE"
     """
     bu_mapping = {
         "MPES": "MPES",
@@ -42,9 +43,10 @@ def get_bu_table_name(bu_name):
         "T&IC": "TIC",
         "Hazira Manufacturing": "HAZIRA_MANUFACTURING",
         "Corporate Center": "CORPORATE_CENTER",
-        "HR": "HR"
+        "HR": "HR",
+        "AS-Aerospace": "AS_AEROSPACE"
     }
-    return bu_mapping.get(bu_name, bu_name.upper().replace(" ", "_").replace("&", ""))
+    return bu_mapping.get(bu_name, bu_name.upper().replace(" ", "_").replace("&", "").replace("-", "_"))
 
 def get_available_bu_tables():
     """Get list of all BU tables in goals.db"""

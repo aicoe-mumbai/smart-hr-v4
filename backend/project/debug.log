@@ -11678,3 +11678,461 @@ Fetched 3 objectives from goals.db
   BUs: ['HR', 'EPS']
   TA filter: ['TA-4']
   GO filter: ['GO-3']
+Fetched 69 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: None
+  GO filter: None
+Fetched 8 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: ['TA-1']
+  GO filter: None
+Fetched 0 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: ['TA-4']
+  GO filter: None
+Fetched 5 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: None
+  GO filter: ['GO-1']
+Fetched 7 objectives from goals.db
+  BUs: ['AS-Aerospace', 'HR']
+  TA filter: ['TA-5']
+  GO filter: ['GO-7']
+Fetched 27 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: ['TA-4']
+  GO filter: None
+Fetched 5 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: ['TA-1']
+  GO filter: ['GO-1']
+Fetched 10 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: ['TA-3']
+  GO filter: ['GO-2']
+Fetched 69 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: None
+  GO filter: None
+Extracting GO codes from goal...
+  group_objective_code field: None
+  group_objectives field: Environment, Safety, Sustainability & Governance
+  Attempting to normalize full GO value: 'Environment, Safety, Sustainability & Governance'
+  Successfully normalized 'Environment, Safety, Sustainability & Governance' -> 'GO-1'
+  Final GO codes extracted: ['GO-1']
+Extracting GO codes from goal...
+  group_objective_code field: None
+  group_objectives field: Environment, Safety, Sustainability & Governance
+  Attempting to normalize full GO value: 'Environment, Safety, Sustainability & Governance'
+  Successfully normalized 'Environment, Safety, Sustainability & Governance' -> 'GO-1'
+  Final GO codes extracted: ['GO-1']
+=== ALIGNMENT CALCULATION (using goals.db) ===
+Goal ID: None
+User BU: AS-Aerospace
+Crosslinked BUs: []
+All BUs to check: ['AS-Aerospace']
+TA Codes: ['TA-1']
+GO Codes: ['GO-1']
+Filtering with BOTH TA (['TA-1']) AND GO (['GO-1'])
+Fetched 5 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: ['TA-1']
+  GO filter: ['GO-1']
+Found 5 aligned objectives:
+  - BU: AS-Aerospace
+    TA: TA-1
+    GO: GO-1
+    Objective Text: 1. Zero reportable accidents at PMSC, SHAR, URSC and other sites...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-1
+    GO: GO-1
+    Objective Text: 2. Comply to British Safety standards through audit and sword of honour...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-1
+    GO: GO-1
+    Objective Text: 4. Adherence to all Legal, Statutory, ILDC norms...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-1
+    GO: GO-1
+    Objective Text: 5. Zero CAS audit observations in High critical category as well as repeat observations and 10% redu...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-1
+    GO: GO-1
+    Objective Text: 6. Carbon foot print & water consumption to be maintained....
+    ---
+=== END ALIGNMENT ===
+Extracting GO codes from goal...
+  group_objective_code field: None
+  group_objectives field: Financial Parameters
+  Attempting to normalize full GO value: 'Financial Parameters'
+  Successfully normalized 'Financial Parameters' -> 'GO-2'
+  Final GO codes extracted: ['GO-2']
+=== ALIGNMENT CALCULATION (using goals.db) ===
+Goal ID: None
+User BU: AS-Aerospace
+Crosslinked BUs: ['MPES']
+All BUs to check: ['AS-Aerospace', 'MPES']
+TA Codes: ['TA-3']
+GO Codes: ['GO-2']
+Filtering with BOTH TA (['TA-3']) AND GO (['GO-2'])
+Fetched 11 objectives from goals.db
+  BUs: ['AS-Aerospace', 'MPES']
+  TA filter: ['TA-3']
+  GO filter: ['GO-2']
+Found 11 aligned objectives:
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 1. Financials – Total budget – Realistic & Stretched --- Individual Vertical wise including PP (Tabu...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 2. Timely closure of Bank Guarantee’s....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 3. Focus on external orders for Precision Products....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 4. Zero Pending collection > 36 Months (Clearance of back log) and reduce by 50% - Collections great...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 5. Physical Invoicing from PMSC – 500 Cr...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 6. Improvement of margin / person to 25% wrt FY26....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 7. Physical and System Inventory Matching...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 8. Reduction in Non-Moving and slow moving inventory by 50%...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 9. Zero Closed Job inventory...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-3
+    GO: GO-2
+    Objective Text: 10. 10% Reduction in all controllable revenue expenses wrt Budget....
+    ---
+  - BU: MPES
+    TA: TA-3
+    GO: GO-2
+    Objective Text: a)	Exceed OI by atleast 30% over the budgeted 8095 Cr. Target at least 2000 Cr export order inflow.
+...
+    ---
+=== END ALIGNMENT ===
+Extracting GO codes from goal...
+  group_objective_code field: None
+  group_objectives field: Work Culture and Employee Engagement
+  Attempting to normalize full GO value: 'Work Culture and Employee Engagement'
+  Successfully normalized 'Work Culture and Employee Engagement' -> 'GO-7'
+  Final GO codes extracted: ['GO-7']
+=== ALIGNMENT CALCULATION (using goals.db) ===
+Goal ID: None
+User BU: AS-Aerospace
+Crosslinked BUs: ['HR', 'EPS']
+All BUs to check: ['AS-Aerospace', 'HR', 'EPS']
+TA Codes: ['TA-5']
+GO Codes: ['GO-7']
+Filtering with BOTH TA (['TA-5']) AND GO (['GO-7'])
+Fetched 8 objectives from goals.db
+  BUs: ['AS-Aerospace', 'HR', 'EPS']
+  TA filter: ['TA-5']
+  GO filter: ['GO-7']
+Found 8 aligned objectives:
+  - BU: AS-Aerospace
+    TA: TA-5
+    GO: GO-7
+    Objective Text: 1. Training – Minimum 2 man days per employee...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-5
+    GO: GO-7
+    Objective Text: 4. GPTW Score > 95...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-5
+    GO: GO-7
+    Objective Text: 5. Gender diversity – Increase by 15%...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-5
+    GO: GO-7
+    Objective Text: 6. Attrition – Reduction by 25%...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-5
+    GO: GO-7
+    Objective Text: 7. Monthly Excellence recognition & Celebrations at team level...
+    ---
+  - BU: HR
+    TA: TA-5
+    GO: GO-7
+    Objective Text: Enhance technical competency through intensive training and establish strategic academic partnership...
+    ---
+  - BU: HR
+    TA: TA-5
+    GO: GO-7
+    Objective Text: Foster a high-performance culture by driving engagement scores and implementing retention strategies...
+    ---
+  - BU: EPS
+    TA: TA-5
+    GO: GO-7
+    Objective Text: Build a high-performance, future-ready workforce with strong engagement...
+    ---
+=== END ALIGNMENT ===
+Extracting GO codes from goal...
+  group_objective_code field: None
+  group_objectives field: Technology & Innovation
+  Attempting to normalize full GO value: 'Technology & Innovation'
+  Successfully normalized 'Technology & Innovation' -> 'GO-4'
+  Final GO codes extracted: ['GO-4']
+=== ALIGNMENT CALCULATION (using goals.db) ===
+Goal ID: None
+User BU: AS-Aerospace
+Crosslinked BUs: []
+All BUs to check: ['AS-Aerospace']
+TA Codes: ['TA-4']
+GO Codes: ['GO-4']
+Filtering with BOTH TA (['TA-4']) AND GO (['GO-4'])
+Fetched 23 objectives from goals.db
+  BUs: ['AS-Aerospace']
+  TA filter: ['TA-4']
+  GO filter: ['GO-4']
+Found 23 aligned objectives:
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: R&D D&DC Goals...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 1. Successful FET for MALE, RWI- AeSS & RWI – RPAS...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 2. Successful launch of LTSAT in Q2....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 3. Successful development of 45 Kgf Engine with Technology owned by L&T....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 4. Successful trials and Order for Teer – Target drone & kamikaze version...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 2. Complete Hold on and release mechanism (HDRM) by May 26...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 3. Complete Satellite Solar Panel development by Aug 26...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 4. Satellite Control System – Phase 1 development for >200 kg class with thrusters by Mar27...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 5. Design completion of Composite Satellite structure >200Kg class by Mar 27...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 6. Supporting TIC for New gen software development for On board computer; Phase 1 by Mar 27...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 1. All HBOM activities for all projects in Space domain – continuous...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 2. PSLV Engineering activities in alignment with the deliveries of PSLV program – Continuous....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 3. RLV Interface adaptor (RIA) design completion /DRT Completion by May 26...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 4. D&E for VMFN ; targeting for Installation completion by June 26...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 5. Project management + Knowledge capture at 1) Integrated space craft testing at URSC, 2) LV Design...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 1. Complete the development of RWI RPAS UAV and position it as a marketable product....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 2. Complete the development of TEER K and position it as a marketable product....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 3. Complete design of TEER NG and realise one airframe....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 4. Convert Chanakya into a marketable product, first by maturing the technology on smaller UAV’s / d...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 5. Continuous improvement of TEER platform to improve reliability, user experience and addition of n...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 6. Provide technical support to programs being fielded in partnerships viz. RWI RPAS AeSS, MALE etc....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 1. Complete the design deliverables of UCAV project....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-4
+    GO: GO-4
+    Objective Text: 2. Complete the design deliverables of AMCA jigs and fixture project....
+    ---
+=== END ALIGNMENT ===
+Extracting GO codes from goal...
+  group_objective_code field: None
+  group_objectives field: Operational Excellence
+  Attempting to normalize full GO value: 'Operational Excellence'
+  Successfully normalized 'Operational Excellence' -> 'GO-3'
+  Final GO codes extracted: ['GO-3']
+=== ALIGNMENT CALCULATION (using goals.db) ===
+Goal ID: None
+User BU: AS-Aerospace
+Crosslinked BUs: ['LPES']
+All BUs to check: ['AS-Aerospace', 'LPES']
+TA Codes: ['TA-2']
+GO Codes: ['GO-3']
+Filtering with BOTH TA (['TA-2']) AND GO (['GO-3'])
+Fetched 16 objectives from goals.db
+  BUs: ['AS-Aerospace', 'LPES']
+  TA filter: ['TA-2']
+  GO filter: ['GO-3']
+Found 16 aligned objectives:
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 1. Scale up of Production Orders. Viz. Brahmos – Canisters - 7 per month, F1 & F2 - 6 per month Fram...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 2. Scale delivery of HAL - Wings to 8 in this FY and prepare for 16 by FY28....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 3. Completion of PSLV in FY27....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 4. Completion of K9, HPR, CIWS – Sub-systems as planned to meet CDD & Sales...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 5. Specific Focus on delivery of ECAU & ETA as per committed dates....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 6. Specific Focus to deliver F3 in 2 years (Progress as per target)....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 7. 10% Cost reduction in Execution of Wings, Brahmos programs....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 8.  Streamlining execution of Fixture orders with dedicated team. Plan for scale up in terms of infr...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 9. Delivery of 15 sets of TMT in FY27...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 10. OTD – 100% for all Programs where CDD is after Q2. Old Backlog clearance (CDD in FY26 or before)...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 11. FTR  > 98%...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 12. All Programs in Concerto and all reviews, loading only through Concerto....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 13. IoT implementation in machine shop – PoC and then take it forward for all Machines in Machine sh...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 14. Remote control operation & monitoring on one of the auto-conclaves as PoC and then taking forwar...
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 15. Complete digitilization of materials, full-kits including movements with real time MIS....
+    ---
+  - BU: AS-Aerospace
+    TA: TA-2
+    GO: GO-3
+    Objective Text: 16. Use of AI in project management of repeat nature. Viz. Wings, Brahmos – Canisters, F1, F2 Frames...
+    ---
+=== END ALIGNMENT ===

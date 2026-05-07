@@ -37,6 +37,7 @@ const SmartGoalForm = () => {
   });
 
   const [availableBUs, setAvailableBUs] = useState([
+    "AS-Aerospace",
     "Corporate Center",
     "EPS", 
     "F&A",
