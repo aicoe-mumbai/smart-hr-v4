@@ -301,7 +301,10 @@ def validate_goal(goal_data, aligned_objectives=None):
                                             <li><strong>Time-Bound:</strong> [Recommendation]</li>
                                             <li><strong>Overall:</strong> [Recommendation]</li>
                                             </ol>
-                                            <p><strong>Suggestions:</strong> Rewrite the Goal and Measure of Success in such a way so that the same goal can achieve better Smartness as well as to improve the Goal alignment to Group objective and Thrust areas.</p>
+                                            
+                                            <p><strong>Suggestions:</strong> Based on the analysis above, provide improved versions of the goal and measure of success that address the identified weaknesses and enhance SMART criteria alignment. Format your response EXACTLY as follows:</p>
+                                            <p><strong>Improved Goal:</strong> [Rewrite the goal text to be more specific, measurable, achievable, relevant, and time-bound. Incorporate BU alignment recommendations if applicable.]</p>
+                                            <p><strong>Improved Measure of Success:</strong> [Rewrite the measure of success to include clear metrics, validation methods, and milestone tracking that align with the improved goal.]</p>
 
                                             """),
                 UserMessage(content=prompt)
