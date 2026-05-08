@@ -110,7 +110,8 @@ def validate_goal(goal_data, aligned_objectives=None):
                 goal_data,
                 list(aligned_objectives),
                 azure_client,
-                settings.OPENAI_MODEL_NAME
+                settings.OPENAI_MODEL_NAME,
+                exclude_user_bu=True  # Exclude user's own BU from alignment
             )
             logger.info(f"✅ LLM-based alignment calculation successful")
         except Exception as e:
@@ -118,7 +119,9 @@ def validate_goal(goal_data, aligned_objectives=None):
             logger.info("Falling back to SequenceMatcher...")
             alignment_info = calculate_alignment_percentage(
                 goal_data.get('goal', ''),
-                list(aligned_objectives)
+                list(aligned_objectives),
+                user_bu=goal_data.get('user_bu'),
+                exclude_user_bu=True  # Exclude user's own BU from alignment
             )
         
         # Print detailed comparison data for debugging (goal text only, no MoS)
@@ -147,6 +150,7 @@ def validate_goal(goal_data, aligned_objectives=None):
             logger.info(f"CROSSLINKED BUs: {', '.join(goal_data.get('crosslinked_bus', []))}")
             logger.info(f"\nOVERALL ALIGNMENT: {alignment_info['overall_alignment']}%")
             logger.info(f"TOTAL OBJECTIVES COMPARED: {alignment_info['total_objectives']}")
+            logger.info(f"NOTE: User's own BU ({goal_data.get('user_bu', 'N/A')}) excluded from alignment results")
             
             for bu_name, matches in alignment_info['matched_by_bu'].items():
                 bu_percentage = alignment_info['bu_alignment_percentages'].get(bu_name, 0)
@@ -256,6 +260,8 @@ def validate_goal(goal_data, aligned_objectives=None):
                                             - If BU objectives ARE provided in the prompt, ONLY THEN create the BU Alignment Analysis table
                                             - NEVER invent or hallucinate BU names or alignment data
                                             - ONLY use the actual BU names and objectives provided in the prompt
+                                            - IMPORTANT: DO NOT include the user's own BU in the BU Alignment Analysis table (the system has already filtered it out)
+                                            - Only show cross-linked BUs (other BUs) in the alignment table, NOT the user's own BU
                                             
                                             When BU objectives ARE provided:
                                             <p><strong>BU Alignment Analysis:</strong></p>
@@ -269,7 +275,7 @@ def validate_goal(goal_data, aligned_objectives=None):
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            [For each BU mentioned in the prompt, create ONE row with this EXACT format:
+                                            [For each BU mentioned in the prompt (excluding user's own BU), create ONE row with this EXACT format:
                                             <tr>
                                             <td style='padding: 8px; border: 1px solid #ddd; vertical-align: top;'>[BU Name from prompt]</td>
                                             <td style='padding: 8px; border: 1px solid #ddd; text-align: center; vertical-align: top;'>[XX]%</td>
@@ -616,7 +622,9 @@ def get_goal_alignment(request, goal_id):
         if aligned_objectives:
             alignment_info = calculate_alignment_percentage(
                 goal.goal,
-                aligned_objectives
+                aligned_objectives,
+                user_bu=goal.user_bu,
+                exclude_user_bu=True  # Exclude user's own BU from alignment
             )
 
         response_data = {
