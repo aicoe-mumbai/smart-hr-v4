@@ -208,9 +208,9 @@ class SmartGoal(models.Model):
         return bu_mapping.get(value, value)
 
     def get_bus_to_check(self):
+        """Get list of BUs to check for alignment - ONLY cross-linked BUs, NOT user's own BU"""
         bus_to_check = []
-        if self.user_bu:
-            bus_to_check.append(self._normalize_bu_name(self.user_bu))
+        # ONLY include cross-linked BUs, NOT user's own BU
         if self.crosslinked_bus:
             normalized_crosslinked = [self._normalize_bu_name(bu) for bu in self.crosslinked_bus]
             bus_to_check.extend(normalized_crosslinked)

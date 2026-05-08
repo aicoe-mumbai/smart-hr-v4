@@ -16,7 +16,7 @@ def calculate_text_similarity(text1, text2):
     similarity = SequenceMatcher(None, text1, text2).ratio()
     return round(similarity * 100, 2)
 
-def calculate_alignment_with_llm(user_goal_data, bu_objectives, azure_client, model_name, exclude_user_bu=True):
+def calculate_alignment_with_llm(user_goal_data, bu_objectives, azure_client, model_name):
     """
     Use Azure OpenAI LLM to calculate semantic alignment between user goal and BU objectives
     Returns detailed alignment information with reasoning
@@ -26,7 +26,6 @@ def calculate_alignment_with_llm(user_goal_data, bu_objectives, azure_client, mo
         bu_objectives: List of dicts from goals.db (not Django ORM objects)
         azure_client: Azure OpenAI client
         model_name: Model name to use
-        exclude_user_bu: If True, exclude user's own BU from alignment results
     """
     logger.info("\n" + "="*80)
     logger.info("=== LLM-BASED ALIGNMENT CALCULATION ===")
@@ -131,11 +130,6 @@ Return ONLY valid JSON in this EXACT format (no markdown, no code blocks):
             obj = bu_objectives[llm_alignment['objective_number'] - 1]
             bu_name = obj['bu_name']
             
-            # Skip user's own BU if exclude_user_bu is True
-            if exclude_user_bu and bu_name == user_goal_data.get('user_bu'):
-                logger.info(f"Skipping alignment with user's own BU: {bu_name}")
-                continue
-            
             match_data = {
                 'bu_objective_id': obj['id'],
                 'bu_name': bu_name,
@@ -161,11 +155,7 @@ Return ONLY valid JSON in this EXACT format (no markdown, no code blocks):
             logger.info(f"  Reasoning: {llm_alignment.get('reasoning', 'N/A')}")
         
         # Calculate overall alignment
-        if not alignments:
-            overall_alignment = 0.0
-            logger.info("No alignments found after filtering (possibly all objectives were from user's own BU)")
-        else:
-            overall_alignment = sum(a['similarity_percentage'] for a in alignments) / len(alignments)
+        overall_alignment = sum(a['similarity_percentage'] for a in alignments) / len(alignments) if alignments else 0.0
         
         # Sort by similarity
         alignments.sort(key=lambda x: x['similarity_percentage'], reverse=True)
@@ -178,10 +168,7 @@ Return ONLY valid JSON in this EXACT format (no markdown, no code blocks):
             bu_grouped[bu_name] = sorted(matches, key=lambda x: x['similarity_percentage'], reverse=True)
         
         logger.info("\n" + "="*80)
-        if alignments:
-            logger.info(f"LLM OVERALL ALIGNMENT PERCENTAGE: {overall_alignment:.2f}%")
-        else:
-            logger.info("LLM OVERALL ALIGNMENT PERCENTAGE: 0.00% (No cross-BU objectives found)")
+        logger.info(f"LLM OVERALL ALIGNMENT PERCENTAGE: {overall_alignment:.2f}%")
         logger.info("="*80)
         
         return {
@@ -199,7 +186,7 @@ Return ONLY valid JSON in this EXACT format (no markdown, no code blocks):
         # Fallback to original method
         return calculate_alignment_percentage(user_goal_data.get('goal', ''), bu_objectives)
 
-def calculate_alignment_percentage(user_goal, bu_objectives, user_bu=None, exclude_user_bu=True):
+def calculate_alignment_percentage(user_goal, bu_objectives):
     """
     Calculate alignment percentage between user goal and BU objectives
     Returns detailed alignment information with logging
@@ -207,8 +194,6 @@ def calculate_alignment_percentage(user_goal, bu_objectives, user_bu=None, exclu
     Args:
         user_goal: String with user's goal text
         bu_objectives: List of dicts from goals.db (not Django ORM objects)
-        user_bu: User's own BU name
-        exclude_user_bu: If True, exclude user's own BU from alignment results
     """
     logger.info("\n" + "="*80)
     logger.info("=== ALIGNMENT PERCENTAGE CALCULATION ===")
@@ -231,12 +216,6 @@ def calculate_alignment_percentage(user_goal, bu_objectives, user_bu=None, exclu
     
     for idx, obj in enumerate(bu_objectives, 1):
         bu_name = obj['bu_name']
-        
-        # Skip user's own BU if exclude_user_bu is True
-        if exclude_user_bu and user_bu and bu_name == user_bu:
-            logger.info(f"\n--- Skipping BU Objective #{idx} (User's own BU: {bu_name}) ---")
-            continue
-        
         logger.info(f"\n--- Comparing with BU Objective #{idx} ---")
         logger.info(f"BU: {bu_name}")
         logger.info(f"TA: {obj['thrust_area_str']}")
@@ -267,10 +246,7 @@ def calculate_alignment_percentage(user_goal, bu_objectives, user_bu=None, exclu
         bu_grouped[bu_name].append(match_data)
     
     # Calculate overall alignment (average of all similarities)
-    if not alignments:
-        overall_alignment = 0.0
-    else:
-        overall_alignment = sum(a['similarity_percentage'] for a in alignments) / len(alignments)
+    overall_alignment = sum(a['similarity_percentage'] for a in alignments) / len(alignments) if alignments else 0.0
     
     # Sort by similarity
     alignments.sort(key=lambda x: x['similarity_percentage'], reverse=True)

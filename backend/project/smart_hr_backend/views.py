@@ -110,8 +110,7 @@ def validate_goal(goal_data, aligned_objectives=None):
                 goal_data,
                 list(aligned_objectives),
                 azure_client,
-                settings.OPENAI_MODEL_NAME,
-                exclude_user_bu=True  # Exclude user's own BU from alignment
+                settings.OPENAI_MODEL_NAME
             )
             logger.info(f"✅ LLM-based alignment calculation successful")
         except Exception as e:
@@ -119,9 +118,7 @@ def validate_goal(goal_data, aligned_objectives=None):
             logger.info("Falling back to SequenceMatcher...")
             alignment_info = calculate_alignment_percentage(
                 goal_data.get('goal', ''),
-                list(aligned_objectives),
-                user_bu=goal_data.get('user_bu'),
-                exclude_user_bu=True  # Exclude user's own BU from alignment
+                list(aligned_objectives)
             )
         
         # Print detailed comparison data for debugging (goal text only, no MoS)
@@ -150,7 +147,7 @@ def validate_goal(goal_data, aligned_objectives=None):
             logger.info(f"CROSSLINKED BUs: {', '.join(goal_data.get('crosslinked_bus', []))}")
             logger.info(f"\nOVERALL ALIGNMENT: {alignment_info['overall_alignment']}%")
             logger.info(f"TOTAL OBJECTIVES COMPARED: {alignment_info['total_objectives']}")
-            logger.info(f"NOTE: User's own BU ({goal_data.get('user_bu', 'N/A')}) excluded from alignment results")
+            logger.info(f"NOTE: Only cross-linked BUs are included in alignment (user's own BU excluded at fetch level)")
             
             for bu_name, matches in alignment_info['matched_by_bu'].items():
                 bu_percentage = alignment_info['bu_alignment_percentages'].get(bu_name, 0)
@@ -622,9 +619,7 @@ def get_goal_alignment(request, goal_id):
         if aligned_objectives:
             alignment_info = calculate_alignment_percentage(
                 goal.goal,
-                aligned_objectives,
-                user_bu=goal.user_bu,
-                exclude_user_bu=True  # Exclude user's own BU from alignment
+                aligned_objectives
             )
 
         response_data = {
