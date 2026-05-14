@@ -454,6 +454,10 @@ End Date: ${formData.endDate}
       <h2>Goal Assist</h2>
       <img src={aicoelogo} alt="SmartHR Logo" className="aicoe-img" />
 
+      <div className="disclaimer-banner">
+        <p><strong>ℹ️ Note:</strong> The Cross-linkage BU feature is currently a work in progress. You can ignore this field and enter other details to analyze your goal's SMARTness percentage.</p>
+      </div>
+
       <div className="action-toolbar">
         <UserGuideButton />
         <button 

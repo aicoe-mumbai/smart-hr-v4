@@ -41,6 +41,28 @@ h2 {
     z-index: 2;
 }
 
+/* Disclaimer banner styling */
+.disclaimer-banner {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border-left: 4px solid #ffc107;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.disclaimer-banner p {
+    margin: 0;
+    color: #856404;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.disclaimer-banner strong {
+    color: #664d03;
+    font-weight: 600;
+}
+
 .message {
     text-align: center;
     padding: 12px;

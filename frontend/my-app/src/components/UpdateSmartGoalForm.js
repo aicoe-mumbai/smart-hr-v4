@@ -444,6 +444,11 @@ const handleSectionChange = (section) => {
   return (
     <div className="smart-form-container">
       <h2>Edit Goal Assist</h2>
+      
+      <div className="disclaimer-banner">
+        <p><strong>ℹ️ Note:</strong> The Cross-linkage BU feature is currently a work in progress. You can ignore this field and enter other details to analyze your goal's SMARTness percentage.</p>
+      </div>
+      
       {loading ? (
         <div className="loading-container">
           <img src={loadingGif} alt="Loading..." className="loading-icon" />

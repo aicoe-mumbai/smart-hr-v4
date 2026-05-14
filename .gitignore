@@ -35,3 +35,7 @@ backend/project/smart_hr_backend/__pycache__/urls.cpython-310.pyc
 backend/project/smart_hr_backend/__pycache__/views.cpython-310.pyc
 LLM_ALIGNMENT_IMPLEMENTATION.md
 backend/project/debug.log
+backend/project/smart_hr_backend/__pycache__/models.cpython-310.pyc
+backend/project/smart_hr_backend/__pycache__/models.cpython-310.pyc
+backend/project/smart_hr_backend/__pycache__/serializers.cpython-310.pyc
+backend/project/smart_hr_backend/migrations/__pycache__/0001_initial.cpython-310.pyc
