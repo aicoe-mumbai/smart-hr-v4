@@ -28,12 +28,15 @@ const UpdateSmartGoalForm = () => {
   });
 
   const [availableBUs, setAvailableBUs] = useState([
+    "AS-Aerospace",
     "Corporate Center",
     "EPS", 
     "F&A",
     "Hazira Manufacturing",
+    "HR",
     "IT & Digital",
     "LPES",
+    "MPES",
     "SCM",
     "T&IC"
   ]);
@@ -127,9 +130,25 @@ const UpdateSmartGoalForm = () => {
   const bottomRef = useRef(null);
   const loginUser = sessionStorage.getItem("username");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [wsError, setWsError] = useState(false);
 
   useEffect(() => {
-    if (bottomRef.current) {
+    // Listen for WebSocket errors
+    const handleWsError = (event) => {
+      if (event.message && event.message.includes('wss://goalassist.ltdic.com:3000/ws failed')) {
+        setWsError(true);
+      }
+    };
+
+    window.addEventListener('error', handleWsError);
+    
+    return () => {
+      window.removeEventListener('error', handleWsError);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (htmlResponse && bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [htmlResponse]);
@@ -305,34 +324,50 @@ const UpdateSmartGoalForm = () => {
       if (!response.ok) {
         const errorText = await response.text();
         setHtmlResponse(`<p>Error: ${errorText}</p>`);
-        setLoading(false);
+        setLoadingforGif(false);
         setIsSubmitting(false);
         return;
       }
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let htmlContent = "";
-      setLoadingforGif(false);
+      // Try to get the full text response first, since streaming might be failing
+      try {
+        const fullText = await response.text();
+        // Remove [DONE] marker if present
+        const cleanedText = fullText.replace('[DONE]', '');
+        setHtmlResponse(cleanedText);
+        setShowFinalGoalCheckbox(true);
+        setIsSubmitting(false);
+        setLoadingforGif(false);
+      } catch (streamError) {
+        console.error("Error with text response, falling back to stream:", streamError);
+        // Fall back to streaming approach if text() fails
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let htmlContent = "";
+        setLoadingforGif(false);
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+        while (true) {
+          try {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-        const chunk = decoder.decode(value, { stream: true });
-        if (chunk.includes("[DONE]")) break;
+            const chunk = decoder.decode(value, { stream: true });
+            if (chunk.includes("[DONE]")) break;
 
-        htmlContent += chunk;
-        setHtmlResponse(htmlContent);
+            htmlContent += chunk;
+            setHtmlResponse(htmlContent);
+          } catch (readError) {
+            console.error("Error reading stream chunk:", readError);
+            break;
+          }
+        }
+        setShowFinalGoalCheckbox(true);
+        setIsSubmitting(false);
       }
-      setShowFinalGoalCheckbox(true);
-      setIsSubmitting(false);
-
     } catch (error) {
       console.error("Error submitting form:", error.message);
       setHtmlResponse("<p>An error occurred while submitting the form.</p>");
       setIsSubmitting(false);
-    } finally {
       setLoadingforGif(false);
     }
   };
@@ -567,8 +602,7 @@ const handleSectionChange = (section) => {
             <select 
               name="userBu" 
               value={formData.userBu} 
-              onChange={handleChange} 
-              required
+              onChange={handleChange}
             >
               <option value="">Select Your BU</option>
               {availableBUs.map((bu, index) => (
@@ -607,6 +641,12 @@ const handleSectionChange = (section) => {
             <input type="date" name="endDate" value={formData.endDate} onChange={handleChange} required />
 
             <div className="response">
+              {wsError && (
+                <div className="message error">
+                  <p>Note: WebSocket connection failed. Real-time updates may not work correctly. 
+                  The response will still be displayed when analysis is complete.</p>
+                </div>
+              )}
               {loadingforGif ? (
                 <div className="loading-container">
                   <img src={loadingGif} alt="Loading..." className="loading-icon" />
@@ -616,6 +656,15 @@ const handleSectionChange = (section) => {
                 <div
                   className="html-response"
                   dangerouslySetInnerHTML={{ __html: htmlResponse }}
+                  style={{ 
+                    overflowY: 'visible', 
+                    width: '100%', 
+                    height: 'auto', 
+                    minHeight: '100px',
+                    display: 'block',
+                    wordWrap: 'break-word',
+                    whiteSpace: 'normal'
+                  }}
                 />
               )}
               <div ref={bottomRef} />

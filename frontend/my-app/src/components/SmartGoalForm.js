@@ -570,7 +570,6 @@ End Date: ${formData.endDate}
           name="userBu" 
           value={formData.userBu} 
           onChange={handleChange} 
-          required
         >
           <option value="">Select Your BU</option>
           {availableBUs.map((bu, index) => (
